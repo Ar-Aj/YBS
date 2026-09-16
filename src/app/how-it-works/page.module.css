@@ -1,0 +1,44 @@
+/* How It Works Page — Deliverables */
+
+.deliverables {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 var(--space-3xl);
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-xl);
+}
+
+.deliverableItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: padding-left var(--duration-fast) var(--ease-out);
+}
+
+.deliverableItem:last-child { border-bottom: none; }
+.deliverableItem:hover { padding-left: var(--space-sm); }
+
+.deliverableNum {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--gold);
+  flex-shrink: 0;
+  width: 40px;
+  line-height: 1.8;
+}
+
+.deliverableText {
+  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem); /* 17–19px */
+  color: rgba(255,255,255,0.85);
+  line-height: 1.75;
+}
+
+@media (max-width: 768px) {
+  .deliverables {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

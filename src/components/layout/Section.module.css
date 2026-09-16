@@ -1,0 +1,81 @@
+/* ————— Section ————— */
+.section {
+  padding-top: var(--space-section);
+  padding-bottom: var(--space-section);
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ivory   { background-color: var(--ivory); }
+.white   { background-color: var(--white); }
+
+.navy {
+  background-color: var(--navy-deep);
+  color: var(--white);
+}
+.navy h2, .navy h3, .navy h4 { color: var(--white); }
+.navy p { color: var(--slate-light); }
+
+.dark {
+  background-color: var(--navy-deepest);
+  color: var(--white);
+}
+.dark h2, .dark h3 { color: var(--white); }
+.dark p { color: var(--slate-light); }
+
+/* ——— Container — 85% viewport width, capped at 1600px ——— */
+.container {
+  width: min(var(--container-width), var(--container-max));
+  margin-left: auto;
+  margin-right: auto;
+  /* No padding-left/right needed — width: min() already creates equal margins */
+}
+
+/* Narrow reading width — for long-form paragraphs only (~72 chars) */
+.containerNarrow {
+  width: min(72ch, 90%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Wide — for deliberate full-bleed compositions */
+.containerWide {
+  width: min(92%, var(--container-wide));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tablet — slightly tighter but still wide */
+@media (max-width: 1023px) {
+  .container {
+    width: min(90%, var(--container-max));
+  }
+}
+
+/* Tablet mid — controlled side padding */
+@media (max-width: 860px) {
+  .container {
+    width: calc(100% - 64px); /* 32px each side */
+  }
+  .containerNarrow {
+    width: calc(100% - 64px);
+  }
+}
+
+/* Mobile — 20–24px side padding each side */
+@media (max-width: 767px) {
+  .container,
+  .containerNarrow,
+  .containerWide {
+    width: calc(100% - 44px); /* 22px each side */
+  }
+
+  /* Sections don't enforce 80vh on mobile — content-driven height */
+  .section {
+    min-height: unset;
+    padding-top: clamp(48px, 10vw, 72px);
+    padding-bottom: clamp(48px, 10vw, 72px);
+  }
+}

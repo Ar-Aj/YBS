@@ -1,0 +1,75 @@
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  /* More generous padding for desktop luxury feel */
+  padding: var(--space-2xl) var(--space-xl);
+  box-shadow: var(--shadow-card);
+  transition: all var(--duration-base) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+.topRule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg), var(--shadow-gold);
+}
+
+.card:hover .topRule {
+  transform: scaleX(1);
+}
+
+.title {
+  font-size: clamp(1.3125rem, 1.6vw, 1.6875rem); /* 21–27px */
+  margin-bottom: var(--space-sm);
+  line-height: 1.2;
+}
+
+.desc {
+  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem); /* 17–19px */
+  color: var(--slate);
+  line-height: 1.8;
+}
+
+.rule {
+  width: 100%;
+  max-width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border: none;
+  margin: var(--space-lg) 0 var(--space-md);
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 5px 0;
+  font-size: clamp(0.9375rem, 1vw, 1.0625rem); /* 15–17px */
+  color: var(--slate);
+  line-height: 1.65;
+}
+
+.check {
+  color: var(--gold);
+  flex-shrink: 0;
+  font-size: 0.625rem;
+  margin-top: 0.35em;
+}

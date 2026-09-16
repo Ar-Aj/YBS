@@ -1,0 +1,88 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  font-size: var(--text-sm); /* 15px — up from 14px */
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1em 2.4em;
+  min-height: 44px; /* WCAG minimum tap target */
+  border: none;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-base) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Visible focus for keyboard navigation */
+.btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  box-shadow: var(--focus-ring);
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.btn:hover::after { opacity: 1; }
+
+/* Primary */
+.primary {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: var(--white);
+  box-shadow: 0 4px 16px rgba(197, 153, 62, 0.3);
+}
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(197, 153, 62, 0.4);
+}
+.primary:active { transform: translateY(0); }
+
+/* Secondary */
+.secondary {
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  background: transparent;
+}
+.secondary:hover {
+  background: rgba(197, 153, 62, 0.08);
+  border-color: var(--gold-light);
+  transform: translateY(-2px);
+}
+.secondary:active { transform: translateY(0); }
+
+/* Ghost */
+.ghost {
+  border: 1.5px solid rgba(255,255,255,0.25);
+  color: var(--white);
+}
+.ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(197, 153, 62, 0.06);
+}
+.ghost:active { transform: translateY(0); }
+
+/* Sizes */
+.lg {
+  font-size: var(--text-base); /* 17px — up from 16px */
+  padding: 1.2em 2.8em;
+}
+
+.fullWidth { width: 100%; }
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}

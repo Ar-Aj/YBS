@@ -1,17 +1,86 @@
+/* ================================================================
+   YBS — Global Design System
+   All CSS custom properties, base typography, animation,
+   reduced-motion support, focus states, and responsive scale.
+   ================================================================ */
+
+/* ————— 1. Design Tokens ————— */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors — derived from YBS logo */
+  --navy-deepest:    #06111f;
+  --navy-deep:       #091628;
+  --navy-mid:        #0f2341;
+  --charcoal:        #1c2a3a;
+  --charcoal-light:  #3a4a5c;
+  --slate:           #5b6b7f;
+  --slate-light:     #8a99ab;
+
+  --gold:            #c5993e;
+  --gold-dark:       #a37d2e;
+  --gold-light:      #d4b265;
+
+  --white:           #ffffff;
+  --ivory:           #f8f7f4;
+  --ivory-warm:      #f3f0e8;
+  --border-light:    rgba(0, 0, 0, 0.06);
+
+  /* ——— Typography Scale — fluid, premium desktop density ——— */
+  --text-xs:   0.8125rem;   /* 13px  ↑ from 12px */
+  --text-sm:   0.9375rem;   /* 15px  ↑ from 14px */
+  --text-base: 1.0625rem;   /* 17px  ↑ from 16px */
+  --text-md:   1.125rem;    /* 18px */
+  --text-lg:   1.25rem;     /* 20px */
+  --text-xl:   1.5rem;      /* 24px */
+  --text-2xl:  2rem;        /* 32px */
+  --text-3xl:  2.75rem;     /* 44px */
+  --text-4xl:  3.75rem;     /* 60px */
+  --text-5xl:  4.75rem;     /* 76px */
+
+  /* ——— Spacing — generous editorial rhythm ——— */
+  --space-xs:  0.375rem;   /* 6px  */
+  --space-sm:  0.75rem;    /* 12px */
+  --space-md:  1.25rem;    /* 20px */
+  --space-lg:  2rem;       /* 32px */
+  --space-xl:  3rem;       /* 48px */
+  --space-2xl: 4.5rem;     /* 72px */
+  --space-3xl: 6rem;       /* 96px */
+  --space-4xl: 7.5rem;     /* 120px */
+
+  /* Section padding — fluid, generous on desktop */
+  --space-section: clamp(72px, 8vw, 140px);
+
+  /* ——— Container — 85vw capped at 1600px ——— */
+  --container-max:    1600px;
+  --container-width:  85%;
+  --container-narrow: min(72ch, 100%);  /* reading-width for long-form text */
+  --container-wide:   1700px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* Shadows */
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg:   0 8px 40px rgba(0,0,0,0.14);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-gold: 0 8px 32px rgba(197, 153, 62, 0.18);
+
+  /* Transitions */
+  --duration-fast:  150ms;
+  --duration-base:  300ms;
+  --duration-slow:  500ms;
+  --ease-out:       cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Focus ring — accessible, gold-tinted */
+  --focus-ring: 0 0 0 3px rgba(197, 153, 62, 0.45);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ————— 2. Base Reset & Typography ————— */
 html {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 html,
@@ -24,9 +93,11 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--charcoal);
+  background: var(--white);
+  font-family: var(--font-sans, Inter, system-ui, -apple-system, sans-serif);
+  font-size: var(--text-base);
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -42,8 +113,185 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+img, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ————— 3. Typography Hierarchy ————— */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-weight: 600;
+  line-height: 1.12;
+  color: var(--charcoal);
+}
+
+/* Fluid desktop heading scale */
+h1 { font-size: clamp(2.25rem, 4.5vw, 4.25rem); }   /* 36–68px */
+h2 { font-size: clamp(2rem, 4vw, 4rem); margin-bottom: var(--space-md); }   /* 32–64px — major section headings */
+h3 { font-size: clamp(1.3125rem, 1.6vw, 1.6875rem); margin-bottom: var(--space-sm); } /* 21–27px — card headings */
+h4 { font-size: clamp(1.125rem, 1.3vw, 1.375rem); } /* 18–22px */
+
+p {
+  line-height: 1.8;
+  color: var(--slate);
+  font-size: clamp(1.0625rem, 1.2vw, 1.25rem); /* 17–20px */
+}
+
+/* ————— 4. Global Focus Styles ————— */
+/* Remove default outlines only when user is NOT keyboard-navigating */
+:focus { outline: none; }
+
+/* Keyboard-only focus ring — visible, accessible */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
+
+/* Links within body text */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-md);
+  z-index: 9999;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--gold);
+  color: var(--white);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border-radius: var(--radius-sm);
+  transition: top var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  top: var(--space-md);
+}
+
+/* ————— 5. Scroll-Reveal Animations ————— */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+
+.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Staggered children */
+.stagger-children {
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+.stagger-children.revealed { opacity: 1; }
+
+.stagger-children.revealed > * {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: stagger-in var(--duration-slow) var(--ease-out) forwards;
+}
+
+.stagger-children.revealed > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children.revealed > *:nth-child(2) { animation-delay: 80ms; }
+.stagger-children.revealed > *:nth-child(3) { animation-delay: 160ms; }
+.stagger-children.revealed > *:nth-child(4) { animation-delay: 240ms; }
+.stagger-children.revealed > *:nth-child(5) { animation-delay: 320ms; }
+.stagger-children.revealed > *:nth-child(6) { animation-delay: 400ms; }
+.stagger-children.revealed > *:nth-child(n+7) { animation-delay: 480ms; }
+
+@keyframes stagger-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ————— 6. Reduced Motion ————— */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale,
+  .stagger-children {
+    opacity: 1;
+    transform: none;
+  }
+
+  .stagger-children > * {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+
+  html { scroll-behavior: auto; }
+}
+
+/* ————— 7. Tablet Typography Scale (768–1023px) ————— */
+@media (max-width: 1023px) and (min-width: 768px) {
+  :root {
+    --space-section: clamp(56px, 7vw, 100px);
+  }
+}
+
+/* ————— 8. Mobile Typography & Spacing ————— */
+@media (max-width: 767px) {
+  :root {
+    --space-section: clamp(48px, 10vw, 72px);
+  }
+
+  /* On mobile, override fluid p back to a reasonable fixed size */
+  p { font-size: 1.0625rem; } /* 17px */
+
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.875rem; }
+  h3 { font-size: 1.3125rem; }
+}
+
+/* ————— 9. Selection ————— */
+::selection {
+  background: rgba(197, 153, 62, 0.25);
+  color: var(--charcoal);
+}
+
+/* ————— 10. Accessibility Helpers ————— */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
