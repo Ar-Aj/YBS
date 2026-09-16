@@ -18,6 +18,7 @@ type Props = {
   posterSrc: string;
   videoSrc?: string;
   mobileVideoSrc?: string;
+  tabletVideoSrc?: string;
   objectPositionDesktop?: string;
   objectPositionMobile?: string;
   overlayVariant?: 'standard' | 'natural';
@@ -32,6 +33,7 @@ export function CinematicHero({
   posterSrc,
   videoSrc,
   mobileVideoSrc,
+  tabletVideoSrc,
   objectPositionDesktop = 'center center',
   objectPositionMobile = 'center center',
   overlayVariant = 'standard',
@@ -54,11 +56,12 @@ export function CinematicHero({
         
         {/* Render video only on desktop if provided, respecting prefers-reduced-motion in CSS */}
         {videoSrc && (
-          <HeroVideo 
-            src={videoSrc} 
+          <HeroVideo
+            src={videoSrc}
             posterSrc={posterSrc}
             objectPositionDesktop={objectPositionDesktop}
             mobileSrc={mobileVideoSrc}
+            tabletSrc={tabletVideoSrc}
           />
         )}
       </div>

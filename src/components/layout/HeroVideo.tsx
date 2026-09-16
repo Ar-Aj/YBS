@@ -8,9 +8,10 @@ type Props = {
   posterSrc: string;
   objectPositionDesktop?: string;
   mobileSrc?: string;
+  tabletSrc?: string;
 };
 
-export function HeroVideo({ src, posterSrc, objectPositionDesktop = 'center center', mobileSrc }: Props) {
+export function HeroVideo({ src, posterSrc, objectPositionDesktop = 'center center', mobileSrc, tabletSrc }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export function HeroVideo({ src, posterSrc, objectPositionDesktop = 'center cent
 
   return (
     <>
-      {/* Desktop video — hidden on mobile via CSS */}
+      {/* Desktop video — ≥1024px */}
       <video
         ref={videoRef}
         src={src}
@@ -53,7 +54,20 @@ export function HeroVideo({ src, posterSrc, objectPositionDesktop = 'center cent
         className={styles.videoDesktop}
         style={{ objectPosition: objectPositionDesktop }}
       />
-      {/* Mobile video — 9:16 portrait, shown only on mobile */}
+      {/* Tablet video — 768px–1023px */}
+      {tabletSrc && (
+        <video
+          src={tabletSrc}
+          poster={posterSrc}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className={styles.videoTablet}
+        />
+      )}
+      {/* Mobile video — ≤767px */}
       {mobileSrc && (
         <video
           src={mobileSrc}

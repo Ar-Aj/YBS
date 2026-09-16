@@ -30,6 +30,7 @@ export default function HomePage() {
         posterSrc="/hero-home.jpg"
         videoSrc="/videos/hero-home.mp4"
         mobileVideoSrc="/videos/hero-home-mobile.mp4"
+        tabletVideoSrc="/videos/hero-home-tablet.mp4"
         objectPositionDesktop="center center"
         objectPositionMobile="center center"
         overlayVariant="natural"
