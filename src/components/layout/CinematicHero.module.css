@@ -112,6 +112,11 @@
   display: none;
 }
 
+/* Mobile video — 9:16 portrait, shown only on mobile */
+.videoMobile {
+  display: none;
+}
+
 @media (min-width: 768px) {
   @media (prefers-reduced-motion: no-preference) {
     .videoDesktop {
@@ -124,6 +129,26 @@
       pointer-events: none;
     }
     
+    .heroBgImg.hasVideo {
+      display: none;
+    }
+  }
+}
+
+/* Show mobile video on small screens, hide desktop poster */
+@media (max-width: 767px) {
+  @media (prefers-reduced-motion: no-preference) {
+    .videoMobile {
+      display: block;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* Hide the static poster image when mobile video is playing */
     .heroBgImg.hasVideo {
       display: none;
     }

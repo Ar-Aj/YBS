@@ -79,29 +79,44 @@
   display: none;
   flex-direction: column;
   gap: 5px;
-  padding: 8px;
+  padding: 10px 12px;
   cursor: pointer;
   z-index: 1001;
   justify-self: end;
+  background: var(--navy-deep);
+  border: 1.5px solid var(--gold);
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.toggle:hover {
+  background: var(--navy-mid);
+  box-shadow: 0 0 12px rgba(197, 153, 62, 0.3);
 }
 
 .toggle span {
   display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--white);
+  width: 22px;
+  height: 1.5px;
+  background: var(--gold);
   transition: all var(--duration-base) var(--ease-out);
   transform-origin: center;
 }
 
+.toggleActive {
+  background: var(--navy-mid);
+  box-shadow: 0 0 16px rgba(197, 153, 62, 0.25);
+}
+
 .toggleActive span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(4.5px, 4.5px);
 }
 .toggleActive span:nth-child(2) {
   opacity: 0;
 }
 .toggleActive span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: rotate(-45deg) translate(4.5px, -4.5px);
 }
 
 /* Mobile overlay */
@@ -110,9 +125,14 @@
 }
 
 @media (max-width: 900px) {
+  /* Revert to simple flex on mobile/tablet — grid centering is desktop-only */
+  .inner {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .links { display: none; }
-  .cta { display: none; }
-  .toggle { display: flex; }
+  .toggle { display: flex; justify-self: unset; }
 
   .overlay {
     display: none;

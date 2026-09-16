@@ -17,6 +17,7 @@ type Props = {
   subtitle?: string;
   posterSrc: string;
   videoSrc?: string;
+  mobileVideoSrc?: string;
   objectPositionDesktop?: string;
   objectPositionMobile?: string;
   overlayVariant?: 'standard' | 'natural';
@@ -30,6 +31,7 @@ export function CinematicHero({
   subtitle,
   posterSrc,
   videoSrc,
+  mobileVideoSrc,
   objectPositionDesktop = 'center center',
   objectPositionMobile = 'center center',
   overlayVariant = 'standard',
@@ -56,6 +58,7 @@ export function CinematicHero({
             src={videoSrc} 
             posterSrc={posterSrc}
             objectPositionDesktop={objectPositionDesktop}
+            mobileSrc={mobileVideoSrc}
           />
         )}
       </div>

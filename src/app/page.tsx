@@ -29,6 +29,7 @@ export default function HomePage() {
         subtitle="Retain up to 90% of your commissions, while accessing personalized marketing programs, customized back-office operations, and administrative support tailored to elite yacht brokers."
         posterSrc="/hero-home.jpg"
         videoSrc="/videos/hero-home.mp4"
+        mobileVideoSrc="/videos/hero-home-mobile.mp4"
         objectPositionDesktop="center center"
         objectPositionMobile="center center"
         overlayVariant="natural"
