@@ -64,12 +64,12 @@
   letter-spacing: 0.1em;
 }
 
-/* ---- Lead story: navy plate, large display title ---- */
+/* ---- Lead story: warm charcoal plate, large display title ---- */
 .featured {
   height: 100%;
   border-top: none;
   padding: 0;
-  background: var(--navy-deep);
+  background: var(--gradient-charcoal-surface);
   justify-content: flex-end;
   min-height: clamp(420px, 44vw, 560px);
 }
@@ -81,8 +81,8 @@
 }
 
 .featured .tag {
-  background: var(--gold-fill);
-  color: var(--navy-deep);
+  background: var(--gradient-gold);
+  color: var(--text-on-gold);
   letter-spacing: 0.1em;
   padding: 4px 12px;
   border-radius: var(--radius-sm);
@@ -90,7 +90,7 @@
 
 .featured .content {
   padding: var(--space-lg) var(--space-xl) var(--space-xl);
-  border-top: 2px solid var(--gold);
+  border-top: 1px solid var(--gold-400);
   margin: 0 var(--space-xl) 0;
   padding-left: 0;
   padding-right: 0;

@@ -1,23 +1,20 @@
-import type { Metadata } from 'next';
 import { Section, Container } from '@/components/layout/Section';
 import { GoldRule } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
-import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { Reveal } from '@/components/motion/Reveal';
 import { ContactForm } from '@/components/content/ContactForm';
 import { CinematicHero } from '@/components/layout/CinematicHero';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { buildMetadata } from '@/lib/metadata';
 import { siteConfig } from '@/data/site';
 import shared from '../shared.module.css';
 
-export const metadata: Metadata = {
-  title: 'Contact — Confidential Consultation for Yacht Brokers',
+export const metadata = buildMetadata({
+  title: 'Request a Confidential Call',
   description:
-    'Schedule a confidential strategy session. Discuss your goals and explore YBS membership for independent yacht brokerage support.',
-  openGraph: {
-    title: 'Contact — Confidential Consultation for Yacht Brokers',
-    description: 'Schedule a confidential strategy session. Discuss your goals and explore YBS membership for independent yacht brokerage support.',
-  },
-  alternates: { canonical: '/contact' },
-};
+    'Request a confidential call to discuss your practice, your licensing position and the Express and Preferred membership options at Yacht Broker Services.',
+  path: '/contact',
+});
 
 export default function ContactPage() {
   return (
@@ -29,62 +26,54 @@ export default function ContactPage() {
         posterSrc="/hero_contact.jpg"
       />
 
+      <Breadcrumbs items={[{ label: 'Contact', href: '/contact' }]} />
+
       <Section variant="ivory">
         <Container>
           <div className={shared.contactLayout}>
-            {/* Form */}
-            <RevealOnScroll variant="left">
+            <Reveal variant="rise" duration="signature">
               <div className={shared.contactForm}>
                 <h2>Send Us a Message</h2>
                 <p className={shared.contactLead}>
-                  We typically respond within one business day.
+                  Tell us about your practice and we will arrange a confidential call.
                 </p>
                 <ContactForm />
               </div>
-            </RevealOnScroll>
+            </Reveal>
 
-            {/* Sidebar */}
-            <RevealOnScroll variant="right">
+            <Reveal variant="rise" duration="signature" delay={160}>
               <div className={shared.sidebar}>
-                <span className={shared.sidebarLabel}>Prefer a Call?</span>
-                <h3>Book a Confidential<br />Strategy Session</h3>
+                <span className={shared.sidebarLabel}>Prefer to Email?</span>
+                <h3>Request a Confidential<br />Call</h3>
                 <p>
-                  Speak directly with our team about your goals, your current
-                  situation, and how YBS can support your transition to independence.
+                  Discuss your practice, your licensing position and which
+                  membership option fits.
                 </p>
-                <GoldRule />
+                <GoldRule delay={200} />
 
                 <div className={shared.contactItem}>
-                  <svg className={shared.contactIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className={shared.contactIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                     <path d="M22 6l-10 7L2 6" />
                   </svg>
-                  <a
-                    href={`mailto:${siteConfig.email}`}
-                    className={shared.contactText}
-                  >
+                  <a href={`mailto:${siteConfig.email}`} className={shared.contactText}>
                     {siteConfig.email}
                   </a>
                 </div>
 
-                <div className={shared.contactItem}>
-                  <svg className={shared.contactIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  <span className={shared.contactText}>Available worldwide</span>
-                </div>
-
-                {/* REPLACE: Update with real booking link */}
-                <Button href="#" size="lg" fullWidth>
-                  Schedule a Call
+                <Button
+                  href={`mailto:${siteConfig.email}?subject=Confidential%20call%20request`}
+                  size="lg"
+                  fullWidth
+                >
+                  Email to Schedule a Call
                 </Button>
 
                 <p className={shared.confidential}>
                   All conversations are strictly confidential.
                 </p>
               </div>
-            </RevealOnScroll>
+            </Reveal>
           </div>
         </Container>
       </Section>

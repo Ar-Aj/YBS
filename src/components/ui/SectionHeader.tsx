@@ -1,3 +1,5 @@
+import { Stagger } from '@/components/motion/Stagger';
+import { DrawRule } from '@/components/motion/DrawRule';
 import styles from './SectionHeader.module.css';
 
 type Props = {
@@ -7,25 +9,38 @@ type Props = {
   light?: boolean;
 };
 
+/**
+ * Section heading. Label, title, rule and subtitle arrive in order, with the
+ * gold rule drawing across after the title. Server HTML is fully visible.
+ */
 export function SectionHeader({ label, title, subtitle, light }: Props) {
   return (
-    <div className={styles.header}>
-      {label && (
-        <span className={styles.label}>{label}</span>
-      )}
+    <Stagger className={styles.header}>
+      {label && <span className={styles.label}>{label}</span>}
       <h2 className={light ? styles.titleLight : undefined}>{title}</h2>
-      <hr className={styles.rule} />
-      {subtitle && (
-        <p className={light ? styles.subtitleLight : undefined}>{subtitle}</p>
-      )}
-    </div>
+      <div className={styles.ruleWrap}>
+        <DrawRule center delay={450} />
+      </div>
+      {subtitle && <p className={light ? styles.subtitleLight : undefined}>{subtitle}</p>}
+    </Stagger>
   );
 }
 
-export function GoldRule({ center, className = '' }: { center?: boolean; className?: string }) {
+export function GoldRule({
+  center,
+  className = '',
+  delay = 0,
+}: {
+  center?: boolean;
+  className?: string;
+  delay?: number;
+}) {
   return (
-    <hr
-      className={`${styles.goldRule} ${center ? styles.goldRuleCenter : ''} ${className}`}
+    <DrawRule
+      center={center}
+      delay={delay}
+      className={className}
+      style={{ marginBlock: 'var(--space-md)' }}
     />
   );
 }

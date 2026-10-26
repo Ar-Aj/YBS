@@ -3,21 +3,21 @@ import type { Step } from './site';
 export const steps: Step[] = [
   {
     number: '01',
-    title: 'Schedule a Confidential Call',
+    title: 'Hold a confidential call',
     description:
-      'We discuss your goals, current practice, and how YBS can support your transition to independence. Every conversation is strictly confidential.',
+      'Discuss your practice, your goals and your licensing position with YBS. Every conversation is confidential, and you can review the Independent Broker Membership Agreement.',
   },
   {
     number: '02',
-    title: 'Choose Your Membership Tier',
+    title: 'Choose Express or Preferred',
     description:
-      'Select the plan that fits your volume — retain 75% or 90% of your commissions with predictable monthly dues.',
+      'Express is $1,500 a month with 75% of gross commissions retained. Preferred is $3,000 a month with 90% retained. You choose your tier annually.',
   },
   {
     number: '03',
-    title: 'Launch Your Independent Practice',
+    title: 'Launch your own brokerage',
     description:
-      'We handle entity formation, website creation, CRM setup, and marketing. You focus on what you do best — building relationships and closing deals.',
+      'YBS guides you through setup: your operating entity, brand kit, website, CRM and MLS access. You run your clients and your sales your way.',
   },
 ];
 

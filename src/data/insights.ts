@@ -1,57 +1,62 @@
 import type { InsightPost, Resource } from './site';
 
+/**
+ * Insight articles are placeholders: no articles have been written or
+ * approved. They stay out of the sitemap and structured data until real
+ * content exists. Titles avoid anti-traditional framing.
+ */
 export const insightPosts: InsightPost[] = [
   {
-    title: 'Why Top Yacht Brokers Are Going Independent',
+    title: 'What an Independent Broker Membership Includes',
     excerpt:
-      'The traditional brokerage model is losing its best talent. Here\'s what\'s driving the shift toward independence — and why the smartest brokers are making the move now.',
-    tag: 'Industry Trends',
+      'A plain-language walk through the services in a YBS membership, from entity formation and brand kit to MLS research and closing coordination.',
+    tag: 'Membership',
     date: 'Coming Soon',
     dateISO: '',
-    slug: 'top-brokers-going-independent',
+    slug: 'what-membership-includes',
     placeholder: true,
   },
   {
-    title: 'Understanding Commission Structures in Yacht Brokerage',
+    title: 'Choosing Between Express and Preferred',
     excerpt:
-      'A transparent breakdown of how commission splits work across different brokerage models — and what you should expect to keep from every deal you close.',
+      'How to weigh a lower monthly fee against higher commission retention, and how the annual tier change and transaction-level lock work.',
     tag: 'Strategy',
     date: 'Coming Soon',
     dateISO: '',
-    slug: 'commission-structures',
+    slug: 'choosing-express-or-preferred',
     placeholder: true,
   },
   {
-    title: 'Building Your Personal Brand as a Yacht Broker',
+    title: 'Building Your Own Brokerage Brand',
     excerpt:
-      'Your reputation is your most valuable asset. Learn how to develop a distinctive professional identity that attracts high-value clients and commands respect in the market.',
+      'What goes into a brand kit, a website and a monthly newsletter that carry your company name rather than someone else\u2019s.',
     tag: 'Brand Building',
     date: 'Coming Soon',
     dateISO: '',
-    slug: 'personal-brand-yacht-broker',
+    slug: 'building-your-brokerage-brand',
     placeholder: true,
   },
 ];
 
 export const resources: Resource[] = [
   {
-    title: 'Commission Comparison Calculator',
+    title: 'Membership Overview',
     description:
-      'See exactly how much more you\'d keep with YBS versus a traditional brokerage split.',
-    icon: 'calculator',
-    available: false,
-  },
-  {
-    title: 'Independent Broker Transition Guide',
-    description:
-      'A comprehensive PDF covering everything you need to know before making the move to independence.',
+      'A short summary of the Express and Preferred options and the services included in each.',
     icon: 'fileText',
     available: false,
   },
   {
-    title: 'Market Intelligence Reports',
+    title: 'Launch Checklist',
     description:
-      'Monthly insights on yacht sales trends, pricing benchmarks, and regional market activity.',
+      'What to prepare before launching your own brokerage: licensing, entity, brand and client data.',
+    icon: 'calculator',
+    available: false,
+  },
+  {
+    title: 'Market Research Reports',
+    description:
+      'Comps research and market reports delivered through the MLS services included in membership.',
     icon: 'barChart',
     available: false,
   },

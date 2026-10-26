@@ -4,14 +4,12 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BrandLoader } from '@/components/ui/BrandLoader';
 import { JsClassBootstrap } from '@/components/ui/JsClassBootstrap';
-import { JsonLdGroup } from '@/components/seo/JsonLd';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { AnalyticsProvider } from '@/components/seo/AnalyticsProvider';
-import {
-  organizationJsonLd,
-  webSiteJsonLd,
-  professionalServiceJsonLd,
-} from '@/data/structured-data';
+import { siteJsonLd } from '@/data/structured-data';
+import { siteConfig } from '@/data/site';
 import './globals.css';
+import '@/components/motion/motion.css';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -31,32 +29,30 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://yachtbrokerservices.com'),
   title: {
-    default: 'Yacht Broker Services — Keep Up to 90% of Your Commissions',
+    default: 'Yacht Broker Services | Independent Yacht Broker Membership',
     template: '%s | Yacht Broker Services',
   },
-  description:
-    'Independent yacht broker support with up to 90% commission retention, bespoke marketing, CRM integration, legal support, and white-glove back-office services.',
+  description: siteConfig.description,
   openGraph: {
     type: 'website',
-    siteName: 'Yacht Broker Services',
-    title: 'Yacht Broker Services — Keep Up to 90% of Your Commissions',
-    description:
-      'Independent yacht broker support with up to 90% commission retention, bespoke marketing, CRM integration, legal support, and white-glove back-office services.',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+    siteName: siteConfig.name,
+    locale: 'en_US',
+    url: '/',
+    title: 'Yacht Broker Services | Independent Yacht Broker Membership',
+    description: siteConfig.description,
+    images: [{ url: '/og-image.jpg', width: 1264, height: 848, alt: siteConfig.name }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Yacht Broker Services — Keep Up to 90% of Your Commissions',
-    description:
-      'Independent yacht broker support with up to 90% commission retention, bespoke marketing, and white-glove back-office services.',
+    title: 'Yacht Broker Services | Independent Yacht Broker Membership',
+    description: siteConfig.description,
     images: ['/og-image.jpg'],
   },
   icons: {
     icon: '/favicon.svg',
   },
-  alternates: {
-    canonical: '/',
-  },
+  // No root-level canonical: every route declares its own through
+  // buildMetadata(), so a page that forgets cannot inherit "/".
 };
 
 export default function RootLayout({
@@ -84,13 +80,7 @@ export default function RootLayout({
       </head>
       <body>
         <JsClassBootstrap />
-        <JsonLdGroup
-          items={[
-            organizationJsonLd,
-            webSiteJsonLd,
-            professionalServiceJsonLd,
-          ]}
-        />
+        <JsonLd data={siteJsonLd} />
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>

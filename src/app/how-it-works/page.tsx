@@ -1,26 +1,30 @@
-import type { Metadata } from 'next';
 import { Section, Container } from '@/components/layout/Section';
 import { SectionHeader, GoldRule } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
-import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { Reveal } from '@/components/motion/Reveal';
+import { Stagger } from '@/components/motion/Stagger';
 import { StepCard } from '@/components/content/StepCard';
 import { TierCard } from '@/components/content/TierCard';
+import { TermsList } from '@/components/content/TermsList';
 import { CinematicHero } from '@/components/layout/CinematicHero';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { buildMetadata } from '@/lib/metadata';
 import { steps, deliverables } from '@/data/howItWorks';
-import { tiers, pricingExplanation } from '@/data/difference';
+import {
+  tiers,
+  pricingExplanation,
+  membershipTerms,
+  membershipDisclaimer,
+} from '@/data/difference';
 import styles from './page.module.css';
 import shared from '../shared.module.css';
 
-export const metadata: Metadata = {
-  title: 'How It Works — Three Steps to Your Own Yacht Brokerage',
+export const metadata = buildMetadata({
+  title: 'Membership, Tiers and Key Terms',
   description:
-    'Join YBS in three steps: schedule a call, choose your membership tier, and launch your independent yacht brokerage with full support.',
-  openGraph: {
-    title: 'How It Works — Three Steps to Your Own Yacht Brokerage',
-    description: 'Join YBS in three steps: schedule a call, choose your membership tier, and launch your independent yacht brokerage with full support.',
-  },
-  alternates: { canonical: '/how-it-works' },
-};
+    'Three steps to join YBS, everything included in membership, the Express ($1,500/mo) and Preferred ($3,000/mo) options, and the key terms of the membership agreement.',
+  path: '/how-it-works',
+});
 
 export default function HowItWorksPage() {
   return (
@@ -33,95 +37,99 @@ export default function HowItWorksPage() {
         videoSrc="/videos/hero-how-it-works.mp4"
       />
 
-      {/* AEO: How does YBS work? */}
+      <Breadcrumbs items={[{ label: 'How It Works', href: '/how-it-works' }]} />
+
       <Section variant="white">
         <Container>
-          <RevealOnScroll>
+          <Reveal>
             <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-md)' }}>
-              How Does YBS Work?
+              How Does YBS Membership Work?
             </h2>
             <GoldRule center />
             <p style={{ textAlign: 'center', maxWidth: '72ch', margin: '0 auto', lineHeight: 1.85 }}>
-              YBS works in three steps: schedule a confidential conversation with
-              our team, choose the membership tier that fits your practice, and
-              launch your independent brokerage with full marketing, CRM, legal,
-              and closing support from day one.
+              You hold a confidential call with YBS, choose the Express or Preferred
+              membership option, and launch your own brokerage with the YBS
+              platform behind you. The Independent Broker Membership Agreement
+              governs the arrangement.
             </p>
-          </RevealOnScroll>
+          </Reveal>
         </Container>
       </Section>
 
-      {/* Steps */}
       <Section variant="ivory">
         <Container>
-          <RevealOnScroll>
-            <div className={styles.process}>
-              {steps.map((s) => (
-                <StepCard key={s.number} step={s} rail />
-              ))}
-            </div>
-          </RevealOnScroll>
+          <Stagger className={styles.process}>
+            {steps.map((s) => (
+              <StepCard key={s.number} step={s} rail />
+            ))}
+          </Stagger>
         </Container>
       </Section>
 
-      {/* Deliverables */}
-      <Section variant="navy">
+      <Section variant="champagne">
         <Container>
-          <RevealOnScroll>
-            <SectionHeader
-              label="What You Get"
-              title="Everything Included in Your Membership"
-              subtitle="No à la carte. No hidden fees. Every service below is included."
-              light
-            />
-          </RevealOnScroll>
-          <RevealOnScroll>
-            <ol className={styles.deliverables}>
-              {deliverables.map((item, i) => (
-                <li key={i} className={styles.deliverableItem}>
-                  <span className={styles.deliverableNum}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span className={styles.deliverableText}>{item}</span>
-                </li>
-              ))}
-            </ol>
-          </RevealOnScroll>
+          <SectionHeader
+            label="What You Get"
+            title="Everything Included in Your Membership"
+            subtitle="Each service below is part of the membership. Your agreement lists the full scope."
+            light
+          />
+          <Stagger as="ol" className={styles.deliverables}>
+            {deliverables.map((item, i) => (
+              <li key={item} className={styles.deliverableItem}>
+                <span className={styles.deliverableNum}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className={styles.deliverableText}>{item}</span>
+              </li>
+            ))}
+          </Stagger>
         </Container>
       </Section>
 
-      {/* Pricing */}
       <Section variant="ivory">
         <Container>
-          <RevealOnScroll>
-            <SectionHeader
-              label="What You Pay"
-              title="Two Tiers. Maximum Transparency."
-            />
-          </RevealOnScroll>
-          <RevealOnScroll stagger>
-            <div className={shared.grid2}>
-              {tiers.map((t) => (
-                <TierCard key={t.name} tier={t} />
-              ))}
+          <SectionHeader
+            label="What You Pay"
+            title="Express or Preferred"
+            subtitle="You choose your tier annually, and dues are paid monthly."
+          />
+          <Stagger className={shared.grid2}>
+            {tiers.map((t) => (
+              <TierCard key={t.name} tier={t} />
+            ))}
+          </Stagger>
+          <Reveal>
+            <div className={shared.pricingNote}>
+              <p>{pricingExplanation}</p>
             </div>
-          </RevealOnScroll>
-          <div className={shared.pricingNote}>
-            <p>{pricingExplanation}</p>
-          </div>
+          </Reveal>
         </Container>
       </Section>
 
-      {/* CTA */}
-      <Section variant="dark">
+      <Section variant="white" id="terms">
+        <Container>
+          <SectionHeader
+            label="Key Terms"
+            title="What to Know Before You Join"
+            subtitle="A summary of the terms that apply to both options."
+          />
+          <TermsList terms={membershipTerms} />
+          <Reveal>
+            <p className={shared.disclaimer}>{membershipDisclaimer}</p>
+          </Reveal>
+        </Container>
+      </Section>
+
+      <Section variant="charcoal">
         <Container narrow>
-          <RevealOnScroll>
+          <Reveal variant="rise" duration="signature">
             <div className={shared.ctaBlock}>
-              <h2>Start Your Journey Today</h2>
+              <h2>Start with a Confidential Call</h2>
               <GoldRule center />
               <p>
-                Every conversation is confidential. Let&apos;s discuss how YBS fits
-                your practice.
+                Talk through your practice, your licensing position and which
+                option fits. Every conversation is confidential.
               </p>
               <div className={shared.ctaActions}>
                 <Button href="/contact" size="lg">
@@ -129,7 +137,7 @@ export default function HowItWorksPage() {
                 </Button>
               </div>
             </div>
-          </RevealOnScroll>
+          </Reveal>
         </Container>
       </Section>
     </>

@@ -1,24 +1,22 @@
-import type { Metadata } from 'next';
 import { Section, Container } from '@/components/layout/Section';
 import { SectionHeader, GoldRule } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
-import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { Reveal } from '@/components/motion/Reveal';
+import { Stagger } from '@/components/motion/Stagger';
 import { InsightCard } from '@/components/content/InsightCard';
 import { CinematicHero } from '@/components/layout/CinematicHero';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { buildMetadata } from '@/lib/metadata';
 import { insightPosts, resources } from '@/data/insights';
 import shared from '../shared.module.css';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
-  title: 'Insights — Industry Intelligence for Yacht Brokers',
+export const metadata = buildMetadata({
+  title: 'Insights for Independent Brokers',
   description:
-    'Strategy articles and resources for independent yacht brokers. Market trends, commission analysis, and brand-building guidance.',
-  openGraph: {
-    title: 'Insights — Industry Intelligence for Yacht Brokers',
-    description: 'Strategy articles and resources for independent yacht brokers. Market trends, commission analysis, and brand-building guidance.',
-  },
-  alternates: { canonical: '/insights' },
-};
+    'Upcoming guides on what an independent broker membership includes, choosing between Express and Preferred, and building your own brokerage brand.',
+  path: '/insights',
+});
 
 export default function InsightsPage() {
   return (
@@ -30,16 +28,16 @@ export default function InsightsPage() {
         posterSrc="/hero_insights.jpg"
       />
 
-      {/* Blog Grid */}
+      <Breadcrumbs items={[{ label: 'Insights', href: '/insights' }]} />
+
       <Section variant="ivory">
         <Container>
-          <RevealOnScroll>
-            <SectionHeader
-              label="Latest Articles"
-              title="Featured Insights"
-            />
-          </RevealOnScroll>
-          <RevealOnScroll>
+          <SectionHeader
+            label="In Preparation"
+            title="Upcoming Guides"
+            subtitle="Articles are being prepared. Topics below reflect questions brokers ask about membership."
+          />
+          <Reveal>
             <div className={styles.masthead}>
               <InsightCard post={insightPosts[0]} featured />
               <div className={styles.index}>
@@ -48,55 +46,52 @@ export default function InsightsPage() {
                 ))}
               </div>
             </div>
-          </RevealOnScroll>
+          </Reveal>
         </Container>
       </Section>
 
-      {/* Resources */}
-      <Section variant="navy">
+      <Section variant="champagne">
         <Container>
-          <RevealOnScroll>
-            <SectionHeader
-              label="Tools & Resources"
-              title="Broker Resources"
-              subtitle="Professional tools and guides designed for independent yacht brokers."
-              light
-            />
-          </RevealOnScroll>
-          <RevealOnScroll stagger>
-            <div className={shared.grid3}>
-              {resources.map((r) => (
-                <div key={r.title} className={shared.resourceCard}>
-                  <h4>{r.title}</h4>
-                  <p>{r.description}</p>
-                  <span className={shared.resourceBadge}>
-                    {r.available ? 'Download' : 'Coming Soon'}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </RevealOnScroll>
+          <SectionHeader
+            label="Resources"
+            title="Broker Resources"
+            subtitle="Planned guides for independent yacht brokers."
+            light
+          />
+          <Stagger className={shared.grid3}>
+            {resources.map((r) => (
+              <div key={r.title} className={shared.resourceCard}>
+                <h3>{r.title}</h3>
+                <p>{r.description}</p>
+                <span className={shared.resourceBadge}>
+                  {r.available ? 'Download' : 'Coming Soon'}
+                </span>
+              </div>
+            ))}
+          </Stagger>
         </Container>
       </Section>
 
-      {/* CTA */}
-      <Section variant="dark">
+      <Section variant="charcoal">
         <Container narrow>
-          <RevealOnScroll>
+          <Reveal variant="rise" duration="signature">
             <div className={shared.ctaBlock}>
-              <h2>Stay Informed</h2>
+              <h2>Questions in the Meantime?</h2>
               <GoldRule center />
               <p>
-                Want to learn more about the independent brokerage model? Schedule
-                a conversation with our team.
+                Read the membership FAQ or schedule a confidential call with the
+                YBS team.
               </p>
               <div className={shared.ctaActions}>
-                <Button href="/contact" size="lg">
+                <Button href="/faq" size="lg">
+                  Read the FAQ
+                </Button>
+                <Button href="/contact" variant="ghost" size="lg">
                   Get in Touch
                 </Button>
               </div>
             </div>
-          </RevealOnScroll>
+          </Reveal>
         </Container>
       </Section>
     </>

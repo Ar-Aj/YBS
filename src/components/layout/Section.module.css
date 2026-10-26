@@ -7,13 +7,38 @@
   min-height: auto;
 }
 
-.ivory   { background-color: var(--ivory); }
-.white   { background-color: var(--white); }
+/* ——— Light surfaces ———
+   white / pearl / ivory are flat; champagne is the luminous gold wash with a
+   fine gold hairline top and bottom so it reads as a metallic band, not a
+   coloured box. All keep the default (light) text roles. */
+.white     { background-color: var(--white); }
+.pearl     { background-color: var(--pearl); }
+.ivory     { background: var(--gradient-ivory-surface); }
 
-/* Dark surfaces flip the context text roles, so every nested component that
-   uses --fg-* adapts without per-component overrides or opacity tricks. */
-.navy,
-.dark {
+.champagne {
+  background: var(--gradient-champagne-surface);
+  position: relative;
+}
+.champagne::before,
+.champagne::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-gold-line);
+  pointer-events: none;
+}
+.champagne::before { top: 0; }
+.champagne::after  { bottom: 0; }
+
+/* ——— Warm charcoal anchor ———
+   Used sparingly (final calls to action). Flips the context text roles, so
+   every nested component that uses --fg-* adapts without per-component
+   overrides or opacity tricks. */
+.charcoal {
+  position: relative;
+  background: var(--gradient-charcoal-surface);
   color: var(--text-on-dark);
   --fg-strong:    var(--text-on-dark-strong);
   --fg:           var(--text-on-dark);
@@ -21,11 +46,22 @@
   --fg-meta:      var(--text-on-dark-secondary);
   --fg-accent:    var(--text-accent-on-dark);
   --fg-rule:      var(--border-dark);
-  --surface-base: var(--navy-deep);
+  --surface-base: var(--charcoal-deep);
+  --btn-ghost-border: rgba(230, 207, 146, 0.7);
+  --btn-ghost-color:  var(--text-on-dark-strong);
+  --btn-ghost-hover:  var(--gold-300);
+  --btn-focus-outline: var(--gold-300);
 }
-
-.navy { background-color: var(--navy-deep); }
-.dark { background-color: var(--navy-deepest); }
+.charcoal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-gold-line);
+  pointer-events: none;
+}
 
 /* ——— Container — 85% viewport width, capped at 1600px ——— */
 .container {

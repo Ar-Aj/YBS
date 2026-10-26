@@ -1,9 +1,21 @@
 .footer {
-  background: var(--navy-deepest);
+  position: relative;
+  background: var(--gradient-charcoal-surface);
   color: var(--text-on-dark);
   padding: var(--space-3xl) 0 var(--space-lg);
   /* Content-driven: never force viewport height on small screens */
   min-height: auto;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-gold-line);
+  pointer-events: none;
 }
 
 @media (max-width: 767px) {
@@ -58,11 +70,11 @@
 
 .link:hover {
   color: var(--text-on-dark-strong);
-  text-decoration-color: var(--gold-light);
+  text-decoration-color: var(--gold-300);
 }
 
 .link:focus-visible {
-  outline: 2px solid var(--gold-light);
+  outline: 2px solid var(--gold-300);
   outline-offset: 2px;
   box-shadow: none;
 }

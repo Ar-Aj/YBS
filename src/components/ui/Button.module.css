@@ -1,3 +1,6 @@
+/* Buttons read their colours from --btn-* roles (globals.css). Those roles
+   flip on the charcoal section and are pinned inside the protected hero, so
+   this file never names a surface. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -11,7 +14,7 @@
   min-height: 48px; /* comfortable touch target */
   border: 1.5px solid transparent;
   border-radius: var(--radius-sm);
-  transition: background-color var(--duration-base) var(--ease-out),
+  transition: background var(--duration-base) var(--ease-out),
               border-color var(--duration-base) var(--ease-out),
               color var(--duration-base) var(--ease-out),
               box-shadow var(--duration-base) var(--ease-out),
@@ -23,49 +26,51 @@
 
 /* Visible focus for keyboard navigation */
 .btn:focus-visible {
-  outline: 2px solid var(--navy-deep);
+  outline: 2px solid var(--btn-focus-outline);
   outline-offset: 3px;
-  box-shadow: 0 0 0 5px rgba(201, 162, 77, 0.55);
+  box-shadow: var(--btn-focus-ring);
 }
 
-/* Primary — solid gold fill, NAVY text (6.7:1). White on gold was 3:1. */
+/* Primary — metallic champagne-gold fill, near-black label (7:1+). */
 .primary {
-  background: var(--gold-fill);
-  border-color: var(--gold-fill);
-  color: var(--navy-deep);
-  box-shadow: 0 4px 16px rgba(180, 135, 44, 0.22);
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-border);
+  color: var(--btn-primary-color);
+  box-shadow: var(--btn-primary-shadow);
 }
 .primary:hover {
-  background: #d6b25e;
-  border-color: #d6b25e;
+  background: var(--btn-primary-bg-hover);
+  border-color: var(--btn-primary-border-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(180, 135, 44, 0.32);
+  box-shadow: var(--btn-primary-shadow-hover);
 }
 .primary:active { transform: translateY(0); }
 
-/* Secondary — outline. Uses the context accent so it is legible on both
-   light (deep bronze) and dark (light gold) surfaces. */
+/* Secondary — fine gold outline, bronze label. Fills with a soft champagne
+   wash on hover rather than inverting, so it stays light and quiet. */
 .secondary {
-  border-color: var(--fg-accent);
-  color: var(--fg-accent);
+  border-color: var(--border-gold);
+  color: var(--text-accent);
   background: transparent;
 }
 .secondary:hover {
-  background: var(--fg-accent);
-  color: var(--surface-base, var(--white));
+  background: var(--gold-100);
+  border-color: var(--gold-600);
+  color: var(--text-strong);
   transform: translateY(-2px);
 }
 .secondary:active { transform: translateY(0); }
 
-/* Ghost — for dark surfaces: clear white text, visible border */
+/* Ghost — contextual: champagne outline + cream label on charcoal, white on
+   the hero; bronze on light surfaces. */
 .ghost {
-  border-color: rgba(255, 255, 255, 0.7);
-  color: var(--text-on-dark-strong);
+  border-color: var(--btn-ghost-border);
+  color: var(--btn-ghost-color);
   background: transparent;
 }
 .ghost:hover {
-  border-color: var(--gold-light);
-  color: var(--gold-light);
+  border-color: var(--btn-ghost-hover);
+  color: var(--btn-ghost-hover);
   transform: translateY(-2px);
 }
 .ghost:active { transform: translateY(0); }
@@ -80,9 +85,9 @@
 
 /* Disabled stays legible — dimmed via colour, not opacity */
 .btn:disabled {
-  background: #d9d2c0;
-  border-color: #d9d2c0;
-  color: #3d3a30;
+  background: #e4dccb;
+  border-color: #e4dccb;
+  color: #3d372b;
   box-shadow: none;
   cursor: not-allowed;
   transform: none !important;

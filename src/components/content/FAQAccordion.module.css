@@ -79,7 +79,7 @@
   line-height: 1.85;
 }
 
-/* Dark variant — roles flip so the same rules read correctly on navy */
+/* Dark variant — roles flip so the same rules read correctly on warm charcoal */
 .dark {
   --fg-strong: var(--text-on-dark-strong);
   --fg: var(--text-on-dark);

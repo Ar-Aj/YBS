@@ -1,8 +1,11 @@
-/* ServicesEcosystem — scroll-driven radial assembly */
+/* ServicesEcosystem: hub, spine, branch, four pillars.
+   Luminous champagne: ivory ground, warm charcoal hub, fine gold keylines.
+   Motion is driven by `data-m` on .stage (set by useReveal): server HTML and
+   reduced-motion users always see the final composition. */
 
 .ecosystem {
   position: relative;
-  background: #f9f9f7; /* ivory */
+  background: var(--gradient-ivory-surface);
   padding: clamp(4rem, 8vw, 8rem) 0;
   overflow: hidden;
 }
@@ -13,71 +16,59 @@
   padding: 0 clamp(1.25rem, 4vw, 2rem);
 }
 
-/* ——— Header ——— */
+/* --- Header --- */
 .header {
   text-align: center;
   max-width: 720px;
-  margin: 0 auto 5rem;
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
 }
 
 .label {
   display: inline-block;
   font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #b4872c; /* gold */
+  color: var(--text-accent);
   margin-bottom: 1rem;
 }
 
 .title {
   font-size: clamp(2rem, 4.5vw, 3rem);
-  font-weight: 500;
-  color: #0a0d14;
+  font-weight: 400;
+  color: var(--text-strong);
   line-height: 1.15;
   margin: 0 0 1rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .subtitle {
   font-size: 1.0625rem;
-  color: #4a5568;
-  line-height: 1.6;
+  color: var(--text-secondary);
+  line-height: 1.65;
   margin: 0;
 }
 
-/* ——— Desktop: radial orbit layout ——— */
-.desktopOrbit {
-  position: relative;
-  width: 100%;
-  max-width: 960px;
-  height: 600px;
-  margin: 0 auto 3rem;
-  display: grid;
-  place-items: center;
+/* --- Stage --- */
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.mobileStack {
-  display: none;
-}
-
-/* Central hub */
 .hub {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   z-index: 2;
-  will-change: transform, opacity;
 }
 
 .hubInner {
-  width: 140px;
-  height: 140px;
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0a0d14 0%, #1e2938 100%);
-  box-shadow: 0 8px 24px rgba(10, 13, 20, 0.2),
-              0 0 0 1px rgba(180, 135, 44, 0.2);
+  background: var(--gradient-charcoal-surface);
+  box-shadow: 0 8px 28px rgba(60, 42, 10, 0.22),
+              0 0 0 1px var(--gold-400),
+              0 0 0 7px rgba(230, 207, 146, 0.28);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,157 +77,176 @@
 }
 
 .hubLabel {
+  font-family: var(--font-serif, Georgia, serif);
   font-size: 1.5rem;
-  font-weight: 600;
-  color: #f8f9fa;
+  color: var(--text-on-dark-strong);
   letter-spacing: 0.05em;
 }
 
 .hubSub {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 500;
-  color: #b4872c;
+  color: var(--text-accent-on-dark);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
 }
 
-/* Service nodes */
-.node {
-  position: absolute;
-  width: 240px;
+/* Spine: hub to branch. Branch: spans the card row (desktop only). */
+.spine {
+  display: block;
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(180deg, var(--gold-400), var(--gold-600));
+  transform-origin: center top;
+}
+
+.branch {
+  display: none;
+  width: calc(75% + 0px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-500) 12%, var(--gold-500) 88%, transparent);
+  transform-origin: center center;
+}
+
+.pillars {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.pillar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.tick {
+  display: none;
+  align-self: center;
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(180deg, var(--gold-500), var(--gold-300));
+  transform-origin: center top;
+}
+
+.card {
+  flex: 1;
   padding: 1.75rem 1.5rem;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: var(--pearl);
+  border: 1px solid var(--border-warm);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(10, 13, 20, 0.06);
-  z-index: 1;
-  will-change: transform, opacity;
-  transition: box-shadow 0.25s ease;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
-.node:hover {
-  box-shadow: 0 8px 24px rgba(10, 13, 20, 0.12),
-              0 0 0 1px rgba(180, 135, 44, 0.3);
+.card:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-md), var(--shadow-gold);
+  transform: translateY(-3px);
 }
 
-/* Final positions */
-.nodeTop {
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
+.icon {
+  display: inline-flex;
+  color: var(--gold-600);
+  margin-bottom: 1rem;
 }
 
-.nodeLeft {
-  top: 60%;
-  left: 8%;
+.cardTitle {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-strong);
+  margin: 0 0 0.625rem;
+  letter-spacing: -0.005em;
 }
 
-.nodeRight {
-  top: 25%;
-  right: 8%;
-}
-
-.nodeIcon {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-  color: #b4872c;
-}
-
-.nodeTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #0a0d14;
-  margin: 0 0 0.5rem;
-  letter-spacing: -0.01em;
-}
-
-.nodeDesc {
-  font-size: 0.9375rem;
-  color: #64748b;
-  line-height: 1.5;
+.cardDesc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
   margin: 0;
 }
 
-/* Connection lines */
-.lines {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ——— Mobile: vertical stack ——— */
-@media (max-width: 1023px) {
-  .desktopOrbit {
-    display: none;
-  }
-
-  .mobileStack {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-  }
-
-  .mobileCard {
-    padding: 1.75rem 1.5rem;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(10, 13, 20, 0.05);
-    will-change: transform, opacity;
-  }
-
-  .mobileIcon {
-    font-size: 2rem;
-    color: #b4872c;
-    margin-bottom: 1rem;
-  }
-
-  .mobileTitle {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #0a0d14;
-    margin: 0 0 0.625rem;
-    letter-spacing: -0.01em;
-  }
-
-  .mobileDesc {
-    font-size: 1rem;
-    color: #4a5568;
-    line-height: 1.6;
-    margin: 0;
-  }
-}
-
-@media (max-width: 767px) {
-  .header {
-    margin-bottom: 3rem;
-  }
-
-  .mobileStack {
-    gap: 1.25rem;
-    margin-bottom: 2rem;
-  }
-}
-
-/* ——— CTA ——— */
 .cta {
   text-align: center;
+  margin-top: clamp(2rem, 4vw, 3rem);
 }
 
-/* ——— Reduced motion: no transforms, instant final state ——— */
+/* Two columns */
+@media (min-width: 700px) {
+  .pillars { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+}
+
+/* Four columns, with branch and ticks */
+@media (min-width: 1100px) {
+  .pillars { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .branch { display: block; width: 76%; }
+  .tick { display: block; }
+  .spine { height: 40px; }
+}
+
+/* ——— Choreography ———
+   hub 0 ms · spine 350 · branch 750 · ticks 1050 · cards 1000 + 120 each */
+@keyframes hubIn {
+  from { opacity: 0; transform: scale(0.88); }
+}
+@keyframes spineDraw {
+  from { transform: scaleY(0); }
+}
+@keyframes branchDraw {
+  from { transform: scaleX(0); }
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translate3d(0, 28px, 0); }
+}
+
+.stage[data-m="pending"] .hub { opacity: 0; }
+.stage[data-m="pending"] .spine { transform: scaleY(0); }
+.stage[data-m="pending"] .branch { transform: scaleX(0); }
+.stage[data-m="pending"] .tick { transform: scaleY(0); }
+.stage[data-m="pending"] .pillar .card { opacity: 0; }
+
+.stage[data-m="in"] .hub {
+  animation: hubIn 1100ms var(--m-ease-settle) backwards;
+}
+.stage[data-m="in"] .spine {
+  animation: spineDraw 700ms var(--m-ease-draw) 350ms backwards;
+}
+.stage[data-m="in"] .branch {
+  animation: branchDraw 1000ms var(--m-ease-draw) 750ms backwards;
+}
+.stage[data-m="in"] .tick {
+  animation: spineDraw 600ms var(--m-ease-draw) 1050ms backwards;
+}
+.stage[data-m="in"] .pillar .card {
+  animation: cardIn 1100ms var(--m-ease-settle) backwards;
+  will-change: transform, opacity;
+}
+.stage[data-m="in"] .pillar:nth-child(1) .card { animation-delay: 1000ms; }
+.stage[data-m="in"] .pillar:nth-child(2) .card { animation-delay: 1120ms; }
+.stage[data-m="in"] .pillar:nth-child(3) .card { animation-delay: 1240ms; }
+.stage[data-m="in"] .pillar:nth-child(4) .card { animation-delay: 1360ms; }
+
+/* Narrow layouts have no branch, so cards follow the spine sooner */
+@media (max-width: 1099px) {
+  .stage[data-m="in"] .pillar:nth-child(1) .card { animation-delay: 650ms; }
+  .stage[data-m="in"] .pillar:nth-child(2) .card { animation-delay: 770ms; }
+  .stage[data-m="in"] .pillar:nth-child(3) .card { animation-delay: 890ms; }
+  .stage[data-m="in"] .pillar:nth-child(4) .card { animation-delay: 1010ms; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hub,
-  .node,
-  .mobileCard {
+  .stage .hub,
+  .stage .spine,
+  .stage .branch,
+  .stage .tick,
+  .stage .pillar .card {
+    animation: none !important;
     opacity: 1 !important;
     transform: none !important;
-  }
-
-  .lines line {
-    stroke-dashoffset: 0 !important;
   }
 }

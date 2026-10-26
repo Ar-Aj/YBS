@@ -1,24 +1,27 @@
-import type { Metadata } from 'next';
 import { Section, Container } from '@/components/layout/Section';
 import { SectionHeader, GoldRule } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
-import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { Reveal } from '@/components/motion/Reveal';
+import { Stagger } from '@/components/motion/Stagger';
 import { ComparisonTable } from '@/components/content/ComparisonTable';
 import { TierCard } from '@/components/content/TierCard';
 import { CinematicHero } from '@/components/layout/CinematicHero';
-import { comparisonRows, tiers, pricingExplanation } from '@/data/difference';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { buildMetadata } from '@/lib/metadata';
+import {
+  comparisonRows,
+  tiers,
+  pricingExplanation,
+  membershipDisclaimer,
+} from '@/data/difference';
 import styles from '../shared.module.css';
 
-export const metadata: Metadata = {
-  title: 'Traditional Brokerage vs. YBS — Commission Comparison',
+export const metadata = buildMetadata({
+  title: 'YBS vs. Traditional Brokerage',
   description:
-    'Compare commission splits, autonomy, and support between traditional yacht brokerages and YBS. See transparent tier pricing.',
-  openGraph: {
-    title: 'Traditional Brokerage vs. YBS — Commission Comparison',
-    description: 'Compare commission splits, autonomy, and support between traditional yacht brokerages and YBS.',
-  },
-  alternates: { canonical: '/the-ybs-difference' },
-};
+    'A side-by-side look at commission split, autonomy, support and overhead for traditional yacht brokerage houses and YBS membership (75% or 90% retention).',
+  path: '/the-ybs-difference',
+});
 
 export default function DifferencePage() {
   return (
@@ -31,158 +34,126 @@ export default function DifferencePage() {
         videoSrc="/videos/hero-difference.mp4"
       />
 
-      {/* Comparison Table */}
+      <Breadcrumbs items={[{ label: 'The YBS Difference', href: '/the-ybs-difference' }]} />
+
+      {/* The only comparison on the site */}
       <Section variant="ivory">
         <Container>
-          <RevealOnScroll>
-            <SectionHeader
-              label="Side by Side"
-              title="Traditional Brokerage vs. Yacht Broker Services"
-            />
-          </RevealOnScroll>
-          <RevealOnScroll variant="scale">
+          <SectionHeader
+            label="Side by Side"
+            title="Traditional Brokerage vs. Yacht Broker Services"
+            subtitle="Figures are those supplied by YBS. Individual brokerage terms vary."
+          />
+          <Reveal variant="clip" duration="signature">
             <ComparisonTable rows={comparisonRows} />
-          </RevealOnScroll>
-          <p className={styles.disclaimer}>
-            {/* REPLACE: Legal review required */}
-            Commission structures and membership terms are subject to the YBS
-            Membership Agreement. Contact us for complete details.
-          </p>
+          </Reveal>
+          <Reveal>
+            <p className={styles.disclaimer}>{membershipDisclaimer}</p>
+          </Reveal>
         </Container>
       </Section>
 
-      {/* AEO: Can brokers keep their own brand with YBS? */}
+      {/* AEO: brand */}
       <Section variant="white">
         <Container>
-          <RevealOnScroll>
+          <Reveal>
             <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-md)' }}>
               Can Brokers Keep Their Own Brand with YBS?
             </h2>
             <GoldRule center />
             <p style={{ textAlign: 'center', maxWidth: '72ch', margin: '0 auto', lineHeight: 1.85 }}>
-              Yes. YBS is designed to support your independent brand, not replace
-              it. You maintain full autonomy over how you market yourself, your
-              listings, and your professional identity. YBS provides the
-              infrastructure; you own the brand.
+              Yes. YBS is built around the independent broker&apos;s own brand: you
+              market your company under your name and YBS supplies the brand kit,
+              website and marketing support behind it. Your client data stays with
+              you, and after the initial term you keep your company identity, logo
+              and marketing materials, subject to the agreement.
             </p>
-          </RevealOnScroll>
+          </Reveal>
         </Container>
       </Section>
 
-      {/* Impact Cards */}
+      {/* Impact */}
       <Section variant="white">
         <Container>
-          <RevealOnScroll>
-            <SectionHeader
-              label="Your Advantage"
-              title="What This Means for You"
-            />
-          </RevealOnScroll>
-          <RevealOnScroll stagger>
-            <div className={styles.grid4}>
-              <div className={styles.impactCard}>
-                <h3>More Earnings</h3>
-                <GoldRule />
-                <p>
-                  Keep up to 90% of every commission. No hidden desk fees, no
-                  surprise deductions — just transparent, predictable compensation.
-                </p>
-              </div>
-              <div className={styles.impactCard}>
-                <h3>Your Brand</h3>
-                <GoldRule />
-                <p>
-                  Market under your own name, build your own reputation, and own
-                  your client relationships. YBS supports your identity — it
-                  doesn&apos;t replace it.
-                </p>
-              </div>
-              <div className={styles.impactCard}>
-                <h3>Your Way</h3>
-                <GoldRule />
-                <p>
-                  No corporate mandates on how you market your listings. No rigid
-                  processes. You choose the approach that works best for your
-                  clients and your practice.
-                </p>
-              </div>
-              <div className={styles.impactCard}>
-                <h3>Predictable Costs</h3>
-                <GoldRule />
-                <p>
-                  One monthly membership fee covers everything — marketing, CRM,
-                  legal, closing support. No variable costs, no percentage-based
-                  surcharges.
-                </p>
-              </div>
+          <SectionHeader label="Your Advantage" title="What This Means for You" />
+          <Stagger className={styles.grid4}>
+            <div className={styles.impactCard}>
+              <h3>Retention</h3>
+              <GoldRule />
+              <p>
+                Retain 75% (Express) or 90% (Preferred) of your gross commissions,
+                with dues paid monthly by ACH.
+              </p>
             </div>
-          </RevealOnScroll>
+            <div className={styles.impactCard}>
+              <h3>Your Brand</h3>
+              <GoldRule />
+              <p>
+                Market under your own name and build your own reputation. YBS
+                supports your identity and does not replace it.
+              </p>
+            </div>
+            <div className={styles.impactCard}>
+              <h3>Your Approach</h3>
+              <GoldRule />
+              <p>
+                You decide how to present your listings and run your clients and
+                sales. Support is tailored and marketing is personalized.
+              </p>
+            </div>
+            <div className={styles.impactCard}>
+              <h3>Predictable Dues</h3>
+              <GoldRule />
+              <p>
+                One fixed monthly membership fee covers the platform and services.
+                Non-digital marketing and boat show costs are separate.
+              </p>
+            </div>
+          </Stagger>
         </Container>
       </Section>
 
-      {/* AEO: How do commission tiers work? */}
+      {/* Tiers */}
       <Section variant="ivory">
         <Container>
-          <RevealOnScroll>
-            <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-md)' }}>
-              How Do YBS Commission Tiers Work?
-            </h2>
-            <GoldRule center />
-            <p style={{ textAlign: 'center', maxWidth: '72ch', margin: '0 auto', lineHeight: 1.85 }}>
-              YBS offers two membership tiers. The Premium Tier is $3,000 per
-              month with a 90/10 commission split — you keep 90% of every
-              commission earned. The Standard Tier is $1,500 per month with a
-              75/25 split. Both tiers include the full suite of YBS services
-              with no hidden fees.
-            </p>
-          </RevealOnScroll>
-        </Container>
-      </Section>
-
-      {/* Pricing Tiers */}
-      <Section variant="ivory">
-        <Container>
-          <RevealOnScroll>
-            <SectionHeader
-              label="Membership Tiers"
-              title="Choose the Right Fit"
-              subtitle="Two tiers. Transparent pricing. Maximum commissions."
-            />
-          </RevealOnScroll>
-          <RevealOnScroll stagger>
-            <div className={styles.grid2}>
-              {tiers.map((t) => (
-                <TierCard key={t.name} tier={t} />
-              ))}
+          <SectionHeader
+            label="Membership"
+            title="Express or Preferred"
+            subtitle="Higher dues, higher retention. Same platform and services."
+          />
+          <Stagger className={styles.grid2}>
+            {tiers.map((t) => (
+              <TierCard key={t.name} tier={t} />
+            ))}
+          </Stagger>
+          <Reveal>
+            <div className={styles.pricingNote}>
+              <p>{pricingExplanation}</p>
             </div>
-          </RevealOnScroll>
-          <div className={styles.pricingNote}>
-            <p>{pricingExplanation}</p>
-          </div>
+          </Reveal>
         </Container>
       </Section>
 
-      {/* CTA */}
-      <Section variant="dark">
+      <Section variant="charcoal">
         <Container narrow>
-          <RevealOnScroll>
+          <Reveal variant="rise" duration="signature">
             <div className={styles.ctaBlock}>
-              <h2>Ready to Make the Switch?</h2>
+              <h2>Compare It Against Your Own Numbers</h2>
               <GoldRule center />
               <p>
-                Schedule a confidential conversation to discuss your situation and
-                explore whether YBS is the right fit.
+                A confidential call is the quickest way to see which option fits
+                your volume and your practice.
               </p>
               <div className={styles.ctaActions}>
                 <Button href="/contact" size="lg">
-                  Schedule a Call
+                  Schedule a Confidential Call
                 </Button>
                 <Button href="/how-it-works" variant="ghost" size="lg">
                   See How It Works
                 </Button>
               </div>
             </div>
-          </RevealOnScroll>
+          </Reveal>
         </Container>
       </Section>
     </>

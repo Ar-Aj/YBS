@@ -30,7 +30,7 @@ export function ComparisonTable({ rows }: { rows: ComparisonRow[] }) {
       <div className={styles.cards}>
         {rows.map((row) => (
           <div key={row.feature} className={styles.card}>
-            <h4 className={styles.cardFeature}>{row.feature}</h4>
+            <h3 className={styles.cardFeature}>{row.feature}</h3>
             <div className={styles.cardRow}>
               <span className={styles.cardLabel}>Traditional</span>
               <p className={styles.cardTraditional}>{row.traditional}</p>

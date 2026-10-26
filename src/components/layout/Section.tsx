@@ -3,7 +3,7 @@ import styles from './Section.module.css';
 
 type Props = {
   children: ReactNode;
-  variant?: 'ivory' | 'white' | 'navy' | 'dark';
+  variant?: 'ivory' | 'white' | 'pearl' | 'champagne' | 'charcoal';
   className?: string;
   id?: string;
   ariaLabel?: string;

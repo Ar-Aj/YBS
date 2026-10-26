@@ -1,11 +1,12 @@
 .nav {
-  max-width: var(--container-max);
+  width: min(var(--container-width), var(--container-max));
   margin: 0 auto;
-  padding: var(--space-sm) var(--space-lg);
+  padding: var(--space-md) 0 0;
 }
 
 .list {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0;
   list-style: none;
@@ -20,9 +21,7 @@
   letter-spacing: 0.04em;
 }
 
-/* Breadcrumbs sit on the navy page-hero band: solid light tones, no opacity */
 .link {
-  color: var(--text-on-dark-secondary);
   text-decoration: underline;
   text-decoration-color: transparent;
   text-underline-offset: 3px;
@@ -30,18 +29,28 @@
               text-decoration-color var(--duration-fast) var(--ease-out);
 }
 
-.link:hover {
-  color: var(--text-on-dark-strong);
-  text-decoration-color: var(--gold-light);
-}
-
 .separator {
-  color: var(--text-on-dark-secondary);
   margin: 0 0.5rem;
   font-weight: 300;
 }
 
-.current {
-  color: var(--text-accent-on-dark);
-  font-weight: 500;
+.current { font-weight: 500; }
+
+/* Light: sits on the ivory page body (solid colours, >= 4.5:1) */
+.light .link { color: var(--text-meta); }
+.light .link:hover { color: var(--text-strong); text-decoration-color: var(--gold-600); }
+.light .separator { color: var(--text-meta); }
+.light .current { color: var(--text-accent); }
+
+/* Dark: sits on the warm charcoal band */
+.dark .link { color: var(--text-on-dark-secondary); }
+.dark .link:hover { color: var(--text-on-dark-strong); text-decoration-color: var(--gold-light); }
+.dark .separator { color: var(--text-on-dark-secondary); }
+.dark .current { color: var(--text-accent-on-dark); }
+
+@media (max-width: 860px) {
+  .nav { width: calc(100% - 64px); }
+}
+@media (max-width: 640px) {
+  .nav { width: calc(100% - 40px); }
 }

@@ -1,5 +1,5 @@
 /* Extended profile — editorial plate: portrait with layered depth beside
-   large display type. Depth is two flat planes (navy block + gold keyline),
+   large display type. Depth is two flat planes (champagne block + gold keyline),
    no blur or shadow stack. */
 .profile {
   display: grid;
@@ -18,12 +18,12 @@
   margin: 0 var(--space-lg) var(--space-lg) 0;
 }
 
-/* navy plane behind the portrait, offset down-right */
+/* champagne plane behind the portrait, offset down-right */
 .imageWrap::before {
   content: '';
   position: absolute;
   inset: var(--space-lg) calc(-1 * var(--space-lg)) calc(-1 * var(--space-lg)) var(--space-lg);
-  background: var(--navy-deep);
+  background: var(--gradient-gold);
   z-index: -1;
 }
 
@@ -33,7 +33,7 @@
   height: auto;
   border-radius: 0;
   border: none;
-  outline: 1px solid var(--gold);
+  outline: 1px solid var(--pearl);
   outline-offset: -12px;
   object-fit: cover;
   aspect-ratio: 3 / 4;
@@ -45,7 +45,7 @@
   bottom: 8px;
   left: 8px;
   right: 8px;
-  background: var(--navy-deepest);
+  background: var(--charcoal-deep);
   color: var(--text-on-dark-strong);
   font-size: var(--text-xs);
   padding: 4px 8px;
@@ -64,12 +64,14 @@
 }
 
 .name {
-  font-size: clamp(3rem, 7vw, 6rem);
+  /* Two-word surname-bearing name: sized to sit on two lines at most
+     rather than the single-word display scale used for "Kent". */
+  font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4.25rem);
   font-weight: 400;
   color: var(--text-strong);
   margin-bottom: var(--space-sm);
-  line-height: 1;
-  letter-spacing: -0.02em;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
 }
 
 .rule {
@@ -147,7 +149,7 @@
   .imageWrap {
     max-width: 280px;
     margin: 0 auto var(--space-lg);
-    /* keep the navy plane inside the viewport on narrow screens */
+    /* keep the champagne plane inside the viewport on narrow screens */
     padding-right: var(--space-md);
   }
   .imageWrap::before {

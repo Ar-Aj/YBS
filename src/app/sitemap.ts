@@ -1,62 +1,20 @@
 import type { MetadataRoute } from 'next';
+import { siteConfig } from '@/data/site';
 
-const BASE_URL = 'https://yachtbrokerservices.com';
+// No `lastModified`: it would be a build timestamp, not a real content date,
+// and `priority` / `changeFrequency` are ignored by Google.
+const paths = [
+  '',
+  '/about',
+  '/services',
+  '/the-ybs-difference',
+  '/how-it-works',
+  '/leadership',
+  '/faq',
+  '/insights',
+  '/contact',
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
-    {
-      url: `${BASE_URL}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/services`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/the-ybs-difference`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/how-it-works`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/leadership`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/faq`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/insights`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.8,
-    },
-  ];
+  return paths.map((path) => ({ url: `${siteConfig.url}${path}` }));
 }

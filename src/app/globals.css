@@ -1,51 +1,74 @@
 /* ================================================================
-   YBS — Global Design System
-   "Daylight waterfront luxury" — warm ivory and pearl surfaces,
-   clear marine blues, disciplined polished gold, deep navy reserved
-   for typography and selected contrast sections.
+   YBS — Global Design System · 2026 "Luminous Champagne"
+   Champagne and light gold are the dominant decorative accents; rose
+   gold (warm copper, never pink) is the secondary accent. Surfaces are
+   white, pearl and warm ivory. Text is black and soft charcoal.
+   There is NO navy or blue anywhere in the interface tokens.
 
-   Sections:  1. Tokens  2. Base & typography  3. Focus / a11y
-              4. Motion  5. Layout primitives  6. Helpers
+   The two protected experiences (cinematic hero + brand loader) keep
+   their exact legacy appearance through the frozen-token blocks in
+   section 1b. Nothing outside those blocks may reference legacy navy.
+
+   Sections:  1. Tokens  1b. Protected-element freeze  2. Base & type
+              3. Focus / a11y  4. Motion  5. Layout  6. Helpers
    ================================================================ */
 
 /* ————— 1. Design Tokens ————— */
 :root {
-  /* ——— Surfaces & ink ——— */
-  --navy-deepest:    #061020;  /* deepest contrast — final CTAs only */
-  --navy-deep:       #0b2239;  /* primary dark surface / dark sections */
-  --navy-mid:        #143b5e;  /* marine mid */
-  --marine:          #1f5b86;  /* clear marine blue accent */
-  --marine-pale:     #e9f0f6;  /* pale marine section surface */
-  --marine-mist:     #f2f6fa;  /* lightest marine tint */
+  /* ——— Champagne gold scale (dominant accent) ———
+     50–200  washes and surfaces      300–400  light gold, hairlines, fills
+     500     champagne gold, graphics  600      strong gold, UI >= 3:1 on light
+     700     deep gold, large numerals 800      gold used AS TEXT on light     */
+  --gold-50:   #fdf9ee;
+  --gold-100:  #f9f0d9;
+  --gold-200:  #f1e1b3;
+  --gold-300:  #e6cf92;
+  --gold-400:  #d4b068;
+  --gold-500:  #c8a45a;
+  --gold-600:  #a9822f;
+  --gold-700:  #8a6418;
+  --gold-800:  #765614;
+
+  /* ——— Rose gold scale (secondary accent — leans golden copper) ——— */
+  --rose-50:   #fbf3ec;
+  --rose-100:  #f7e8da;
+  --rose-200:  #eed0b5;
+  --rose-300:  #e0b48f;
+  --rose-400:  #cf9a72;
+  --rose-600:  #a8744a;
+  --rose-700:  #8a5f3e;
 
   /* ——— Semantic text system ———
      Every text colour in the site resolves to one of these roles. Opacity is
      never used to create hierarchy: each role is a solid colour that already
      clears 4.5:1 on every surface it is meant for (measured, not assumed).
 
-     LIGHT surfaces (white / pearl / ivory / ivory-warm / marine-mist)
-       --text-strong     headings, key figures           ≥ 17:1
-       --text-body       paragraphs, list copy           ≥ 15:1
-       --text-secondary  supporting copy, table cells    ≥ 12:1
-       --text-meta       dates, captions, field hints    ≥  6.5:1
-       --text-accent     gold used AS TEXT (labels)      ≥  6.4:1
-     DARK surfaces (navy-deep / navy-deepest)
-       --text-on-dark-strong     headings               16:1 +
-       --text-on-dark            paragraphs             14.6:1
-       --text-on-dark-secondary  supporting copy        12:1
-       --text-accent-on-dark     gold used AS TEXT      10:1                */
-  --text-strong:            #0d1620;
-  --text-body:              #14202c;
-  --text-secondary:         #26374a;
-  --text-meta:              #44566a;
-  --text-accent:            #70500f;
-  --text-placeholder:       #56687a;
+     LIGHT surfaces (white / pearl / ivory / ivory-warm / champagne)
+       --text-strong     headings, key figures           >= 15:1
+       --text-body       paragraphs, list copy           >= 12.7:1
+       --text-secondary  supporting copy, table cells    >=  9.9:1
+       --text-meta       dates, captions, field hints    >=  6.4:1
+       --text-accent     gold used AS TEXT (labels)      >=  5.4:1
+     WARM-CHARCOAL surfaces (charcoal section, footer)
+       --text-on-dark-strong     headings               17.6:1
+       --text-on-dark            paragraphs             15.2:1
+       --text-on-dark-secondary  supporting copy        11.9:1
+       --text-accent-on-dark     gold used AS TEXT      12:1                */
+  --text-strong:            #14110c;
+  --text-body:              #26221b;
+  --text-secondary:         #3a342a;
+  --text-meta:              #575042;
+  --text-accent:            #765614;
+  --text-placeholder:       #665d4d;
   --text-error:             #8b1a1a;
 
-  --text-on-dark-strong:    #ffffff;
-  --text-on-dark:           #f3f6f9;
-  --text-on-dark-secondary: #dbe3ec;
-  --text-accent-on-dark:    #e6c985;
+  --text-on-dark-strong:    #fffaf0;
+  --text-on-dark:           #f1e9d6;
+  --text-on-dark-secondary: #dccfb0;
+  --text-accent-on-dark:    #e6cf92;
+
+  /* Text drawn on a solid gold fill (buttons, badges): 7.0:1 or better */
+  --text-on-gold:           #1a140a;
 
   /* Legacy names — kept as aliases so nothing falls back to an undefined
      value. New code should use the --text-* / --fg-* roles. */
@@ -56,7 +79,7 @@
   --slate-light:     var(--text-on-dark-secondary);
   --ivory-text:      var(--text-on-dark);
 
-  /* Context roles — flipped per surface (see Section.module.css .navy/.dark).
+  /* Context roles — flipped per surface (see Section.module.css .charcoal).
      Components use THESE so they adapt to wherever they are placed. */
   --fg-strong:    var(--text-strong);
   --fg:           var(--text-body);
@@ -65,22 +88,60 @@
   --fg-accent:    var(--text-accent);
   --fg-rule:      var(--border-light);
 
-  --gold:            #b4872c;  /* graphics only — rules, icons, fills */
-  --gold-deep:       #8a6418;  /* large gold numerals on light (5.0:1) */
-  --gold-light:      #d8b871;  /* decorative gold (gradients, hairlines) */
-  --gold-fill:       #c9a24d;  /* solid button fill — navy text 6.7:1 */
-  --gold-pale:       #f3e7c9;  /* gold tint fills */
+  /* ——— Legacy gold names (aliases onto the scale) ——— */
+  --gold:            var(--gold-500);  /* graphics only — rules, icons, fills */
+  --gold-deep:       var(--gold-700);  /* large gold numerals on light */
+  --gold-light:      var(--gold-300);  /* decorative gold (gradients, hairlines) */
+  --gold-fill:       var(--gold-400);  /* solid button fill — dark text 8.9:1 */
+  --gold-pale:       var(--gold-100);  /* gold tint fills */
 
+  /* ——— Surfaces ——— */
   --white:           #ffffff;
-  --pearl:           #fdfcfa;  /* pearl surface */
-  --ivory:           #faf7f1;  /* warm ivory surface */
-  --ivory-warm:      #f4efe5;  /* warm ivory, one step deeper */
+  --pearl:           #fffdf9;  /* pearl white */
+  --ivory:           #faf5ea;  /* warm ivory */
+  --ivory-warm:      #f4ecda;  /* warm ivory, one step deeper */
+  --champagne:       #f7ebcf;  /* luminous champagne wash */
+  --charcoal-deep:   #17140f;  /* warm charcoal anchor (footer, final CTA) */
+  --charcoal-mid:    #231e17;  /* warm charcoal, one step lighter */
 
-  --border-light:    rgba(11, 34, 57, 0.10);
-  --border-warm:     rgba(138, 100, 24, 0.22);
-  --border-dark:     rgba(255, 255, 255, 0.18);
-  --border-gold:     rgba(180, 135, 44, 0.55);
-  --surface-base:    #ffffff;  /* flipped to navy on dark sections */
+  /* ——— Metallic gradients — fine, directional, never glossy ——— */
+  --gradient-gold:
+    linear-gradient(135deg, #ecd9a3 0%, #d4b068 45%, #c19b4c 100%);
+  --gradient-gold-hover:
+    linear-gradient(135deg, #f1e1b3 0%, #dcbc78 45%, #c8a45a 100%);
+  --gradient-rose-gold:
+    linear-gradient(135deg, #f1d9c1 0%, #d9a888 50%, #c28b62 100%);
+  --gradient-champagne-surface:
+    linear-gradient(160deg, #fdf8ea 0%, #f9efd5 55%, #f4e6bd 100%);
+  --gradient-ivory-surface:
+    linear-gradient(180deg, #fffdf9 0%, #faf5ea 100%);
+  --gradient-charcoal-surface:
+    linear-gradient(165deg, #1f1a13 0%, #17140f 60%, #120f0b 100%);
+  --gradient-gold-line:
+    linear-gradient(90deg, transparent 0%, #d4b068 50%, transparent 100%);
+  --gradient-gold-rule:
+    linear-gradient(90deg, #e6cf92 0%, #c8a45a 55%, #a9822f 100%);
+
+  /* ——— Borders ——— */
+  --border-light:    rgba(120, 90, 30, 0.14);   /* warm hairline on light */
+  --border-warm:     rgba(138, 100, 24, 0.24);
+  --border-dark:     rgba(230, 207, 146, 0.22); /* champagne hairline on charcoal */
+  --border-gold:     rgba(169, 130, 47, 0.55);
+  --surface-base:    #ffffff;  /* flipped to charcoal on dark sections */
+
+  /* ——— Button roles — flipped per surface; frozen for the hero (1b) ——— */
+  --btn-primary-bg:           var(--gradient-gold);
+  --btn-primary-bg-hover:     var(--gradient-gold-hover);
+  --btn-primary-border:       #c19b4c;
+  --btn-primary-border-hover: #c8a45a;
+  --btn-primary-color:        var(--text-on-gold);
+  --btn-primary-shadow:       0 4px 18px rgba(200, 164, 90, 0.30);
+  --btn-primary-shadow-hover: 0 10px 28px rgba(200, 164, 90, 0.42);
+  --btn-ghost-border:         var(--border-gold);
+  --btn-ghost-color:          var(--text-accent);
+  --btn-ghost-hover:          var(--gold-700);
+  --btn-focus-outline:        var(--text-strong);
+  --btn-focus-ring:           0 0 0 5px rgba(200, 164, 90, 0.55);
 
   /* ——— Typography scale — fluid, legible at every width ——— */
   --text-xs:   0.8125rem;   /* 13px */
@@ -122,12 +183,12 @@
   --radius-lg: 16px;
   --radius-pill: 100px;
 
-  /* Shadows — restrained, daylight */
-  --shadow-sm:   0 1px 3px rgba(11, 34, 57, 0.07);
-  --shadow-md:   0 4px 16px rgba(11, 34, 57, 0.09);
-  --shadow-lg:   0 10px 44px rgba(11, 34, 57, 0.13);
-  --shadow-card: 0 2px 12px rgba(11, 34, 57, 0.06);
-  --shadow-gold: 0 8px 32px rgba(180, 135, 44, 0.20);
+  /* Shadows — warm-tinted, restrained, daylight */
+  --shadow-sm:   0 1px 3px rgba(60, 42, 10, 0.07);
+  --shadow-md:   0 4px 16px rgba(60, 42, 10, 0.09);
+  --shadow-lg:   0 10px 44px rgba(60, 42, 10, 0.13);
+  --shadow-card: 0 2px 12px rgba(60, 42, 10, 0.06);
+  --shadow-gold: 0 8px 32px rgba(200, 164, 90, 0.24);
 
   /* Transitions */
   --duration-fast:  150ms;
@@ -136,7 +197,53 @@
   --ease-out:       cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Focus ring — accessible, gold-tinted */
-  --focus-ring: 0 0 0 3px rgba(180, 135, 44, 0.38);
+  --focus-ring: 0 0 0 3px rgba(200, 164, 90, 0.45);
+}
+
+/* ————— 1b. Protected-element freeze —————
+   The cinematic hero and the brand loader were matched to existing video
+   and must look exactly as they did before the 2026 palette. They consume
+   global tokens whose values have now changed, so those tokens are pinned
+   to their ORIGINAL values inside each protected subtree. Custom properties
+   inherit, so every descendant (buttons in the hero, loader controls)
+   resolves to the legacy value too.
+   These are the only places legacy navy values may exist. */
+
+/* Cinematic hero: any <section> that directly contains the media stage. */
+section:has(> [data-hero-visual]) {
+  --pearl:                #fdfcfa;
+  --white:                #ffffff;
+  --navy-deep:            #0b2239;
+  --text-on-dark-strong:  #ffffff;
+  --text-on-dark:         #f3f6f9;
+  --gold:                 #b4872c;
+  --gold-light:           #d8b871;
+  --gold-fill:            #c9a24d;
+  --border-dark:          rgba(255, 255, 255, 0.18);
+  /* Hero CTA buttons: original solid gold fill, navy label, white ghost */
+  --btn-primary-bg:           #c9a24d;
+  --btn-primary-bg-hover:     #d6b25e;
+  --btn-primary-border:       #c9a24d;
+  --btn-primary-border-hover: #d6b25e;
+  --btn-primary-color:        #0b2239;
+  --btn-primary-shadow:       0 4px 16px rgba(180, 135, 44, 0.22);
+  --btn-primary-shadow-hover: 0 8px 24px rgba(180, 135, 44, 0.32);
+  --btn-ghost-border:         rgba(255, 255, 255, 0.7);
+  --btn-ghost-color:          #ffffff;
+  --btn-ghost-hover:          #d8b871;
+  --btn-focus-outline:        #0b2239;
+  --btn-focus-ring:           0 0 0 5px rgba(201, 162, 77, 0.55);
+}
+
+/* Brand loader: the fixed dialog overlay and everything inside it. */
+[role="dialog"][aria-label="Loading Yacht Broker Services"] {
+  --gold:           #b4872c;
+  --gold-deep:      #8a6418;
+  --charcoal:       #26374a;
+  --charcoal-light: #44566a;
+  --border-warm:    rgba(138, 100, 24, 0.22);
+  --white:          #ffffff;
+  --navy-deep:      #0b2239;
 }
 
 /* ————— 2. Base Reset & Typography ————— */
@@ -159,7 +266,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: clip;
-  color: var(--ink);
+  color: var(--text-body);
   background: var(--pearl);
   font-family: var(--font-sans, Inter, system-ui, -apple-system, sans-serif);
   font-size: var(--text-base);
@@ -197,16 +304,20 @@ button, input, textarea, select {
 /* ————— Typography Hierarchy ————— */
 h1, h2, h3, h4, h5 {
   font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
-  /* Elegant regular/medium — hierarchy from scale, spacing and colour
-     rather than heavy bold weights. */
-  font-weight: 500;
+  /* Elegant regular — hierarchy from scale, spacing and colour rather than
+     heavy bold weights. h1 stays at 500 because it is only used inside the
+     protected hero, which must not change. */
+  font-weight: 400;
   line-height: 1.14;
   color: var(--fg-strong);
   letter-spacing: -0.005em;
   text-wrap: balance;
 }
 
-h1 { font-size: clamp(2.25rem, 1.55rem + 2.9vw, 4.25rem); }  /* 36–68px */
+h1 {
+  font-weight: 500;
+  font-size: clamp(2.25rem, 1.55rem + 2.9vw, 4.25rem); /* 36–68px */
+}
 h2 { font-size: clamp(1.875rem, 1.4rem + 2.4vw, 4rem); margin-bottom: var(--space-md); } /* 30–64px */
 h3 { font-size: clamp(1.25rem, 1.14rem + 0.55vw, 1.6875rem); margin-bottom: var(--space-sm); } /* 20–27px */
 h4 { font-size: clamp(1.125rem, 1.07rem + 0.28vw, 1.375rem); } /* 18–22px */
@@ -247,8 +358,8 @@ strong, b { font-weight: 500; }
   left: var(--space-md);
   z-index: 9999;
   padding: var(--space-sm) var(--space-md);
-  background: var(--navy-deep);
-  color: var(--white);
+  background: var(--charcoal-deep);
+  color: var(--text-on-dark-strong);
   font-weight: 500;
   font-size: var(--text-sm);
   border-radius: var(--radius-sm);
@@ -409,9 +520,20 @@ html.js .reveal-scale:not(.revealed) {
 
 /* ————— 6. Helpers ————— */
 ::selection {
-  background: rgba(180, 135, 44, 0.28);
+  background: rgba(212, 176, 104, 0.38);
   color: var(--text-strong);
 }
+
+/* Metallic utilities — shared decorative finishes for the next phase */
+.gold-rule {
+  height: 1px;
+  border: 0;
+  background: var(--gradient-gold-line);
+}
+
+.surface-champagne { background: var(--gradient-champagne-surface); }
+.surface-ivory     { background: var(--gradient-ivory-surface); }
+.surface-charcoal  { background: var(--gradient-charcoal-surface); }
 
 /* Bootstrap flag for JS-dependent reveal states (set before first paint). */
 html.js .reveal,

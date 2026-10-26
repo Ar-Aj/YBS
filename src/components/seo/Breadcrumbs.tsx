@@ -10,13 +10,15 @@ type BreadcrumbItem = {
 
 type Props = {
   items: BreadcrumbItem[];
+  /** `light` suits the ivory page body (default); `dark` suits a charcoal band. */
+  tone?: 'light' | 'dark';
 };
 
 /**
  * Renders visible breadcrumbs + BreadcrumbList JSON-LD.
  * Usage: <Breadcrumbs items={[{ label: 'About', href: '/about' }]} />
  */
-export function Breadcrumbs({ items }: Props) {
+export function Breadcrumbs({ items, tone = 'light' }: Props) {
   const jsonLdItems = items.map((item) => ({
     name: item.label,
     path: item.href,
@@ -25,7 +27,10 @@ export function Breadcrumbs({ items }: Props) {
   return (
     <>
       <JsonLd data={breadcrumbJsonLd(jsonLdItems)} />
-      <nav aria-label="Breadcrumb" className={styles.nav}>
+      <nav
+        aria-label="Breadcrumb"
+        className={`${styles.nav} ${tone === 'light' ? styles.light : styles.dark}`}
+      >
         <ol className={styles.list}>
           <li className={styles.item}>
             <Link href="/" className={styles.link}>Home</Link>

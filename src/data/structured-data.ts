@@ -1,63 +1,50 @@
 import { siteConfig } from './site';
 
-/**
- * Organization schema — injected in root layout.
- * REPLACE: Add phone, address, and sameAs (social) when available.
- */
-export const organizationJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: siteConfig.name,
-  url: siteConfig.url,
-  logo: `${siteConfig.url}/Logo.png`,
-  email: siteConfig.email,
-  description: siteConfig.description,
-  // REPLACE: Add when client provides
-  // telephone: '+1-xxx-xxx-xxxx',
-  // address: { '@type': 'PostalAddress', ... },
-  // sameAs: ['https://linkedin.com/company/...', 'https://instagram.com/...'],
-};
+const ORG_ID = `${siteConfig.url}/#organization`;
+const SITE_ID = `${siteConfig.url}/#website`;
+const SERVICE_ID = `${siteConfig.url}/#service`;
 
 /**
- * WebSite schema — injected in root layout.
+ * Site-wide structured data as one linked @graph, injected in the root layout.
+ * Only verified facts are included. Phone, street address and social profiles
+ * are deliberately absent until the client confirms them (the video script
+ * lists a Fort Lauderdale address and phone number, but also a different
+ * domain from siteConfig.url).
  */
-export const webSiteJsonLd = {
+export const siteJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: siteConfig.name,
-  url: siteConfig.url,
-  description: siteConfig.description,
-  publisher: {
-    '@type': 'Organization',
-    name: siteConfig.name,
-    logo: {
-      '@type': 'ImageObject',
-      url: `${siteConfig.url}/Logo.png`,
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': ORG_ID,
+      name: siteConfig.name,
+      alternateName: siteConfig.shortName,
+      url: siteConfig.url,
+      logo: { '@type': 'ImageObject', url: `${siteConfig.url}/Logo.png` },
+      email: siteConfig.email,
+      description: siteConfig.description,
     },
-  },
-};
-
-/**
- * ProfessionalService schema — injected in root layout.
- * More accurate than LocalBusiness for a service firm without a verified walk-in address.
- */
-export const professionalServiceJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: siteConfig.name,
-  url: siteConfig.url,
-  logo: `${siteConfig.url}/Logo.png`,
-  email: siteConfig.email,
-  description: siteConfig.description,
-  priceRange: '$$$',
-  serviceType: 'Yacht Brokerage Support Services',
-  areaServed: {
-    '@type': 'Place',
-    name: 'Worldwide',
-  },
-  // REPLACE: Add when client provides
-  // telephone: '+1-xxx-xxx-xxxx',
-  // address: { '@type': 'PostalAddress', ... },
+    {
+      '@type': 'WebSite',
+      '@id': SITE_ID,
+      name: siteConfig.name,
+      url: siteConfig.url,
+      description: siteConfig.description,
+      publisher: { '@id': ORG_ID },
+      inLanguage: 'en-US',
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': SERVICE_ID,
+      name: siteConfig.name,
+      url: siteConfig.url,
+      description:
+        'Independent broker membership: brand and marketing, CRM and MLS access, business operations and transaction support for yacht brokers.',
+      provider: { '@id': ORG_ID },
+      serviceType: 'Yacht broker membership and business support',
+      audience: { '@type': 'Audience', audienceType: 'Independent yacht brokers' },
+    },
+  ],
 };
 
 /**
@@ -88,8 +75,7 @@ export function breadcrumbJsonLd(
 }
 
 /**
- * FAQPage schema generator.
- * Transforms FAQ data into Google-structured FAQ rich result markup.
+ * FAQPage schema generator. Answers must match the visible FAQ text exactly.
  */
 export function faqPageJsonLd(
   faqs: { question: string; answer: string }[]
@@ -109,23 +95,53 @@ export function faqPageJsonLd(
 }
 
 /**
- * WebPage schema generator.
+ * WebPage schema generator, linked to the site-wide WebSite node by @id.
  */
 export function webPageJsonLd(
   name: string,
   description: string,
-  path: string
+  path: string,
+  mainEntityId?: string
 ): Record<string, unknown> {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
+    '@id': `${siteConfig.url}${path}#webpage`,
     name,
     description,
     url: `${siteConfig.url}${path}`,
-    isPartOf: {
-      '@type': 'WebSite',
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
+    isPartOf: { '@id': SITE_ID },
+    about: { '@id': ORG_ID },
+    ...(mainEntityId ? { mainEntity: { '@id': mainEntityId } } : {}),
+  };
+}
+
+/**
+ * Person schema for the founder, linked to the Organization by @id.
+ * Restricted to facts the client has supplied and that are not time-sensitive.
+ * Deliberately omitted until confirmed: the Superyacht Network chairmanship
+ * and the previous employers, whose current status is unknown.
+ */
+export function personJsonLd(person: {
+  name: string;
+  jobTitle: string;
+  path: string;
+  imagePath: string;
+  description: string;
+  alumniOf: string;
+  knowsAbout: readonly string[];
+}): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${siteConfig.url}${person.path}#person`,
+    name: person.name,
+    jobTitle: person.jobTitle,
+    description: person.description,
+    image: `${siteConfig.url}${person.imagePath}`,
+    url: `${siteConfig.url}${person.path}`,
+    worksFor: { '@id': ORG_ID },
+    alumniOf: { '@type': 'CollegeOrUniversity', name: person.alumniOf },
+    knowsAbout: [...person.knowsAbout],
   };
 }

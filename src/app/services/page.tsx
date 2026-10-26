@@ -1,23 +1,21 @@
-import type { Metadata } from 'next';
 import { Section, Container } from '@/components/layout/Section';
 import { SectionHeader, GoldRule } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
-import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { Reveal } from '@/components/motion/Reveal';
+import { Stagger } from '@/components/motion/Stagger';
 import { ServiceChapter } from '@/components/content/ServiceChapter';
 import { CinematicHero } from '@/components/layout/CinematicHero';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { buildMetadata } from '@/lib/metadata';
 import { servicePillars } from '@/data/services';
 import styles from '../shared.module.css';
 
-export const metadata: Metadata = {
-  title: 'Services — Marketing, CRM, Legal & Closing Support',
+export const metadata = buildMetadata({
+  title: 'Broker Services and Support',
   description:
-    'Explore YBS services: luxury marketing, CRM integration, MLS access, legal support, and transaction coordination for independent yacht brokers.',
-  openGraph: {
-    title: 'Services — Marketing, CRM, Legal & Closing Support for Yacht Brokers',
-    description: 'Explore YBS services: luxury marketing, CRM integration, MLS access, legal support, and transaction coordination for independent yacht brokers.',
-  },
-  alternates: { canonical: '/services' },
-};
+    'What a YBS membership includes: brand kit and website, monthly AI video, private CRM, MLS research and comps, contract production, KYC support and closing coordination.',
+  path: '/services',
+});
 
 export default function ServicesPage() {
   return (
@@ -29,60 +27,59 @@ export default function ServicesPage() {
         posterSrc="/hero_services.jpg"
       />
 
-      {/* AEO: What services does YBS provide? */}
+      <Breadcrumbs items={[{ label: 'Services', href: '/services' }]} />
+
       <Section variant="white">
         <Container>
-          <RevealOnScroll>
+          <Reveal>
             <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-md)' }}>
-              What Services Does YBS Provide?
+              What Does a YBS Membership Include?
             </h2>
             <GoldRule center />
             <p style={{ textAlign: 'center', maxWidth: '72ch', margin: '0 auto', lineHeight: 1.85 }}>
-              YBS provides independent yacht brokers with a complete operational
-              ecosystem: luxury brand and marketing services, CRM and MLS
-              integration, business entity formation, legal and accounting support,
-              and end-to-end transaction and closing coordination — all included
-              in a single monthly membership.
+              A YBS membership gives an independent yacht broker a brand kit and
+              website, marketing support, a private CRM, MLS services with market
+              research and reports, assistant support, and transaction help from
+              contract production and KYC support through survey coordination and
+              closing documents. Your membership agreement lists every service.
             </p>
-          </RevealOnScroll>
-        </Container>
-      </Section>
-      <Section variant="ivory">
-        <Container>
-          <RevealOnScroll>
-            <SectionHeader
-              label="Support Pillars"
-              title="Everything You Need to Operate at the Highest Level"
-              subtitle="Each pillar is designed to replace the infrastructure of a traditional brokerage — without the overhead or the commission split."
-            />
-          </RevealOnScroll>
-          <RevealOnScroll>
-            <div>
-              {servicePillars.map((p, i) => (
-                <ServiceChapter key={p.title} pillar={p} index={i} />
-              ))}
-            </div>
-          </RevealOnScroll>
+          </Reveal>
         </Container>
       </Section>
 
-      <Section variant="navy">
+      <Section variant="ivory">
         <Container>
-          <RevealOnScroll>
+          <SectionHeader
+            label="Four Pillars"
+            title="Everything Behind Your Practice"
+            subtitle="Each pillar covers a part of running an independent brokerage, so you can spend your time with clients."
+          />
+          <Stagger>
+            {servicePillars.map((p, i) => (
+              <ServiceChapter key={p.title} pillar={p} index={i} />
+            ))}
+          </Stagger>
+        </Container>
+      </Section>
+
+      <Section variant="charcoal">
+        <Container>
+          <Reveal variant="rise" duration="signature">
             <div className={styles.ctaBlock}>
-              <span style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: 'var(--text-accent-on-dark)', marginBottom: '1rem' }}>Built for Elite Brokers</span>
-              <h2>The Support You Deserve.<br />The Freedom You&apos;ve Earned.</h2>
+              <span style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: 'var(--text-accent-on-dark)', marginBottom: '1rem' }}>Membership</span>
+              <h2>See How the Membership Works</h2>
               <GoldRule center />
               <p>
-                Every service is included in your membership. No à la carte pricing.
-                No surprise invoices. One predictable monthly investment.
+                Choose Express at $1,500 a month or Preferred at $3,000 a month. Some
+                costs, such as non-digital marketing and boat shows, are separate,
+                and the Membership Agreement sets out the details.
               </p>
               <div className={styles.ctaActions}>
-                <Button href="/how-it-works" size="lg">See Pricing</Button>
-                <Button href="/contact" variant="ghost" size="lg">Talk to Us</Button>
+                <Button href="/how-it-works" size="lg">See Membership Options</Button>
+                <Button href="/contact" variant="ghost" size="lg">Request a Confidential Call</Button>
               </div>
             </div>
-          </RevealOnScroll>
+          </Reveal>
         </Container>
       </Section>
     </>

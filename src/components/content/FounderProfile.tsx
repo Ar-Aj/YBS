@@ -27,7 +27,7 @@ export function FounderProfile({ founder, reverse }: Props) {
       </div>
       <div className={styles.content}>
         <span className={styles.role}>{founder.role}</span>
-        <h3 className={styles.name}>{founder.name}</h3>
+        <h2 className={styles.name}>{founder.name}</h2>
         <hr className={styles.rule} />
         <p className={styles.bio}>{founder.bio}</p>
         {founder.linkedIn && (
@@ -58,7 +58,7 @@ export function FounderPreview({ founder }: { founder: Founder }) {
         className={styles.previewImage}
         sizes="200px"
       />
-      <h4 className={styles.previewName}>{founder.name}</h4>
+      <h3 className={styles.previewName}>{founder.name}</h3>
       <span className={styles.previewRole}>{founder.role}</span>
     </div>
   );

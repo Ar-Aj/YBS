@@ -1,66 +1,86 @@
 import type { FAQCategory } from './site';
 
+/**
+ * FAQ answers. Every answer is traceable to the Explainer script or the
+ * client website data (see docs/YBS_REPOSITIONING_AND_MOTION_PLAN.md §1).
+ * The Independent Broker Membership Agreement governs in all cases.
+ */
 export const faqCategories: FAQCategory[] = [
   {
-    title: 'Membership & Pricing',
+    title: 'Membership & Fees',
     id: 'membership',
     items: [
       {
-        question: 'What are the membership tiers?',
+        question: 'What are the YBS membership options?',
         answer:
-          'YBS offers two tiers: the Premium Tier at $3,000/month with a 90/10 commission split, and the Standard Tier at $1,500/month with a 75/25 commission split. Both require an annual commitment billed monthly.',
+          'There are two. Express is $1,500 a month and you retain 75% of your gross commissions. Preferred is $3,000 a month and you retain 90% of your gross commissions. Both include MLS and CRM access and the services detailed in the Membership Agreement.',
       },
       {
-        question: 'How does the commission split work?',
+        question: 'How are fees paid?',
         answer:
-          'Your commission split is determined by your membership tier. On the Premium Tier, you retain 90% of every commission earned, with 10% going to YBS. On the Standard Tier, you retain 75%. There are no hidden fees or surprise deductions.',
+          'Monthly membership fees are deducted automatically by ACH withdrawal. Deal fees are collected through escrow at closing.',
       },
       {
-        question: 'Are there any additional fees beyond the monthly dues?',
+        question: 'Are there expenses beyond the membership fees?',
         answer:
-          'Your monthly membership dues cover the full suite of YBS services. There are no hidden charges. Your commission split and monthly dues are transparent and predictable.',
+          'Yes. You or your clients are responsible for non-digital marketing expenses such as magazine advertising, banners, printed materials and boat show costs, and for any premium marketing promotions or products you choose to use.',
+      },
+      {
+        question: 'Can I change my membership tier?',
+        answer:
+          'Yes, annually on renewal. Each transaction is locked to the tier in effect on the date you sign the client agreement, and that tier governs the deal through closing.',
       },
     ],
   },
   {
-    title: 'Services & Support',
+    title: 'Term & Eligibility',
+    id: 'term',
+    items: [
+      {
+        question: 'How long is the agreement?',
+        answer:
+          'The initial term is twenty-four months. After that it renews automatically for successive twelve-month periods. Either party can choose not to renew by giving sixty days\u2019 notice before the anniversary date.',
+      },
+      {
+        question: 'Do I need a license to join?',
+        answer:
+          'In the United States you must hold a yacht broker\u2019s license or be licensed under an Employing Broker who is a member. YBS can introduce you to an Employing Broker if needed. Outside the US, you need a license if your jurisdiction requires one.',
+      },
+      {
+        question: 'Is there an exclusivity requirement?',
+        answer:
+          'Yes. During the term, you conduct your yacht brokerage and charter activity through the YBS platform and record your transactions in the membership portal. That is how you receive transaction follow-up support, basic KYC, legal support and direct sales-related marketing activities.',
+      },
+      {
+        question: 'What happens if I leave YBS?',
+        answer:
+          'After the initial 24-month term, you keep your company identity, logo, intellectual property and marketing materials and can continue your business without further obligation to YBS, subject only to the restrictions in the agreement.',
+      },
+    ],
+  },
+  {
+    title: 'Services & Independence',
     id: 'services',
     items: [
       {
-        question: 'What marketing support does YBS provide?',
+        question: 'Am I employed by YBS?',
         answer:
-          'YBS provides bespoke luxury marketing including professional listing presentations, targeted buyer campaigns, luxury brand co-marketing, event organization, and one AI-generated video per month featuring you or your listings. We also handle website creation, maintenance, and content updates.',
+          'No. YBS operates a membership platform. You and your entity remain independent, YBS does not act as your employer, and YBS does not dictate your daily activities.',
       },
       {
-        question: 'What is included in back-office support?',
+        question: 'What services do I receive?',
         answer:
-          'Our back-office support covers contract production, KYC support, survey coordination, haul-out scheduling, basic legal services, documentation, and closing support. We handle the operational complexity so you can focus on relationships and deals.',
+          'Setup guidance and a stylized brand kit, website creation, social media support, a monthly newsletter in your branding, a private CRM, MLS services with comps research and reports, assistant support, contract templates and production, KYC support, survey and sea-trial support, haul-out scheduling, access to legal advice, and closing-document coordination.',
       },
       {
-        question: 'Do I get access to a CRM system?',
+        question: 'Who owns my client data?',
         answer:
-          'Yes. Every YBS member receives access to a private, confidential CRM along with MLS services, market research and reports, lead tracking, email templates for prospecting and follow-ups, and dedicated assistant support.',
-      },
-    ],
-  },
-  {
-    title: 'Independence & Brand',
-    id: 'independence',
-    items: [
-      {
-        question: 'Can I maintain my own brand identity?',
-        answer:
-          'Absolutely. YBS is designed to support your independent brand, not replace it. You maintain full autonomy over how you market yourself, your listings, and your professional identity. We provide the infrastructure; you own the brand.',
-      },
-      {
-        question: 'How is YBS different from a traditional brokerage?',
-        answer:
-          'Traditional brokerages take 30–50% of your commissions while dictating how you market yourself and your listings. YBS flips the model: you retain up to 90% of your commissions, keep full brand autonomy, and receive tailored operational support — all for predictable monthly dues.',
+          'You do, entirely. YBS only sees the data you choose to share and does not access it for any purpose other than supporting your activities.',
       },
       {
         question: 'How do I get started?',
         answer:
-          'Schedule a confidential call with our team. We\'ll discuss your goals, current practice, and how YBS can support your transition. There\'s no obligation and every conversation is strictly confidential.',
+          'Request a confidential call. YBS will discuss your practice and licensing position and can provide the Independent Broker Membership Agreement for review.',
       },
     ],
   },

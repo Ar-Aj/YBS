@@ -1,24 +1,22 @@
-import type { Metadata } from 'next';
 import { Section, Container } from '@/components/layout/Section';
 import { SectionHeader, GoldRule } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
-import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { Reveal } from '@/components/motion/Reveal';
+import { Stagger } from '@/components/motion/Stagger';
 import { VideoHero } from '@/components/content/VideoHero';
 import { FounderPreview } from '@/components/content/FounderProfile';
 import { CinematicHero } from '@/components/layout/CinematicHero';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { buildMetadata } from '@/lib/metadata';
 import { founders, foundingPrinciple } from '@/data/leadership';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
-  title: 'About YBS — Independent Yacht Brokerage Support',
+export const metadata = buildMetadata({
+  title: 'About Independent Broker Membership',
   description:
-    'Learn how Yacht Broker Services empowers independent yacht brokers with operational infrastructure, marketing, and full brand autonomy.',
-  openGraph: {
-    title: 'About YBS — Independent Yacht Brokerage Support',
-    description: 'Learn how Yacht Broker Services empowers independent yacht brokers with operational infrastructure, marketing, and full brand autonomy.',
-  },
-  alternates: { canonical: '/about' },
-};
+    'Yacht Broker Services gives solopreneurs and small teams the resources and backing of a world-class firm, without the heavy cost of corporate overhead.',
+  path: '/about',
+});
 
 export default function AboutPage() {
   return (
@@ -30,16 +28,18 @@ export default function AboutPage() {
         posterSrc="/hero_about.jpg"
       />
 
-      {/* Video Hero */}
+      <Breadcrumbs items={[{ label: 'About', href: '/about' }]} />
+
+      {/* Video */}
       <Section variant="ivory">
         <Container>
-          <RevealOnScroll variant="scale">
+          <Reveal variant="clip" duration="signature">
             <VideoHero
               poster="/hero-about-poster.jpg"
               title="Where Independence Meets Infrastructure"
               ariaLabel="Cinematic yacht footage showcasing the luxury brokerage lifestyle"
             />
-          </RevealOnScroll>
+          </Reveal>
         </Container>
       </Section>
 
@@ -47,143 +47,121 @@ export default function AboutPage() {
       <Section variant="white">
         <Container>
           <div className={styles.philosophy}>
-            <RevealOnScroll variant="left">
+            <Reveal variant="rise" duration="signature">
               <blockquote className={styles.quote}>
-                &ldquo;The best brokers don&apos;t need a corporate name above their door.
-                They need the right support behind it.&rdquo;
+                {foundingPrinciple}
               </blockquote>
-            </RevealOnScroll>
-            <RevealOnScroll variant="right">
+            </Reveal>
+            <Reveal variant="rise" duration="signature" delay={160}>
               <div>
                 <span className={styles.label}>Our Philosophy</span>
                 <h2>Independence With Infrastructure</h2>
-                <GoldRule />
+                <GoldRule delay={200} />
                 <p>
-                  We believe that the most talented yacht brokers should own their brand,
-                  control their client relationships, and retain the majority of their
-                  commissions. YBS exists to make that possible — providing the operational
-                  backbone that lets independent professionals compete at the highest level.
+                  YBS provides solopreneurs and small teams with the clout, resources
+                  and backing of a world-class firm, without the heavy cost of
+                  corporate overhead.
                 </p>
               </div>
-            </RevealOnScroll>
+            </Reveal>
           </div>
         </Container>
       </Section>
 
       {/* Vision */}
-      <Section variant="navy">
+      <Section variant="champagne">
         <Container>
-          <RevealOnScroll>
+          <Reveal>
             <div className={styles.vision}>
               <span className={styles.label}>Our Vision</span>
-              <h2>Redefining the Brokerage Model</h2>
+              <h2>A Turnkey Business Ecosystem</h2>
               <GoldRule center />
               <p>
-                The traditional brokerage model was built for a different era. Today&apos;s
-                top brokers need flexibility, technology, and personalized support — not
-                corporate overhead and restrictive splits. YBS represents the future: a
-                platform where your success is measured by your performance, not your
-                company&apos;s take.
+                We aim to modernize and empower independent brokers with a turnkey
+                business ecosystem. By combining MLS integration, automated
+                marketing, dedicated legal support and AI-driven client outreach,
+                YBS lets brokers operate with the capabilities of a major house
+                while keeping their independence and retaining 75% or 90% of their
+                gross commissions.
               </p>
             </div>
-          </RevealOnScroll>
+          </Reveal>
         </Container>
       </Section>
 
-      {/* AEO: What is Yacht Broker Services? */}
+      {/* What is YBS */}
       <Section variant="ivory">
         <Container>
           <div className={styles.originSpread}>
             <aside className={styles.originMargin}>
-              <span className={styles.label}>Our Origin</span>
+              <span className={styles.label}>The Firm</span>
               <h2>What Is Yacht Broker Services?</h2>
               <GoldRule />
             </aside>
-            <div className={styles.originBody}>
+            <Stagger className={styles.originBody}>
               <p className={styles.originLede}>
-                Yacht Broker Services (YBS) is an independent brokerage support
-                platform that provides elite yacht brokers with the operational
-                infrastructure of a major firm — marketing, CRM, MLS access,
-                legal support, and closing coordination — while allowing them to
-                retain up to 90% of their commissions and full control of their
-                professional brand.
+                Yacht Broker Services (YBS) is an independent yacht broker membership
+                platform. It supplies the business infrastructure behind an
+                independent practice: brand kit and website, marketing support,
+                CRM and MLS access, assistant support, and help with contracts,
+                KYC, surveys and closing.
               </p>
-              <h3 className={styles.originSub}>Why YBS Exists</h3>
+              <h3 className={styles.originSub}>How the Relationship Works</h3>
               <div className={styles.origin}>
                 <p>
-                  YBS was born from a simple observation: the yacht brokerage industry&apos;s
-                  most talented professionals were leaving established firms — not because
-                  they lacked ambition, but because the traditional model no longer served
-                  their interests. They wanted ownership, flexibility, and fair compensation.
+                  You are the broker and the brand. YBS is a service platform: you
+                  choose Express ($1,500 a month, 75% retained) or Preferred ($3,000 a
+                  month, 90% retained), and YBS works for you.
                 </p>
                 <p>
-                  We built YBS to answer that need. Not as another brokerage, but as a
-                  complete operational platform that gives independent brokers everything
-                  they need to run a world-class practice — from entity formation and legal
-                  support to marketing, CRM, and closing coordination.
-                </p>
-                <p>
-                  {/* REPLACE: Final founding narrative pending client review */}
-                  The result is a model where the broker is the principal, the brand-builder,
-                  and the primary beneficiary of their own work. YBS handles the rest.
+                  Your client data is yours entirely. YBS sees only what you choose
+                  to share and uses it only to support your activities. The
+                  Independent Broker Membership Agreement governs the details.
                 </p>
               </div>
-            </div>
+            </Stagger>
           </div>
         </Container>
       </Section>
 
-      {/* Leadership Preview */}
+      {/* Leadership preview */}
       <Section variant="white">
         <Container>
-          <RevealOnScroll>
-            <SectionHeader
-              label="Leadership"
-              title="Built by an Industry Veteran"
-            />
-          </RevealOnScroll>
-          <RevealOnScroll>
-            <div className={styles.callout}>
-              <p>&ldquo;{foundingPrinciple}&rdquo;</p>
-            </div>
-          </RevealOnScroll>
-          <RevealOnScroll stagger>
-            <div className={styles.foundersGrid}>
-              {founders.map((f) => (
-                <FounderPreview key={f.name} founder={f} />
-              ))}
-            </div>
-          </RevealOnScroll>
+          <SectionHeader label="Leadership" title="Meet the Founder" />
+          <Stagger className={styles.foundersGrid}>
+            {founders.map((f) => (
+              <FounderPreview key={f.name} founder={f} />
+            ))}
+          </Stagger>
           <div className={styles.centerCta}>
             <Button href="/leadership" variant="secondary">
-              Meet the Founder
+              About Our Leadership
             </Button>
           </div>
         </Container>
       </Section>
 
       {/* CTA */}
-      <Section variant="dark">
+      <Section variant="charcoal">
         <Container narrow>
-          <RevealOnScroll>
+          <Reveal variant="rise" duration="signature">
             <div className={styles.ctaBlock}>
               <span className={styles.label}>Next Step</span>
-              <h2>Your Independence Starts Here</h2>
+              <h2>Start with a Confidential Conversation</h2>
               <GoldRule center />
               <p>
-                Schedule a confidential conversation to explore whether YBS is the
-                right platform for your practice.
+                Discuss your practice and which membership option fits.
               </p>
               <div className={styles.ctaActions}>
                 <Button href="/contact" size="lg">
-                  Schedule a Call
+                  Schedule a Confidential Call
                 </Button>
                 <Button href="/services" variant="ghost" size="lg">
                   Explore Services
                 </Button>
               </div>
             </div>
-          </RevealOnScroll>
+          </Reveal>
         </Container>
       </Section>
     </>

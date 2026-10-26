@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   padding: calc(100px + var(--space-3xl)) 0 var(--space-3xl);
-  background: var(--navy-deep);
+  background: var(--gradient-charcoal-surface);
   overflow: hidden;
   text-align: center;
 }
@@ -44,7 +44,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  background: var(--gradient-gold-line);
 }
 
 @media (max-width: 767px) {

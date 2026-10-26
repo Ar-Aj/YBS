@@ -1,6 +1,8 @@
 /* ————— Stat Strip ————— */
 .statStrip {
-  background: var(--navy-deep);
+  position: relative;
+  background: var(--gradient-champagne-surface);
+  border-bottom: 1px solid var(--border-warm);
   padding: var(--space-2xl) 0;
   /* No min-height — this is an intentional accent strip, not a full section */
 }
@@ -25,14 +27,15 @@
   transform: translateY(-50%);
   width: 1px;
   height: 56px;
-  background: linear-gradient(180deg, transparent, var(--gold), transparent);
+  background: linear-gradient(180deg, transparent, var(--gold-500), transparent);
 }
 
 .statValue {
   display: block;
-  font-size: clamp(2rem, 3vw, 3.75rem);
-  font-weight: 500;
-  color: var(--text-accent-on-dark);
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(2rem, 3vw, 3.5rem);
+  font-weight: 400;
+  color: var(--text-accent);
   line-height: 1;
   margin-bottom: var(--space-xs);
 }
@@ -40,14 +43,14 @@
 .statLabel {
   font-size: var(--text-sm);
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-on-dark);
+  color: var(--text-secondary);
 }
 
 /* ————— Pain → Solution Split ————— */
-/* Two statements set on ONE shared baseline. The ivory half is the problem,
-   the navy half the answer; a gold hinge at the seam joins them. Both halves
+/* Two statements set on ONE shared baseline. The pearl half is the problem,
+   the champagne half the answer; a gold hinge at the seam joins them. Both halves
    start on the same line (align-items: start + identical padding) so the eye
    reads straight across from "Traditional Brokerages Take Too Much" to
    "Keep More. Own More. Do More." The section grows with its content —
@@ -69,7 +72,7 @@
   bottom: clamp(48px, 7vw, 104px);
   left: 50%;
   width: 1px;
-  background: var(--gold);
+  background: linear-gradient(180deg, var(--gold-300), var(--gold-600));
   z-index: 1;
 }
 .split::after {
@@ -93,12 +96,12 @@
 }
 
 .splitLeft {
-  background: var(--ivory-warm);
+  background: var(--gradient-ivory-surface);
   align-items: flex-end;
   text-align: left;
 }
 .splitRight {
-  background: var(--navy-deep);
+  background: var(--gradient-champagne-surface);
   align-items: flex-start;
 }
 
@@ -111,28 +114,120 @@
 }
 
 /* Typographic contrast without bold: the problem is set in a lighter,
-   smaller register; the solution is larger and pure white. */
+   smaller register; the solution is larger, still regular weight. */
 .splitLeft h3 {
-  color: var(--text-strong);
+  color: var(--text-secondary);
   font-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.5rem);
   font-weight: 400;
 }
 .splitRight h3 {
-  color: var(--text-on-dark-strong);
+  color: var(--text-strong);
   font-size: clamp(1.875rem, 1.3rem + 2.2vw, 3.25rem);
-  font-weight: 500;
+  font-weight: 400;
 }
 .splitLeft p { color: var(--text-body); }
-.splitRight p { color: var(--text-on-dark); }
+.splitRight p { color: var(--text-body); }
+
+/* ————— Independence Narrative (enhanced split) ————— */
+.narrative {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: stretch;
+}
+
+.narrativeInner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+.narrativeLeft,
+.narrativeRight {
+  padding: clamp(56px, 8vw, 120px) clamp(40px, 6vw, 96px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.narrativeLeft {
+  background: linear-gradient(135deg, var(--ivory) 0%, var(--ivory-warm) 100%);
+  align-items: flex-end;
+}
+
+.narrativeRight {
+  background: var(--gradient-champagne-surface);
+  align-items: flex-start;
+  position: relative;
+}
+
+.narrativeRight::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--gradient-gold-line);
+}
+
+.narrativeContent {
+  width: 100%;
+  max-width: 36rem;
+}
+
+.narrativeContent h2 {
+  font-size: clamp(1.875rem, 1.5rem + 1.5vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-strong);
+  margin-bottom: var(--space-md);
+}
+
+.narrativeContent p {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--text-body);
+  margin-bottom: var(--space-md);
+}
+
+.leadPara {
+  font-size: 1.1875rem !important;
+  line-height: 1.65 !important;
+  color: var(--text-strong) !important;
+  margin-bottom: var(--space-lg) !important;
+}
+
+.closePara {
+  font-style: italic;
+  color: var(--text-secondary) !important;
+}
+
+.narrativeHighlight {
+  margin-top: var(--space-lg);
+  padding: var(--space-lg) var(--space-xl);
+  background: linear-gradient(135deg, rgba(255, 253, 249, 0.6) 0%, rgba(250, 245, 234, 0.8) 100%);
+  border-left: 3px solid var(--gold-600);
+  border-radius: 4px;
+}
+
+.narrativeHighlight strong {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--text-strong);
+  display: block;
+}
 
 /* ————— Labels ————— */
 .label {
   display: block;
   font-size: var(--text-xs);
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text-accent-on-dark);
+  /* Context role: bronze on light surfaces, light champagne on charcoal */
+  color: var(--fg-accent);
   margin-bottom: var(--space-sm);
 }
 
@@ -182,7 +277,7 @@
   align-items: flex-start;
   gap: var(--space-md);
   padding: var(--space-md) 0;
-  border-bottom: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-warm);
   transition: padding-left var(--duration-fast) var(--ease-out);
 }
 
@@ -190,9 +285,10 @@
 .deliverableItem:hover { padding-left: var(--space-sm); }
 
 .deliverableNum {
+  font-family: var(--font-serif, Georgia, serif);
   font-size: var(--text-lg);
-  font-weight: 500;
-  color: var(--text-accent-on-dark);
+  font-weight: 400;
+  color: var(--text-accent);
   flex-shrink: 0;
   width: 40px;
   line-height: 1.8;
@@ -200,9 +296,27 @@
 
 .deliverableText {
   font-size: clamp(1.0625rem, 1.2vw, 1.1875rem); /* 17–19px */
-  color: var(--text-on-dark);
+  color: var(--text-body);
   line-height: 1.75;
 }
+
+.tierNote {
+  max-width: 72ch;
+  margin: var(--space-xl) auto 0;
+  text-align: center;
+  font-size: var(--text-sm);
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.inlineLink {
+  color: var(--text-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--gold-400);
+  text-underline-offset: 3px;
+}
+
+.inlineLink:hover { color: var(--text-strong); }
 
 /* ————— Shared ————— */
 .centerCta {
@@ -223,13 +337,13 @@
 }
 
 .finalCta h2 {
-  color: var(--text-on-dark-strong);
+  color: var(--fg-strong);
   margin: var(--space-md) 0;
 }
 
 .finalCta p {
   font-size: clamp(1.0625rem, 1.2vw, 1.25rem);
-  color: var(--text-on-dark);
+  color: var(--fg);
   margin-bottom: var(--space-xl);
   max-width: 680px;
   margin-left: auto;
@@ -264,7 +378,7 @@
   }
   .splitLeft > *,
   .splitRight > * { max-width: none; }
-  .splitRight { border-top: 3px solid var(--gold-fill); }
+  .splitRight { border-top: 1px solid var(--gold-500); }
 
   .tiersGrid,
   .stepsGrid,
@@ -275,6 +389,28 @@
   .deliverables {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+
+  .narrativeInner {
+    grid-template-columns: 1fr;
+  }
+
+  .narrativeLeft,
+  .narrativeRight {
+    align-items: center;
+    text-align: left;
+  }
+
+  .narrativeRight::before {
+    display: none;
+  }
+
+  .narrativeLeft {
+    padding-bottom: clamp(48px, 7vw, 96px);
+  }
+
+  .narrativeRight {
+    padding-top: clamp(48px, 7vw, 96px);
   }
 
   .statValue { font-size: var(--text-3xl); }

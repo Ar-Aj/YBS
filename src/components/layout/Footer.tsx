@@ -18,7 +18,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className={styles.heading}>Navigate</h4>
+            <h3 className={styles.heading}>Navigate</h3>
             {footerNav.navigate.map((link) => (
               <Link key={link.href} href={link.href} className={styles.link}>
                 {link.label}
@@ -27,7 +27,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className={styles.heading}>Learn More</h4>
+            <h3 className={styles.heading}>Learn More</h3>
             {footerNav.learnMore.map((link) => (
               <Link key={link.href} href={link.href} className={styles.link}>
                 {link.label}
@@ -36,7 +36,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className={styles.heading}>Connect</h4>
+            <h3 className={styles.heading}>Connect</h3>
             <a href={`mailto:${siteConfig.email}`} className={styles.link}>
               {siteConfig.email}
             </a>

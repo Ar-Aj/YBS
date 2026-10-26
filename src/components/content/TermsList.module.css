@@ -1,0 +1,30 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--space-3xl);
+  margin: 0;
+  border-top: 1px solid var(--border-warm);
+}
+
+.item {
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.term {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: var(--text-lg);
+  color: var(--text-strong);
+  margin-bottom: var(--space-xs);
+}
+
+.text {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 800px) {
+  .list { grid-template-columns: 1fr; }
+}

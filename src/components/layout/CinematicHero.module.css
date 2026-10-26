@@ -10,14 +10,17 @@
      never a navy band flashing through the frosted glass or rubber-band. */
   background: var(--pearl);
   overflow: hidden;
-  /* Fixed navbar clears the hero on every device. */
-  padding-top: var(--header-height);
+  /* Measured desktop navbar height (logo 64px + 2×18px padding + 1px border).
+     The hero begins exactly where the bar ends: below it, flush, never under
+     it, so the bar can never cover the video. */
+  --hero-nav: 101px;
+  padding-top: var(--hero-nav);
 }
 
 /* ——— Desktop/laptop: full-bleed stage with overlay copy ——— */
 .heroContent {
   position: absolute;
-  inset: var(--header-height) 0 0 0;
+  inset: var(--hero-nav) 0 0 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -78,13 +81,13 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  /* Pull the stage up under the frosted navbar — the 8%-tint glass diffuses
-     the video edge instead of exposing a flat padded band. */
-  margin-top: calc(var(--header-height) * -1);
-  padding-top: var(--header-height);
-  box-sizing: content-box;
+  /* The stage sits below the navbar, not under it, so the bar never covers
+     the video. The hero's own padding-top clears the bar. */
+  margin-top: 0;
+  padding-top: 0;
+  box-sizing: border-box;
   min-height: 560px;
-  max-height: calc(100vh - var(--header-height));
+  max-height: calc(100vh - var(--hero-nav));
   overflow: hidden;
   background: var(--navy-deep);
 }
@@ -171,13 +174,23 @@
    low, over a readability grade — a title card, not a split layout. */
 @media (max-width: 1023px) {
   .hero {
-    padding-top: var(--header-height);
+    /* Measured navbar height (logo 64px + 2×18px padding + 1px border) so the
+       hero begins exactly where the bar ends: below it, flush, never under it. */
+    --hero-nav: 101px;
+    padding-top: var(--hero-nav);
   }
 
   .heroVisual {
-    aspect-ratio: var(--tablet-aspect, 16 / 9);
-    margin-top: calc(var(--header-height) * -1);
-    min-height: calc(100svh - var(--header-height));
+    /* No pull-up under the navbar on narrow screens. */
+    margin-top: 0;
+    padding-top: 0;
+    box-sizing: border-box;
+    /* The stage is exactly the visible area below the navbar. A fixed height
+       also neutralises the aspect-ratio the video script writes inline, which
+       could otherwise make the stage taller than the screen and push the
+       centred copy below the fold. Media fills it with object-fit: cover. */
+    height: calc(100svh - var(--hero-nav));
+    min-height: 0;
     max-height: none;
     /* Letterbox rails pick up the panel tone, never black */
     background: linear-gradient(180deg, var(--navy-deep) 0%, #0e2c47 100%);
@@ -192,28 +205,40 @@
     object-fit: cover; /* stage IS the ratio — fill it, no rails */
   }
 
-  /* Readability grade tuned for text-over-video */
+  /* Readability grade for centred copy: soft core behind the text block,
+     light even tint elsewhere so the video keeps its character. */
   .heroOverlay,
   .heroOverlayNatural {
     display: block;
     background:
+      radial-gradient(
+        ellipse 90% 60% at 50% 50%,
+        rgba(6, 16, 30, 0.62) 0%,
+        rgba(6, 16, 30, 0.38) 60%,
+        rgba(6, 16, 30, 0) 100%
+      ),
       linear-gradient(
-        to top,
-        rgba(6, 16, 30, 0.82) 0%,
-        rgba(6, 16, 30, 0.55) 34%,
-        rgba(6, 16, 30, 0.12) 62%,
-        rgba(6, 16, 30, 0.18) 100%
+        to bottom,
+        rgba(6, 16, 30, 0.32) 0%,
+        rgba(6, 16, 30, 0.22) 50%,
+        rgba(6, 16, 30, 0.45) 100%
       );
   }
 
+  /* Copy is centred in the visible stage (the area below the navbar). */
   .heroContent {
     position: absolute;
-    inset: auto 0 0 0;
+    inset: var(--hero-nav) 0 0 0;
     z-index: 2;
     order: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     max-width: 100%;
-    padding: var(--space-xl) var(--space-lg) calc(var(--space-2xl) + env(safe-area-inset-bottom));
+    margin: 0;
+    padding: var(--space-xl) var(--space-lg);
     pointer-events: none;
   }
 
@@ -233,23 +258,24 @@
     max-width: 34ch;
   }
 
+  /* Trailing margin would push the visible copy above true centre. */
+  .heroContent p:last-child {
+    margin-bottom: 0;
+  }
+
   .hero .label {
     color: var(--text-on-dark-strong);
   }
 }
 
-@media (max-width: 767px) {
-  .heroVisual {
-    aspect-ratio: var(--mobile-aspect, 9 / 16);
+@media (max-width: 900px) {
+  .hero {
+    --hero-nav: 89px; /* logo 52px + 2×18px padding + 1px border */
   }
 }
 
 /* Short-height landscape phones: keep the title card compact */
 @media (max-height: 520px) and (max-width: 1023px) {
-  .heroVisual {
-    aspect-ratio: auto;
-    min-height: calc(100svh - var(--header-height));
-  }
   .heroContent {
     padding-top: var(--space-lg);
     padding-bottom: var(--space-lg);

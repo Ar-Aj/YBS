@@ -1,0 +1,163 @@
+/* ================================================================
+   YBS motion system: NON-HERO content only.
+
+   Rules of the road
+   - Nothing here matches an element unless script has set `data-m` on it.
+     The hero and brand loader never receive `data-m`, and the legacy
+     `.reveal*` / `.stagger-children` rules in globals.css are untouched.
+   - Server HTML is fully visible. `data-m="pending"` is applied on the client,
+     before paint, and only to elements that start below the viewport.
+   - States: pending (hidden) -> in (keyframe animation runs) -> done (released).
+     Keyframes use fill-mode `backwards` and a `from` frame only, so the
+     element animates INTO its own natural styles. A card's hover transform or
+     a featured offset is never overridden once the animation ends.
+   - `will-change` exists only while a reveal is running.
+   - Mirrors src/components/motion/motion-tokens.ts.
+   ================================================================ */
+
+:root {
+  --m-dur: 1000ms;
+  --m-dur-signature: 1400ms;
+  --m-stagger: 120ms;
+  --m-rise: 26px;
+  --m-ease-settle: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --m-ease-draw: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ——— Keyframes: `from` only, except clip variants which need an end frame ——— */
+@keyframes m-rise {
+  from { opacity: 0; transform: translate3d(0, var(--m-rise), 0); }
+}
+
+@keyframes m-fade {
+  from { opacity: 0; }
+}
+
+@keyframes m-clip {
+  from { opacity: 0; clip-path: inset(0 0 100% 0); transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1; clip-path: inset(-2rem -2rem -2rem -2rem); }
+}
+
+@keyframes m-wipe {
+  from { clip-path: inset(0 100% 0 0); transform: scale(1.04); }
+  to   { clip-path: inset(-2rem -2rem -2rem -2rem); }
+}
+
+@keyframes m-draw {
+  from { transform: scaleX(0); }
+}
+
+@keyframes m-pop {
+  from { opacity: 0; transform: scale(0.86); }
+}
+
+/* ——— Single-element reveals ——— */
+.m-rise[data-m="pending"],
+.m-fade[data-m="pending"],
+.m-clip[data-m="pending"],
+.m-pop[data-m="pending"] { opacity: 0; }
+
+.m-clip[data-m="pending"] { clip-path: inset(0 0 100% 0); }
+.m-wipe[data-m="pending"] { clip-path: inset(0 100% 0 0); }
+.m-draw[data-m="pending"] { transform: scaleX(0); }
+
+.m-rise[data-m="in"] { animation: m-rise var(--m-dur) var(--m-ease-settle) var(--m-delay, 0ms) backwards; }
+.m-fade[data-m="in"] { animation: m-fade var(--m-dur) ease-out var(--m-delay, 0ms) backwards; }
+.m-clip[data-m="in"] { animation: m-clip var(--m-dur) var(--m-ease-settle) var(--m-delay, 0ms) backwards; }
+.m-wipe[data-m="in"] { animation: m-wipe var(--m-dur) var(--m-ease-draw) var(--m-delay, 0ms) backwards; }
+.m-pop[data-m="in"]  { animation: m-pop calc(var(--m-dur) * 0.8) var(--m-ease-settle) var(--m-delay, 0ms) backwards; }
+.m-draw[data-m="in"] { animation: m-draw calc(var(--m-dur) * 1.2) var(--m-ease-draw) var(--m-delay, 0ms) backwards; }
+
+.m-signature { --m-dur: var(--m-dur-signature); }
+
+.m-rise[data-m="in"],
+.m-fade[data-m="in"],
+.m-clip[data-m="in"],
+.m-wipe[data-m="in"],
+.m-pop[data-m="in"],
+.m-draw[data-m="in"] { will-change: transform, opacity; }
+
+/* Vertical spine variant */
+@keyframes m-draw-y {
+  from { transform: scaleY(0); }
+}
+
+.m-draw-y[data-m="pending"] { transform: scaleY(0); }
+.m-draw-y[data-m="in"] {
+  animation: m-draw-y calc(var(--m-dur) * 1.2) var(--m-ease-draw) var(--m-delay, 0ms) backwards;
+  will-change: transform;
+}
+
+/* Gold hairline geometry (DrawRule). Drawn from the left / top. */
+.m-rule {
+  display: block;
+  width: 72px;
+  height: 1px;
+  background: var(--gradient-gold-rule);
+}
+
+.m-rule-center { margin-inline: auto; }
+
+.m-rule-v {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--gold-300), var(--gold-600));
+}
+
+.m-draw { transform-origin: left center; }
+.m-draw.m-rule-center { transform-origin: center center; }
+.m-draw-y { transform-origin: center top; }
+
+/* ——— Stagger: the parent owns the state, the direct children animate ——— */
+.m-stagger > :nth-child(1) { --m-i: 0; }
+.m-stagger > :nth-child(2) { --m-i: 1; }
+.m-stagger > :nth-child(3) { --m-i: 2; }
+.m-stagger > :nth-child(4) { --m-i: 3; }
+.m-stagger > :nth-child(5) { --m-i: 4; }
+.m-stagger > :nth-child(n+6) { --m-i: 5; }
+
+.m-stagger[data-m="pending"] > * { opacity: 0; }
+
+.m-stagger[data-m="in"] > * {
+  animation: m-rise var(--m-dur) var(--m-ease-settle)
+    calc(var(--m-delay, 0ms) + var(--m-i, 0) * var(--m-stagger)) backwards;
+  will-change: transform, opacity;
+}
+
+/* ——— Accessible accordion panel (CSS grid height, no layout thrash in JS) ——— */
+.m-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 520ms var(--m-ease-settle);
+}
+
+.m-panel[data-open="true"] { grid-template-rows: 1fr; }
+
+.m-panel > .m-panel-inner {
+  min-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 360ms ease-out, visibility 0s linear 520ms;
+}
+
+.m-panel[data-open="true"] > .m-panel-inner {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 520ms ease-out 140ms, visibility 0s;
+}
+
+/* ——— Reduced motion: final state at first render, always ——— */
+@media (prefers-reduced-motion: reduce) {
+  .m-rise, .m-fade, .m-clip, .m-wipe, .m-pop, .m-draw, .m-draw-y,
+  .m-stagger, .m-stagger > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    will-change: auto !important;
+  }
+
+  .m-panel,
+  .m-panel > .m-panel-inner { transition: none !important; }
+}

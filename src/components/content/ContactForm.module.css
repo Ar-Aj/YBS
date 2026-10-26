@@ -26,7 +26,7 @@
   /* Stationery field: a single ruled line (4.5:1 against white) that thickens
      to gold on focus. Boundary stays perceivable without a box. */
   border: none;
-  border-bottom: 1.5px solid #6b7785;
+  border-bottom: 1.5px solid #7a7062;
   border-radius: 0;
   transition: border-color var(--duration-fast) var(--ease-out),
               box-shadow var(--duration-fast) var(--ease-out);
@@ -94,8 +94,8 @@
 .successIcon {
   width: 56px;
   height: 56px;
-  background: var(--gold-fill);
-  color: var(--navy-deep);
+  background: var(--gradient-gold);
+  color: var(--text-on-gold);
   border-radius: 50%;
   display: flex;
   align-items: center;

@@ -15,7 +15,7 @@
   /* sits on the station dots: number height + gap below it */
   top: calc(var(--space-xl) + clamp(3.25rem, 6vw, 5.5rem) + var(--space-lg));
   height: 1px;
-  background: var(--gold);
+  background: var(--gradient-gold-rule);
   transform-origin: left center;
   transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
@@ -63,7 +63,7 @@
   align-items: flex-start;
   gap: var(--space-md);
   padding: var(--space-md) 0;
-  border-bottom: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-warm);
   transition: padding-left var(--duration-fast) var(--ease-out);
 }
 
@@ -71,9 +71,10 @@
 .deliverableItem:hover { padding-left: var(--space-sm); }
 
 .deliverableNum {
+  font-family: var(--font-serif, Georgia, serif);
   font-size: var(--text-lg);
-  font-weight: 500;
-  color: var(--text-accent-on-dark);
+  font-weight: 400;
+  color: var(--text-accent);
   flex-shrink: 0;
   width: 40px;
   line-height: 1.8;
@@ -81,7 +82,7 @@
 
 .deliverableText {
   font-size: clamp(1.0625rem, 1.2vw, 1.1875rem); /* 17–19px */
-  color: var(--text-on-dark);
+  color: var(--text-body);
   line-height: 1.75;
 }
 

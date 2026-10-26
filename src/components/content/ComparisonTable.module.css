@@ -1,6 +1,6 @@
 /* Side-by-side ledger.
    Traditional model reads as flat ruled lines; the YBS column is the one
-   dimensional element: a raised navy-headed column with a gold spine. */
+   dimensional element: a raised champagne-headed column with a gold spine. */
 
 .tableWrap {
   display: block;
@@ -29,18 +29,18 @@
 
 .thYbs {
   position: relative;
-  background: var(--navy-deep);
-  color: var(--text-accent-on-dark);
+  background: var(--gradient-gold);
+  color: var(--text-on-gold);
   font-size: var(--text-sm);
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: calc(var(--space-md) + 14px) var(--space-lg) var(--space-md);
   text-align: left;
-  border-bottom: 2px solid var(--gold);
-  border-left: 3px solid var(--gold);
+  border-bottom: 1px solid var(--gold-600);
+  border-left: 1px solid var(--gold-600);
   border-radius: var(--radius-md, 6px) var(--radius-md, 6px) 0 0;
-  box-shadow: 0 -10px 24px -14px rgba(11, 34, 57, 0.45);
+  box-shadow: 0 -10px 24px -14px rgba(169, 130, 47, 0.45);
 }
 
 .tdFeature {
@@ -66,17 +66,17 @@
 }
 
 .tdYbs {
-  background: var(--marine-mist);
+  background: var(--gold-50);
   color: var(--text-strong);
   font-weight: 500;
   padding: var(--space-lg);
   vertical-align: top;
-  border-bottom: 1px solid rgba(11, 34, 57, 0.18);
-  border-left: 3px solid var(--gold);
+  border-bottom: 1px solid var(--border-warm);
+  border-left: 1px solid var(--gold-600);
   font-size: clamp(0.9375rem, 1vw, 1.0625rem);
   line-height: 1.7;
   /* shadow carries the column's depth down the whole ledger */
-  box-shadow: 14px 0 22px -18px rgba(11, 34, 57, 0.35);
+  box-shadow: 14px 0 22px -18px rgba(169, 130, 47, 0.35);
   transition: background-color 0.25s ease;
 }
 
@@ -84,7 +84,7 @@
   border-bottom: 1px solid var(--text-strong);
 }
 .table tbody tr:last-child .tdYbs {
-  border-bottom-color: var(--navy-deep);
+  border-bottom-color: var(--gold-600);
   border-radius: 0 0 var(--radius-md, 6px) var(--radius-md, 6px);
 }
 
@@ -96,7 +96,7 @@
 }
 .table tbody tr:hover .tdYbs,
 .table tbody tr:focus-within .tdYbs {
-  background-color: var(--marine-pale);
+  background-color: var(--gold-100);
 }
 
 /* Mobile ledger entries (no card chrome) */
@@ -147,8 +147,8 @@
   font-weight: 500;
   line-height: 1.6;
   padding: var(--space-sm) var(--space-md);
-  background: var(--marine-mist);
-  border-left: 3px solid var(--gold);
+  background: var(--gold-50);
+  border-left: 1px solid var(--gold-600);
 }
 
 @media (max-width: 768px) {
