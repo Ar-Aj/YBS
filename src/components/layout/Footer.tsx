@@ -10,7 +10,7 @@ export function Footer() {
       <div className={styles.container}>
         <div className={styles.top}>
           <div className={styles.brand}>
-            <Image src="/Logo.png" alt="Yacht Broker Services logo" width={224} height={224} sizes="112px" className={styles.logo} />
+            <Image src="/Logo.png" alt="Yacht Broker Services logo" width={256} height={144} sizes="128px" className={styles.logo} />
             <p>
               Empowering elite yacht brokers with the infrastructure, support,
               and autonomy to build their own independent brokerage brand.

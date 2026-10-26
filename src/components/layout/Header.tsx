@@ -148,8 +148,9 @@ export function Header() {
           <Image
             src="/Logo.png"
             alt="Yacht Broker Services logo"
-            width={80}
-            height={80}
+            width={137}
+            height={77}
+            sizes="137px"
             priority
           />
           {/* Wordmark: collapses on scroll-down (driven by data-collapsed via ref,

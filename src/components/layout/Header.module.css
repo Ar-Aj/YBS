@@ -62,11 +62,13 @@
 .logo {
   gap: 12px;
 }
-/* Logo mark: original 64px / 52px (scrolled) scaled by 20%.
-   The asset is square (1254x1254), so width === height keeps 1:1 exactly. */
+/* Logo mark: original heights 64px / 52px (scrolled) scaled by 20%.
+   Logo.png is 1672x941 (~1.777:1). Height is set, width follows from the
+   intrinsic ratio, so growing it never stretches or distorts the artwork. */
 .logo img {
-  height: 77px;
-  width: 77px;
+  height: 76.8px; /* 64px * 1.2 */
+  width: auto;
+  aspect-ratio: 1672 / 941;
   object-fit: contain;
   transition: height var(--duration-base) var(--ease-out),
     width var(--duration-base) var(--ease-out),
@@ -75,7 +77,7 @@
 .logo:hover img {
   filter: drop-shadow(0 2px 10px rgba(200, 164, 90, 0.35));
 }
-.scrolled .logo img { height: 62px; width: 62px; }
+.scrolled .logo img { height: 62.4px; width: auto; } /* 52px * 1.2 */
 
 /* Wordmark — collapses to zero width/opacity on scroll-down (via ref-set
    data-collapsed), so it frees navbar space instead of just fading. */
@@ -263,8 +265,8 @@
 
   .logo img,
   .scrolled .logo img {
-    height: 62px; /* 52px * 1.2 */
-    width: 62px;
+    height: 62.4px; /* 52px * 1.2 */
+    width: auto;
   }
   .logo {
     gap: 8px;
