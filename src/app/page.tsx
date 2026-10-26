@@ -1,16 +1,14 @@
-import Image from 'next/image';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Section, Container } from '@/components/layout/Section';
 import { SectionHeader, GoldRule } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
-import { ServiceCard } from '@/components/content/ServiceCard';
+import { ServicesEcosystem } from '@/components/home/ServicesEcosystem';
 import { ComparisonTable } from '@/components/content/ComparisonTable';
 import { TierCard } from '@/components/content/TierCard';
 import { StepCard } from '@/components/content/StepCard';
 import { FAQAccordion } from '@/components/content/FAQAccordion';
 import { FounderPreview } from '@/components/content/FounderProfile';
-import { servicePillars } from '@/data/services';
 import { comparisonRows, tiers } from '@/data/difference';
 import { steps, deliverables } from '@/data/howItWorks';
 import { founders } from '@/data/leadership';
@@ -31,8 +29,8 @@ export default function HomePage() {
         videoSrc="/videos/hero-home.mp4"
         mobileVideoSrc="/videos/hero-home-mobile.mp4"
         tabletVideoSrc="/videos/hero-home-tablet.mp4"
-        objectPositionDesktop="center center"
-        objectPositionMobile="center center"
+        mobileAspect="9 / 16"
+        tabletAspect="16 / 9"
         overlayVariant="natural"
       />
 
@@ -85,30 +83,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. Services Ecosystem */}
-      <Section variant="ivory">
-        <Container>
-          <RevealOnScroll>
-            <SectionHeader
-              label="What We Provide"
-              title="Your Complete Support Ecosystem"
-              subtitle="Bespoke marketing, full back-office operations, CRM, and transaction support."
-            />
-          </RevealOnScroll>
-          <RevealOnScroll stagger>
-            <div className={styles.servicesGrid}>
-              {servicePillars.slice(0, 3).map((p) => (
-                <ServiceCard key={p.title} pillar={p} />
-              ))}
-            </div>
-          </RevealOnScroll>
-          <div className={styles.centerCta}>
-            <Button href="/services" variant="secondary">
-              Explore All Services
-            </Button>
-          </div>
-        </Container>
-      </Section>
+      {/* 4. Services Ecosystem — PROTOTYPE: scroll-driven radial assembly */}
+      <ServicesEcosystem />
 
       {/* 5. What You Get */}
       <Section variant="navy">

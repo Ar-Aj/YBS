@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState, type ReactNode } from 'react';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 type Props = {
   children: ReactNode;
@@ -20,13 +21,11 @@ export function RevealOnScroll({
   threshold = 0.15,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const reducedMotion = usePrefersReducedMotion();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setIsVisible(true);
-      return;
-    }
+    if (reducedMotion) return; // revealed via derived state, no observer needed
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -40,7 +39,7 @@ export function RevealOnScroll({
 
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [threshold, reducedMotion]);
 
   const variantClass = {
     up: 'reveal',
@@ -51,10 +50,14 @@ export function RevealOnScroll({
 
   const baseClass = stagger ? 'stagger-children' : variantClass;
 
+  // Reduced motion must never hide content, so visibility is derived rather
+  // than pushed through an effect.
+  const revealed = reducedMotion || isVisible;
+
   return (
     <div
       ref={ref}
-      className={`${baseClass} ${isVisible ? 'revealed' : ''} ${className}`}
+      className={`${baseClass} ${revealed ? 'revealed' : ''} ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}

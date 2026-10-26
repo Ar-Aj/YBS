@@ -1,0 +1,242 @@
+/* ServicesEcosystem — scroll-driven radial assembly */
+
+.ecosystem {
+  position: relative;
+  background: #f9f9f7; /* ivory */
+  padding: clamp(4rem, 8vw, 8rem) 0;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 2rem);
+}
+
+/* ——— Header ——— */
+.header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 5rem;
+}
+
+.label {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b4872c; /* gold */
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 500;
+  color: #0a0d14;
+  line-height: 1.15;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1.0625rem;
+  color: #4a5568;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ——— Desktop: radial orbit layout ——— */
+.desktopOrbit {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  height: 600px;
+  margin: 0 auto 3rem;
+  display: grid;
+  place-items: center;
+}
+
+.mobileStack {
+  display: none;
+}
+
+/* Central hub */
+.hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  will-change: transform, opacity;
+}
+
+.hubInner {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0a0d14 0%, #1e2938 100%);
+  box-shadow: 0 8px 24px rgba(10, 13, 20, 0.2),
+              0 0 0 1px rgba(180, 135, 44, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.hubLabel {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f8f9fa;
+  letter-spacing: 0.05em;
+}
+
+.hubSub {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #b4872c;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Service nodes */
+.node {
+  position: absolute;
+  width: 240px;
+  padding: 1.75rem 1.5rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(10, 13, 20, 0.06);
+  z-index: 1;
+  will-change: transform, opacity;
+  transition: box-shadow 0.25s ease;
+}
+
+.node:hover {
+  box-shadow: 0 8px 24px rgba(10, 13, 20, 0.12),
+              0 0 0 1px rgba(180, 135, 44, 0.3);
+}
+
+/* Final positions */
+.nodeTop {
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nodeLeft {
+  top: 60%;
+  left: 8%;
+}
+
+.nodeRight {
+  top: 25%;
+  right: 8%;
+}
+
+.nodeIcon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  color: #b4872c;
+}
+
+.nodeTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0a0d14;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.nodeDesc {
+  font-size: 0.9375rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Connection lines */
+.lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ——— Mobile: vertical stack ——— */
+@media (max-width: 1023px) {
+  .desktopOrbit {
+    display: none;
+  }
+
+  .mobileStack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .mobileCard {
+    padding: 1.75rem 1.5rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(10, 13, 20, 0.05);
+    will-change: transform, opacity;
+  }
+
+  .mobileIcon {
+    font-size: 2rem;
+    color: #b4872c;
+    margin-bottom: 1rem;
+  }
+
+  .mobileTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #0a0d14;
+    margin: 0 0 0.625rem;
+    letter-spacing: -0.01em;
+  }
+
+  .mobileDesc {
+    font-size: 1rem;
+    color: #4a5568;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .header {
+    margin-bottom: 3rem;
+  }
+
+  .mobileStack {
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+}
+
+/* ——— CTA ——— */
+.cta {
+  text-align: center;
+}
+
+/* ——— Reduced motion: no transforms, instant final state ——— */
+@media (prefers-reduced-motion: reduce) {
+  .hub,
+  .node,
+  .mobileCard {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .lines line {
+    stroke-dashoffset: 0 !important;
+  }
+}

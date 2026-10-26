@@ -1,0 +1,23 @@
+/* Insights masthead: lead story left, ruled index right. */
+.masthead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(var(--space-xl), 5vw, var(--space-3xl));
+  align-items: stretch;
+}
+
+.index {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.index > :last-child {
+  border-bottom: 1px solid var(--text-strong);
+}
+
+@media (max-width: 900px) {
+  .masthead {
+    grid-template-columns: 1fr;
+  }
+}

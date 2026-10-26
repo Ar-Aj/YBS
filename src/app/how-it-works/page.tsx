@@ -31,8 +31,6 @@ export default function HowItWorksPage() {
         subtitle="Getting started is simple, confidential, and on your timeline."
         posterSrc="/hero_how_it_works.jpg"
         videoSrc="/videos/hero-how-it-works.mp4"
-        objectPositionDesktop="center center"
-        objectPositionMobile="center 60%"
       />
 
       {/* AEO: How does YBS work? */}
@@ -56,10 +54,10 @@ export default function HowItWorksPage() {
       {/* Steps */}
       <Section variant="ivory">
         <Container>
-          <RevealOnScroll stagger>
-            <div className={shared.grid3}>
+          <RevealOnScroll>
+            <div className={styles.process}>
               {steps.map((s) => (
-                <StepCard key={s.number} step={s} />
+                <StepCard key={s.number} step={s} rail />
               ))}
             </div>
           </RevealOnScroll>

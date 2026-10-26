@@ -15,21 +15,20 @@
 .code {
   display: block;
   font-size: clamp(4rem, 10vw, 8rem);
-  font-weight: 700;
-  color: var(--gold);
+  font-weight: 500;
+  color: var(--text-accent-on-dark);
   line-height: 1;
   margin-bottom: var(--space-md);
-  opacity: 0.4;
 }
 
 .content h1 {
-  color: var(--white);
+  color: var(--text-on-dark-strong);
   font-size: var(--text-3xl);
   margin-bottom: var(--space-md);
 }
 
 .content p {
-  color: var(--slate-light);
+  color: var(--text-on-dark);
   font-size: var(--text-md);
   line-height: 1.7;
   margin-bottom: var(--space-xl);
@@ -52,10 +51,13 @@
 
 .links a {
   font-size: var(--text-sm);
-  color: rgba(255,255,255,0.5);
+  color: var(--text-on-dark);
+  text-decoration: underline;
+  text-decoration-color: var(--border-gold);
+  text-underline-offset: 4px;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
 .links a:hover {
-  color: var(--gold);
+  color: var(--text-accent-on-dark);
 }

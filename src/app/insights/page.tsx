@@ -7,6 +7,7 @@ import { InsightCard } from '@/components/content/InsightCard';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { insightPosts, resources } from '@/data/insights';
 import shared from '../shared.module.css';
+import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Insights — Industry Intelligence for Yacht Brokers',
@@ -38,11 +39,14 @@ export default function InsightsPage() {
               title="Featured Insights"
             />
           </RevealOnScroll>
-          <RevealOnScroll stagger>
-            <div className={shared.grid3}>
-              {insightPosts.map((post) => (
-                <InsightCard key={post.slug} post={post} />
-              ))}
+          <RevealOnScroll>
+            <div className={styles.masthead}>
+              <InsightCard post={insightPosts[0]} featured />
+              <div className={styles.index}>
+                {insightPosts.slice(1).map((post) => (
+                  <InsightCard key={post.slug} post={post} />
+                ))}
+              </div>
             </div>
           </RevealOnScroll>
         </Container>

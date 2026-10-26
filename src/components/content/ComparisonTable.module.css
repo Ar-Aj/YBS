@@ -1,147 +1,162 @@
-/* Desktop table */
-.tableWrap { display: block; }
+/* Side-by-side ledger.
+   Traditional model reads as flat ruled lines; the YBS column is the one
+   dimensional element: a raised navy-headed column with a gold spine. */
+
+.tableWrap {
+  display: block;
+  padding-top: var(--space-md);
+}
 
 .table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
 }
 
-.thFeature {
-  background: var(--ivory);
-  color: var(--charcoal);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: var(--space-md) var(--space-lg);
-  text-align: left;
-  border-bottom: 2px solid var(--border-light);
-}
-
+.thFeature,
 .thTraditional {
-  background: var(--ivory-warm);
-  color: var(--slate);
+  background: transparent;
+  color: var(--text-secondary);
   font-size: var(--text-sm);
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: var(--space-md) var(--space-lg);
   text-align: left;
-  border-bottom: 2px solid var(--border-light);
+  border-bottom: 2px solid var(--text-strong);
+  vertical-align: bottom;
 }
 
 .thYbs {
+  position: relative;
   background: var(--navy-deep);
-  color: var(--gold);
+  color: var(--text-accent-on-dark);
   font-size: var(--text-sm);
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: var(--space-md) var(--space-lg);
+  padding: calc(var(--space-md) + 14px) var(--space-lg) var(--space-md);
   text-align: left;
-  border-bottom: 2px solid var(--border-light);
+  border-bottom: 2px solid var(--gold);
   border-left: 3px solid var(--gold);
+  border-radius: var(--radius-md, 6px) var(--radius-md, 6px) 0 0;
+  box-shadow: 0 -10px 24px -14px rgba(11, 34, 57, 0.45);
 }
 
 .tdFeature {
-  font-weight: 600;
-  color: var(--navy-deep);
-  background: var(--white);
-  padding: var(--space-md) var(--space-lg);
+  font-weight: 500;
+  color: var(--text-strong);
+  background: transparent;
+  padding: var(--space-lg);
   vertical-align: top;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  font-size: clamp(0.9375rem, 1vw, 1.0625rem); /* 15–17px */
+  border-bottom: 1px solid var(--fg-rule, var(--border-light));
+  font-size: clamp(0.9375rem, 1vw, 1.0625rem);
+  line-height: 1.6;
+  transition: box-shadow 0.25s ease;
 }
 
 .tdTraditional {
-  background: var(--white);
-  color: var(--slate);
-  padding: var(--space-md) var(--space-lg);
+  background: transparent;
+  color: var(--text-body);
+  padding: var(--space-lg);
   vertical-align: top;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid var(--fg-rule, var(--border-light));
   font-size: clamp(0.9375rem, 1vw, 1.0625rem);
-  line-height: 1.75;
+  line-height: 1.7;
 }
 
 .tdYbs {
-  background: rgba(15, 35, 65, 0.03);
-  color: var(--navy-deep);
+  background: var(--marine-mist);
+  color: var(--text-strong);
   font-weight: 500;
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-lg);
   vertical-align: top;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(11, 34, 57, 0.18);
   border-left: 3px solid var(--gold);
   font-size: clamp(0.9375rem, 1vw, 1.0625rem);
-  line-height: 1.75;
+  line-height: 1.7;
+  /* shadow carries the column's depth down the whole ledger */
+  box-shadow: 14px 0 22px -18px rgba(11, 34, 57, 0.35);
+  transition: background-color 0.25s ease;
 }
 
-.table tbody tr:last-child td { border-bottom: none; }
-
-.table tbody tr:hover td {
-  background-color: rgba(197, 153, 62, 0.04);
+.table tbody tr:last-child td {
+  border-bottom: 1px solid var(--text-strong);
 }
-.table tbody tr:hover .tdYbs {
-  background-color: rgba(197, 153, 62, 0.08);
+.table tbody tr:last-child .tdYbs {
+  border-bottom-color: var(--navy-deep);
+  border-radius: 0 0 var(--radius-md, 6px) var(--radius-md, 6px);
 }
 
-/* Mobile cards — hidden on desktop */
+/* Coordinated emphasis: the row being read gets a gold marker and a deeper
+   YBS tint. Works for hover and for keyboard/focus within. */
+.table tbody tr:hover .tdFeature,
+.table tbody tr:focus-within .tdFeature {
+  box-shadow: inset 3px 0 0 var(--gold);
+}
+.table tbody tr:hover .tdYbs,
+.table tbody tr:focus-within .tdYbs {
+  background-color: var(--marine-pale);
+}
+
+/* Mobile ledger entries (no card chrome) */
 .cards { display: none; }
 
 .card {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  box-shadow: var(--shadow-card);
-  margin-bottom: var(--space-md);
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--fg-rule, var(--border-light));
 }
+.card:first-child { border-top: 2px solid var(--text-strong); }
+.card:last-child { border-bottom: 1px solid var(--text-strong); }
 
 .cardFeature {
   font-size: var(--text-lg);
-  color: var(--navy-deep);
+  color: var(--text-strong);
   margin-bottom: var(--space-md);
-  padding-bottom: var(--space-sm);
-  border-bottom: 2px solid var(--border-light);
 }
 
 .cardRow {
   margin-bottom: var(--space-sm);
 }
+.cardRow:last-child { margin-bottom: 0; }
 
 .cardLabel {
   display: block;
   font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: var(--text-meta);
   margin-bottom: 4px;
 }
 
 .cardLabelYbs {
   composes: cardLabel;
-  color: var(--gold);
+  color: var(--text-accent);
 }
 
 .cardTraditional {
   font-size: var(--text-sm);
-  color: var(--slate);
+  color: var(--text-body);
   line-height: 1.6;
 }
 
 .cardYbs {
   font-size: var(--text-sm);
-  color: var(--navy-deep);
+  color: var(--text-strong);
   font-weight: 500;
   line-height: 1.6;
-  padding-left: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--marine-mist);
   border-left: 3px solid var(--gold);
 }
 
 @media (max-width: 768px) {
   .tableWrap { display: none; }
   .cards { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tdFeature,
+  .tdYbs { transition: none; }
 }

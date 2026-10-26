@@ -29,8 +29,6 @@ export default function DifferencePage() {
         subtitle="A transparent comparison between the traditional brokerage model and the YBS platform."
         posterSrc="/hero_difference.jpg"
         videoSrc="/videos/hero-difference.mp4"
-        objectPositionDesktop="center bottom"
-        objectPositionMobile="center bottom"
       />
 
       {/* Comparison Table */}

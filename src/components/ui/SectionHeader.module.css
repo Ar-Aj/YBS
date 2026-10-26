@@ -9,10 +9,10 @@
 .label {
   display: block;
   font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--fg-accent);
   margin-bottom: var(--space-sm);
 }
 
@@ -20,20 +20,20 @@
   margin-bottom: var(--space-md);
 }
 
-.titleLight { color: var(--white); }
+.titleLight { color: var(--fg-strong); }
 
 .header p {
   font-size: clamp(1.0625rem, 1.2vw, 1.25rem); /* 17–20px */
-  color: var(--slate);
+  color: var(--fg-secondary);
   line-height: 1.75;
 }
 
-.subtitleLight { color: var(--slate-light) !important; }
+.subtitleLight { color: var(--fg-secondary); }
 
 .rule {
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  background: var(--gold);
   border: none;
   margin: var(--space-md) auto;
 }
@@ -41,7 +41,7 @@
 .goldRule {
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  background: var(--gold);
   border: none;
   margin: var(--space-md) 0;
 }

@@ -6,31 +6,37 @@
   display: block;
   font-size: var(--text-sm);
   font-weight: 500;
-  color: var(--navy-deep);
+  color: var(--text-strong);
   margin-bottom: var(--space-xs);
   letter-spacing: 0.02em;
 }
 
-.required { color: var(--gold); }
-.optional { color: var(--slate-light); font-weight: 400; }
+.required { color: var(--text-accent); }
+.optional { color: var(--text-meta); font-weight: 400; }
 
 .input,
 .textarea {
   width: 100%;
-  padding: 0.9em 1.2em;
-  font-size: var(--text-base);
-  color: var(--charcoal);
-  background: var(--white);
-  border: 1.5px solid rgba(0,0,0,0.1);
-  border-radius: var(--radius-md);
-  transition: all var(--duration-fast) var(--ease-out);
+  min-width: 0;
+  padding: 0.9em 0;
+  min-height: 52px;
+  font-size: 1rem; /* 16px — prevents iOS auto-zoom on focus */
+  color: var(--text-strong);
+  background: transparent;
+  /* Stationery field: a single ruled line (4.5:1 against white) that thickens
+     to gold on focus. Boundary stays perceivable without a box. */
+  border: none;
+  border-bottom: 1.5px solid #6b7785;
+  border-radius: 0;
+  transition: border-color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .input:focus,
 .textarea:focus {
   outline: none;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(197, 153, 62, 0.12);
+  border-bottom-color: var(--gold);
+  box-shadow: 0 2px 0 0 var(--gold);
 }
 
 .input:focus-visible,
@@ -46,33 +52,35 @@
 
 .input::placeholder,
 .textarea::placeholder {
-  color: var(--slate-light);
+  color: var(--text-placeholder);
 }
 
 .inputError {
-  border-color: rgba(180, 40, 40, 0.5);
+  border-color: var(--text-error);
 }
 .inputError:focus {
-  box-shadow: 0 0 0 3px rgba(180, 40, 40, 0.12);
+  border-bottom-color: var(--text-error);
+  box-shadow: 0 2px 0 0 var(--text-error);
 }
 
 .error {
   font-size: var(--text-sm);
-  color: #8b1a1a;
+  color: var(--text-error);
   margin-top: 4px;
   font-weight: 500;
 }
 
 .privacy {
   font-size: var(--text-xs);
-  color: var(--slate);
+  color: var(--text-meta);
   margin-bottom: var(--space-md);
   line-height: 1.6;
 }
 
 .privacy a {
-  color: var(--gold);
+  color: var(--text-accent);
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .success {
@@ -86,14 +94,14 @@
 .successIcon {
   width: 56px;
   height: 56px;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: var(--white);
+  background: var(--gold-fill);
+  color: var(--navy-deep);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: var(--text-xl);
-  font-weight: 700;
+  font-weight: 500;
   margin: 0 auto var(--space-md);
 }
 
@@ -102,5 +110,5 @@
 }
 
 .success p {
-  color: var(--slate);
+  color: var(--text-secondary);
 }

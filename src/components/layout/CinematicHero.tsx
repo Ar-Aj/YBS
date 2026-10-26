@@ -19,11 +19,13 @@ type Props = {
   videoSrc?: string;
   mobileVideoSrc?: string;
   tabletVideoSrc?: string;
-  objectPositionDesktop?: string;
-  objectPositionMobile?: string;
   overlayVariant?: 'standard' | 'natural';
   primaryCta?: CtaProps;
   secondaryCta?: CtaProps;
+  /** Intrinsic ratio of the tablet video. Defaults to 16/9 when unknown. */
+  tabletAspect?: string;
+  /** Intrinsic ratio of the mobile video. Home mobile cut is a 9:16 portrait. */
+  mobileAspect?: string;
 };
 
 export function CinematicHero({
@@ -34,50 +36,22 @@ export function CinematicHero({
   videoSrc,
   mobileVideoSrc,
   tabletVideoSrc,
-  objectPositionDesktop = 'center center',
-  objectPositionMobile = 'center center',
   overlayVariant = 'standard',
   primaryCta,
   secondaryCta,
+  tabletAspect = '16 / 9',
+  mobileAspect = '16 / 9',
 }: Props) {
+  const titleText = typeof title === 'string' ? title : 'Yacht Broker Services';
   return (
     <section className={styles.hero}>
-      <div className={styles.heroBg}>
-        {/* Always render poster image as fallback/mobile/pre-load */}
-        <Image
-          src={posterSrc}
-          alt={typeof title === 'string' ? title : 'Yacht Broker Services'}
-          fill
-          priority
-          sizes="100vw"
-          style={{ objectPosition: objectPositionMobile }}
-          className={`${styles.heroBgImg} ${videoSrc ? styles.hasVideo : ''}`}
-        />
-        
-        {/* Render video only on desktop if provided, respecting prefers-reduced-motion in CSS */}
-        {videoSrc && (
-          <HeroVideo
-            src={videoSrc}
-            posterSrc={posterSrc}
-            objectPositionDesktop={objectPositionDesktop}
-            mobileSrc={mobileVideoSrc}
-            tabletSrc={tabletVideoSrc}
-          />
-        )}
-      </div>
-      <div
-        className={
-          overlayVariant === 'natural'
-            ? styles.heroOverlayNatural
-            : styles.heroOverlay
-        }
-      />
+      {/* Narrow screens: light intro panel first … */}
       <div className={styles.heroContent}>
         <RevealOnScroll>
           {label && <span className={styles.label}>{label}</span>}
           <h1>{title}</h1>
           {subtitle && <p>{subtitle}</p>}
-          
+
           {(primaryCta || secondaryCta) && (
             <div className={styles.heroActions}>
               {primaryCta && (
@@ -93,6 +67,40 @@ export function CinematicHero({
             </div>
           )}
         </RevealOnScroll>
+      </div>
+
+      {/* … then the media in its own correctly-proportioned container. */}
+      <div
+        className={styles.heroVisual}
+        data-hero-visual
+        style={{ ['--tablet-aspect' as string]: tabletAspect, ['--mobile-aspect' as string]: mobileAspect }}
+      >
+        <div className={styles.heroMedia}>
+          <Image
+            src={posterSrc}
+            alt={titleText}
+            fill
+            priority
+            sizes="100vw"
+            className={`${styles.heroMediaImg} ${videoSrc ? styles.hasVideo : ''}`}
+          />
+          {videoSrc && (
+            <HeroVideo
+              src={videoSrc}
+              posterSrc={posterSrc}
+              mobileSrc={mobileVideoSrc}
+              tabletSrc={tabletVideoSrc}
+            />
+          )}
+        </div>
+        <div
+          className={
+            overlayVariant === 'natural'
+              ? styles.heroOverlayNatural
+              : styles.heroOverlay
+          }
+          aria-hidden="true"
+        />
       </div>
     </section>
   );

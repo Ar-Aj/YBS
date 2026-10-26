@@ -3,29 +3,44 @@
 .label {
   display: block;
   font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--fg-accent);
   margin-bottom: var(--space-sm);
 }
 
-/* Philosophy — 2-col split */
+/* Philosophy — editorial magazine spread */
 .philosophy {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3xl);
-  align-items: center;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(var(--space-xl), 6vw, var(--space-4xl));
+  align-items: start;
 }
 
 .quote {
-  font-size: clamp(1.25rem, 1.8vw, 2rem); /* 20–32px */
-  font-weight: 500;
+  font-size: clamp(1.6rem, 2.6vw, 2.6rem);
+  font-weight: 400;
   font-style: italic;
-  color: var(--navy-deep);
-  line-height: 1.55;
-  padding-left: var(--space-lg);
-  border-left: 3px solid var(--gold);
+  color: var(--ink);
+  line-height: 1.28;
+  padding-left: 0;
+  border-left: none;
+  position: sticky;
+  top: calc(var(--header-height) + 28px);
+}
+
+.quote::before {
+  content: '“';
+  display: block;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 4.5rem;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--gold);
+  /* decorative glyph, not reading text */
+  line-height: 0.55;
+  margin-bottom: var(--space-md);
 }
 
 /* Vision — wide centered block */
@@ -36,26 +51,62 @@
 }
 
 .vision h2 {
-  color: var(--white);
+  color: var(--text-on-dark-strong);
   margin-bottom: var(--space-md);
 }
 
 .vision p {
   font-size: clamp(1.0625rem, 1.2vw, 1.25rem);
   line-height: 1.9;
-  color: rgba(255,255,255,0.8);
+  color: var(--text-on-dark);
+}
+
+/* Origin — publication-style spread: sticky margin heading + reading column */
+.originSpread {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+  gap: clamp(var(--space-xl), 7vw, var(--space-4xl));
+  align-items: start;
+}
+
+.originMargin {
+  position: sticky;
+  top: calc(var(--header-height) + 32px);
+}
+
+.originMargin h2 {
+  color: var(--text-strong);
+  margin-bottom: 0;
+}
+
+.originBody {
+  border-top: 1px solid var(--fg-rule);
+  padding-top: var(--space-lg);
+}
+
+.originLede {
+  font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+  line-height: 1.6;
+  color: var(--text-strong);
+  margin-bottom: var(--space-2xl);
+}
+
+.originSub {
+  color: var(--text-strong);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--fg-rule);
+  margin-bottom: var(--space-md);
 }
 
 /* Origin — reading-width paragraphs within wider container */
 .origin {
-  max-width: 72ch;
-  margin: 0 auto;
+  max-width: 68ch;
 }
 
 .origin p {
   font-size: clamp(1.0625rem, 1.2vw, 1.25rem);
   line-height: 1.9;
-  color: var(--charcoal-light);
+  color: var(--text-body);
   margin-bottom: var(--space-lg);
 }
 
@@ -97,12 +148,12 @@
 }
 
 .ctaBlock h2 {
-  color: var(--white);
+  color: var(--text-on-dark-strong);
   margin: var(--space-md) 0;
 }
 
 .ctaBlock p {
-  color: var(--slate-light);
+  color: var(--text-on-dark);
   font-size: clamp(1.0625rem, 1.2vw, 1.25rem);
   margin-bottom: var(--space-xl);
   max-width: 640px;
@@ -123,6 +174,21 @@
     grid-template-columns: 1fr;
     gap: var(--space-xl);
   }
-  .quote { font-size: var(--text-xl); }
+  .quote {
+    position: static;
+    font-size: clamp(1.4rem, 6vw, 1.85rem);
+  }
   .origin { max-width: 100%; }
+}
+
+@media (max-width: 900px) {
+  .originSpread {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .originMargin { position: static; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quote, .originMargin { position: static; }
 }

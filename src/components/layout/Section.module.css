@@ -2,28 +2,30 @@
 .section {
   padding-top: var(--space-section);
   padding-bottom: var(--space-section);
-  min-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  /* Sections size to their content on every viewport. The old 80vh rule
+     produced large empty bands on desktop and is intentionally gone. */
+  min-height: auto;
 }
 
 .ivory   { background-color: var(--ivory); }
 .white   { background-color: var(--white); }
 
-.navy {
-  background-color: var(--navy-deep);
-  color: var(--white);
-}
-.navy h2, .navy h3, .navy h4 { color: var(--white); }
-.navy p { color: var(--slate-light); }
-
+/* Dark surfaces flip the context text roles, so every nested component that
+   uses --fg-* adapts without per-component overrides or opacity tricks. */
+.navy,
 .dark {
-  background-color: var(--navy-deepest);
-  color: var(--white);
+  color: var(--text-on-dark);
+  --fg-strong:    var(--text-on-dark-strong);
+  --fg:           var(--text-on-dark);
+  --fg-secondary: var(--text-on-dark-secondary);
+  --fg-meta:      var(--text-on-dark-secondary);
+  --fg-accent:    var(--text-accent-on-dark);
+  --fg-rule:      var(--border-dark);
+  --surface-base: var(--navy-deep);
 }
-.dark h2, .dark h3 { color: var(--white); }
-.dark p { color: var(--slate-light); }
+
+.navy { background-color: var(--navy-deep); }
+.dark { background-color: var(--navy-deepest); }
 
 /* ——— Container — 85% viewport width, capped at 1600px ——— */
 .container {

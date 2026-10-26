@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Playfair_Display, Inter } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { BrandLoader } from '@/components/ui/BrandLoader';
+import { JsClassBootstrap } from '@/components/ui/JsClassBootstrap';
 import { JsonLdGroup } from '@/components/seo/JsonLd';
 import { AnalyticsProvider } from '@/components/seo/AnalyticsProvider';
 import {
@@ -63,8 +65,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`${playfair.variable} ${inter.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Preload the intro clip so it can own the first paint. */}
+        <link rel="preload" href="/logo/ybs-logo-intro.mp4" as="video" type="video/mp4" />
+        {/* Marks that JS is available so the reveal-on-scroll hidden states
+            apply. Runs synchronously before the first paint; without JS the
+            class is never set and the content stays visible. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add('js')`,
+          }}
+        />
+      </head>
       <body>
+        <JsClassBootstrap />
         <JsonLdGroup
           items={[
             organizationJsonLd,
@@ -75,6 +94,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
+        <BrandLoader />
         <Header />
         <main id="main-content">{children}</main>
         <Footer />

@@ -1,89 +1,164 @@
+/* YBS navbar — editorial daylight bar.
+   Laptop/desktop: generous type, airy rhythm, quiet gold details.
+   Mobile/tablet overlay untouched (already approved). */
+
 .nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: var(--space-md) 0;
-  transition: all var(--duration-base) var(--ease-out);
+  /* Frosted daylight bar — floats above content without a hard slab edge */
+  background: color-mix(in srgb, var(--white) 82%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border-bottom: 1px solid color-mix(in srgb, var(--navy-deep) 8%, transparent);
+  transition: box-shadow var(--duration-base) var(--ease-out),
+    padding var(--duration-base) var(--ease-out),
+    background var(--duration-base) var(--ease-out);
 }
 
 .scrolled {
-  background: rgba(9, 22, 40, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: var(--space-sm) 0;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+  background: color-mix(in srgb, var(--white) 92%, transparent);
+  box-shadow: 0 8px 32px rgba(11, 34, 57, 0.08);
+}
+
+/* Quiet gold scroll-progress hairline along the bar's bottom edge */
+.progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-light), var(--gold) 60%, var(--gold-deep));
+  transform-origin: left center;
+  transform: scaleX(0);
+  opacity: 0.9;
+  pointer-events: none;
 }
 
 .inner {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
   max-width: var(--container-wide);
   margin: 0 auto;
-  padding: 0 var(--space-2xl);
+  padding: 18px var(--space-2xl);
+  transition: padding var(--duration-base) var(--ease-out);
+}
+
+.scrolled .inner {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .logo {
-  justify-self: start;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-sm);
 }
 .logo img {
-  height: 90px;
+  height: 64px;
   width: auto;
-  transition: height var(--duration-base) var(--ease-out);
+  transition: height var(--duration-base) var(--ease-out),
+    filter var(--duration-base) var(--ease-out);
 }
-.scrolled .logo img { height: 70px; }
+.logo:hover img {
+  filter: drop-shadow(0 2px 10px rgba(180, 135, 44, 0.25));
+}
+.scrolled .logo img { height: 52px; }
 
+/* ——— Laptop/desktop links: editorial scale, generous rhythm ——— */
 .links {
   display: flex;
   align-items: center;
-  gap: 1.75rem;
-  justify-self: center;
+  gap: clamp(1.25rem, 2.2vw, 2.5rem);
 }
 
 .link {
-  font-size: var(--text-sm); /* 15px — up from 14px */
+  font-size: 1.0625rem; /* 17px — confident editorial, not cramped WP text */
   font-weight: 500;
-  letter-spacing: 0.04em;
-  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.015em;
+  color: var(--charcoal);
+  padding: 10px 2px;
   transition: color var(--duration-fast) var(--ease-out);
   position: relative;
+  white-space: nowrap;
 }
 
 .link::after {
   content: '';
   position: absolute;
-  bottom: -4px;
   left: 0;
-  width: 0;
-  height: 1.5px;
-  background: var(--gold);
-  transition: width var(--duration-base) var(--ease-out);
+  right: 0;
+  bottom: 4px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold-light), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--duration-base) var(--ease-out);
 }
 
-.link:hover,
+.link:hover {
+  color: var(--navy-deep);
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+}
+
 .linkActive {
-  color: var(--white);
+  color: var(--navy-deep);
 }
 
-.link:hover::after,
 .linkActive::after {
-  width: 100%;
+  transform: scaleX(1);
 }
 
+/* Active link gets a quiet gold dot above the underline */
+.linkActive::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  transform: translateX(-50%);
+}
 
+/* Tighter rhythm on smaller laptops so links never collide with the logo */
+@media (max-width: 1200px) {
+  .inner {
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+  }
+  .links {
+    gap: 1.25rem;
+  }
+  .link {
+    font-size: 1rem;
+  }
+}
 
-/* Mobile toggle */
+/* Mobile toggle — 44px touch target, daylight readable */
 .toggle {
   display: none;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 5px;
-  padding: 10px 12px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px 11px;
   cursor: pointer;
   z-index: 1001;
   justify-self: end;
-  background: var(--navy-deep);
+  background: var(--white);
   border: 1.5px solid var(--gold);
   border-radius: var(--radius-sm);
   transition: background var(--duration-fast) var(--ease-out),
@@ -91,22 +166,22 @@
 }
 
 .toggle:hover {
-  background: var(--navy-mid);
-  box-shadow: 0 0 12px rgba(197, 153, 62, 0.3);
+  background: var(--ivory);
+  box-shadow: var(--shadow-sm);
 }
 
 .toggle span {
   display: block;
   width: 22px;
-  height: 1.5px;
-  background: var(--gold);
+  height: 2px;
+  background: var(--navy-deep);
   transition: all var(--duration-base) var(--ease-out);
   transform-origin: center;
 }
 
 .toggleActive {
-  background: var(--navy-mid);
-  box-shadow: 0 0 16px rgba(197, 153, 62, 0.25);
+  background: var(--ivory);
+  box-shadow: var(--shadow-sm);
 }
 
 .toggleActive span:nth-child(1) {
@@ -125,10 +200,15 @@
 }
 
 @media (max-width: 900px) {
-  /* Revert to simple flex on mobile/tablet — grid centering is desktop-only */
   .inner {
     display: flex;
     justify-content: space-between;
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+
+  .logo img {
+    height: 52px;
   }
 
   .links { display: none; }
@@ -138,17 +218,15 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(9, 22, 40, 0.97);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    background: var(--pearl);
     z-index: 999;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: var(--space-xl);
+    justify-content: flex-start;
+    gap: var(--space-sm);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: var(--space-4xl) var(--space-lg);
+    padding: calc(var(--header-height) + var(--space-xl)) var(--space-lg) var(--space-3xl);
   }
 
   .overlayActive {
@@ -157,9 +235,9 @@
 
   .overlay .link {
     font-size: var(--text-xl);
-    color: var(--white);
+    color: var(--charcoal);
     padding: var(--space-sm) var(--space-md);
-    min-height: 44px;
+    min-height: 48px;
     display: flex;
     align-items: center;
   }
@@ -168,5 +246,9 @@
     outline: 2px solid var(--gold);
     outline-offset: 3px;
     border-radius: var(--radius-sm);
+  }
+
+  .overlay .linkActive::before {
+    display: none;
   }
 }

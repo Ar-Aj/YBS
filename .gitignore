@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local audit scratch (screenshots, frame probes, measurement scripts)
+/.audit/

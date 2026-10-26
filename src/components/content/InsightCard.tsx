@@ -1,9 +1,15 @@
 import type { InsightPost } from '@/data/site';
 import styles from './InsightCard.module.css';
 
-export function InsightCard({ post }: { post: InsightPost }) {
+export function InsightCard({
+  post,
+  featured = false,
+}: {
+  post: InsightPost;
+  featured?: boolean;
+}) {
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} ${featured ? styles.featured : ''}`}>
       <div className={styles.image}>
         <span className={styles.tag}>{post.tag}</span>
       </div>

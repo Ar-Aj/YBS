@@ -38,7 +38,7 @@
 
 .desc {
   font-size: clamp(1.0625rem, 1.2vw, 1.1875rem); /* 17–19px */
-  color: var(--slate);
+  color: var(--text-secondary);
   line-height: 1.8;
 }
 
@@ -63,12 +63,12 @@
   gap: 0.5rem;
   padding: 5px 0;
   font-size: clamp(0.9375rem, 1vw, 1.0625rem); /* 15–17px */
-  color: var(--slate);
+  color: var(--text-secondary);
   line-height: 1.65;
 }
 
 .check {
-  color: var(--gold);
+  color: var(--text-accent);
   flex-shrink: 0;
   font-size: 0.625rem;
   margin-top: 0.35em;

@@ -3,7 +3,7 @@ import { Section, Container } from '@/components/layout/Section';
 import { SectionHeader, GoldRule } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
-import { ServiceCard } from '@/components/content/ServiceCard';
+import { ServiceChapter } from '@/components/content/ServiceChapter';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { servicePillars } from '@/data/services';
 import styles from '../shared.module.css';
@@ -56,10 +56,10 @@ export default function ServicesPage() {
               subtitle="Each pillar is designed to replace the infrastructure of a traditional brokerage — without the overhead or the commission split."
             />
           </RevealOnScroll>
-          <RevealOnScroll stagger>
-            <div className={styles.grid2}>
-              {servicePillars.map((p) => (
-                <ServiceCard key={p.title} pillar={p} />
+          <RevealOnScroll>
+            <div>
+              {servicePillars.map((p, i) => (
+                <ServiceChapter key={p.title} pillar={p} index={i} />
               ))}
             </div>
           </RevealOnScroll>
@@ -70,7 +70,7 @@ export default function ServicesPage() {
         <Container>
           <RevealOnScroll>
             <div className={styles.ctaBlock}>
-              <span style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase' as const, color: 'var(--gold)', marginBottom: '1rem' }}>Built for Elite Brokers</span>
+              <span style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: 'var(--text-accent-on-dark)', marginBottom: '1rem' }}>Built for Elite Brokers</span>
               <h2>The Support You Deserve.<br />The Freedom You&apos;ve Earned.</h2>
               <GoldRule center />
               <p>

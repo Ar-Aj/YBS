@@ -28,8 +28,6 @@ export default function LeadershipPage() {
         subtitle="Founded by an industry veteran who understands what it takes to build a successful, independent yacht brokerage."
         posterSrc="/hero_leadership.jpg"
         videoSrc="/videos/hero-leadership.mp4"
-        objectPositionDesktop="center center"
-        objectPositionMobile="center center"
       />
 
       <Section variant="ivory">
@@ -60,7 +58,7 @@ export default function LeadershipPage() {
               <blockquote style={{
                 fontStyle: 'italic',
                 fontSize: 'var(--text-xl)',
-                color: 'rgba(255,255,255,0.85)',
+                color: 'var(--text-on-dark)',
                 lineHeight: 1.8,
                 maxWidth: 700,
                 margin: '0 auto',

@@ -20,22 +20,28 @@
   letter-spacing: 0.04em;
 }
 
+/* Breadcrumbs sit on the navy page-hero band: solid light tones, no opacity */
 .link {
-  color: var(--slate-light);
-  transition: color var(--duration-fast) var(--ease-out);
+  color: var(--text-on-dark-secondary);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: color var(--duration-fast) var(--ease-out),
+              text-decoration-color var(--duration-fast) var(--ease-out);
 }
 
 .link:hover {
-  color: var(--gold);
+  color: var(--text-on-dark-strong);
+  text-decoration-color: var(--gold-light);
 }
 
 .separator {
-  color: var(--slate-light);
+  color: var(--text-on-dark-secondary);
   margin: 0 0.5rem;
   font-weight: 300;
 }
 
 .current {
-  color: var(--gold);
+  color: var(--text-accent-on-dark);
   font-weight: 500;
 }

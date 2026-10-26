@@ -1,5 +1,3 @@
-import { type ReactNode } from 'react';
-
 /**
  * Renders a JSON-LD structured data script tag.
  * Safe for SSR — outputs a <script> with type="application/ld+json".

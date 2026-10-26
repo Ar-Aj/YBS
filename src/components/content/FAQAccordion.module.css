@@ -3,7 +3,7 @@
 }
 
 .item {
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid var(--fg-rule);
 }
 
 .question {
@@ -12,10 +12,12 @@
   justify-content: space-between;
   gap: var(--space-md);
   padding: var(--space-md) 0;
-  min-height: 44px;
-  font-size: clamp(1.0625rem, 1.2vw, 1.25rem); /* 17–20px */
-  font-weight: 600;
-  color: var(--navy-deep);
+  min-height: 52px;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.1875rem, 1.5vw, 1.4375rem);
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--fg-strong);
   cursor: pointer;
   list-style: none;
   transition: color var(--duration-fast) var(--ease-out);
@@ -29,26 +31,59 @@
   margin-left: var(--space-md);
   font-size: var(--text-xl);
   font-weight: 300;
-  color: var(--gold);
+  color: var(--fg-accent);
 }
 
 .icon::before { content: '+'; }
 .item[open] .icon::before { content: '−'; }
 
-.question:hover { color: var(--gold); }
+.question:hover { color: var(--fg-accent); }
+
+.question:focus-visible {
+  outline: 2px solid var(--fg-accent);
+  outline-offset: 2px;
+  box-shadow: none;
+}
 
 .answer {
-  padding: 0 0 var(--space-md);
+  padding: 0 0 var(--space-lg);
+  max-width: 68ch;
+}
+
+/* Smooth expansion where the browser supports animating <details> content
+   (Chrome/Edge 131+). Elsewhere the native instant toggle is used, so the
+   answer is always reachable. */
+@supports (interpolate-size: allow-keywords) {
+  .item {
+    interpolate-size: allow-keywords;
+  }
+  .item::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      content-visibility 0.35s allow-discrete;
+  }
+  .item[open]::details-content {
+    block-size: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item::details-content { transition: none; }
 }
 
 .answer p {
   font-size: clamp(1.0625rem, 1.2vw, 1.1875rem); /* 17–19px */
-  color: var(--slate);
+  color: var(--fg-secondary);
   line-height: 1.85;
 }
 
-/* Dark variant */
-.dark .question { color: var(--white); }
-.dark .question:hover { color: var(--gold); }
-.dark .item { border-bottom-color: rgba(255,255,255,0.08); }
-.dark .answer p { color: rgba(255,255,255,0.7); }
+/* Dark variant — roles flip so the same rules read correctly on navy */
+.dark {
+  --fg-strong: var(--text-on-dark-strong);
+  --fg: var(--text-on-dark);
+  --fg-secondary: var(--text-on-dark);
+  --fg-accent: var(--text-accent-on-dark);
+  --fg-rule: var(--border-dark);
+}

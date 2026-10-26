@@ -17,7 +17,7 @@ export function FounderProfile({ founder, reverse }: Props) {
           width={320}
           height={320}
           className={styles.image}
-          sizes="(max-width: 768px) 240px, 320px"
+          sizes="(max-width: 768px) 280px, 480px"
         />
         {founder.placeholder && (
           <span className={styles.placeholderBadge}>

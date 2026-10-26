@@ -1,0 +1,121 @@
+/* Services signature — specification sheet: index | statement | itemised scope.
+   Rows are aligned on one shared grid; hover/focus only adds a gold edge. */
+
+.chapter {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(64px, 8vw, 112px) minmax(0, 1fr) minmax(0, 1.05fr);
+  column-gap: clamp(var(--space-lg), 4vw, var(--space-3xl));
+  padding: var(--space-2xl) 0;
+  border-top: 1px solid var(--fg-rule, var(--border-light));
+  align-items: start;
+}
+
+.chapter:last-child {
+  border-bottom: 1px solid var(--fg-rule, var(--border-light));
+}
+
+/* Gold edge draws in on hover or keyboard focus within; purely additive. */
+.chapter::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  height: 2px;
+  width: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chapter:hover::before,
+.chapter:focus-within::before {
+  transform: scaleX(1);
+}
+
+.index {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 400;
+  color: var(--text-accent);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+.body {
+  display: contents;
+}
+
+.head {
+  min-width: 0;
+}
+
+.title {
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  margin-bottom: var(--space-sm);
+  color: var(--text-strong);
+}
+
+.desc {
+  color: var(--text-body);
+  max-width: 46ch;
+  margin: 0;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  border-top: 1px solid var(--fg-rule, var(--border-light));
+}
+
+.features li {
+  position: relative;
+  padding: 0.7rem 0 0.7rem 1.25rem;
+  color: var(--text-body);
+  font-size: clamp(0.9375rem, 1vw, 1.0625rem);
+  line-height: 1.5;
+  border-bottom: 1px solid var(--fg-rule, var(--border-light));
+}
+
+.features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.35em;
+  width: 8px;
+  height: 1px;
+  background: var(--gold);
+}
+
+@media (max-width: 1024px) {
+  .chapter {
+    grid-template-columns: clamp(56px, 10vw, 88px) minmax(0, 1fr);
+  }
+  .features {
+    grid-column: 2;
+    margin-top: var(--space-lg);
+  }
+}
+
+@media (max-width: 640px) {
+  .chapter {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-sm);
+    padding: var(--space-xl) 0;
+  }
+  .features {
+    grid-column: 1;
+  }
+  .index {
+    font-size: 2.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter::before {
+    transition: none;
+  }
+}

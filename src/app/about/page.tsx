@@ -93,15 +93,14 @@ export default function AboutPage() {
       {/* AEO: What is Yacht Broker Services? */}
       <Section variant="ivory">
         <Container>
-          <RevealOnScroll>
-            <SectionHeader
-              label="Our Origin"
-              title="What Is Yacht Broker Services?"
-            />
-          </RevealOnScroll>
-          <RevealOnScroll>
-            <div className={styles.origin}>
-              <p>
+          <div className={styles.originSpread}>
+            <aside className={styles.originMargin}>
+              <span className={styles.label}>Our Origin</span>
+              <h2>What Is Yacht Broker Services?</h2>
+              <GoldRule />
+            </aside>
+            <div className={styles.originBody}>
+              <p className={styles.originLede}>
                 Yacht Broker Services (YBS) is an independent brokerage support
                 platform that provides elite yacht brokers with the operational
                 infrastructure of a major firm — marketing, CRM, MLS access,
@@ -109,34 +108,28 @@ export default function AboutPage() {
                 retain up to 90% of their commissions and full control of their
                 professional brand.
               </p>
+              <h3 className={styles.originSub}>Why YBS Exists</h3>
+              <div className={styles.origin}>
+                <p>
+                  YBS was born from a simple observation: the yacht brokerage industry&apos;s
+                  most talented professionals were leaving established firms — not because
+                  they lacked ambition, but because the traditional model no longer served
+                  their interests. They wanted ownership, flexibility, and fair compensation.
+                </p>
+                <p>
+                  We built YBS to answer that need. Not as another brokerage, but as a
+                  complete operational platform that gives independent brokers everything
+                  they need to run a world-class practice — from entity formation and legal
+                  support to marketing, CRM, and closing coordination.
+                </p>
+                <p>
+                  {/* REPLACE: Final founding narrative pending client review */}
+                  The result is a model where the broker is the principal, the brand-builder,
+                  and the primary beneficiary of their own work. YBS handles the rest.
+                </p>
+              </div>
             </div>
-          </RevealOnScroll>
-
-          <RevealOnScroll>
-            <h3 style={{ marginTop: 'var(--space-xl)' }}>Why YBS Exists</h3>
-            <GoldRule />
-          </RevealOnScroll>
-          <RevealOnScroll>
-            <div className={styles.origin}>
-              <p>
-                YBS was born from a simple observation: the yacht brokerage industry&apos;s
-                most talented professionals were leaving established firms — not because
-                they lacked ambition, but because the traditional model no longer served
-                their interests. They wanted ownership, flexibility, and fair compensation.
-              </p>
-              <p>
-                We built YBS to answer that need. Not as another brokerage, but as a
-                complete operational platform that gives independent brokers everything
-                they need to run a world-class practice — from entity formation and legal
-                support to marketing, CRM, and closing coordination.
-              </p>
-              <p>
-                {/* REPLACE: Final founding narrative pending client review */}
-                The result is a model where the broker is the principal, the brand-builder,
-                and the primary beneficiary of their own work. YBS handles the rest.
-              </p>
-            </div>
-          </RevealOnScroll>
+          </div>
         </Container>
       </Section>
 

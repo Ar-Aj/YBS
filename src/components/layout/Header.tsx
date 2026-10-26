@@ -11,14 +11,21 @@ import styles from './Header.module.css';
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
+  // The menu is opened "for" a route. Deriving `menuOpen` from the current
+  // pathname means a navigation closes it automatically — no reset effect.
+  const [menuPath, setMenuPath] = useState<string | null>(null);
+  const menuOpen = menuPath === pathname;
 
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 60);
+          const y = window.scrollY;
+          setScrolled(y > 24);
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          setProgress(max > 0 ? Math.min(1, Math.max(0, y / max)) : 0);
           ticking = false;
         });
         ticking = true;
@@ -29,21 +36,21 @@ export function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Scroll lock is an external-system side effect of the menu state.
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
   const closeMenu = useCallback(() => {
-    setMenuOpen(false);
-    document.body.style.overflow = '';
+    setMenuPath(null);
   }, []);
 
   const toggleMenu = useCallback(() => {
-    setMenuOpen((prev) => {
-      document.body.style.overflow = prev ? '' : 'hidden';
-      return !prev;
-    });
-  }, []);
-
-  useEffect(() => {
-    closeMenu();
-  }, [pathname, closeMenu]);
+    setMenuPath((prev) => (prev === pathname ? null : pathname));
+  }, [pathname]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -59,6 +66,12 @@ export function Header() {
       role="navigation"
       aria-label="Main navigation"
     >
+      {/* Scroll progress hairline — quiet, futuristic, non-disturbing */}
+      <span
+        className={styles.progress}
+        aria-hidden="true"
+        style={{ transform: `scaleX(${progress})` }}
+      />
       <div className={styles.inner}>
         <Link href="/" className={styles.logo} aria-label="Yacht Broker Services — Home">
           <Image

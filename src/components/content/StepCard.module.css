@@ -6,19 +6,90 @@
 
 .number {
   font-size: var(--text-4xl);
-  font-weight: 700;
-  color: var(--gold);
+  font-weight: 400;
+  font-family: var(--font-serif, Georgia, serif);
+  color: var(--text-accent);
   margin-bottom: var(--space-md);
   line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  min-height: 72px;
+  border: 1px solid var(--border-gold);
+  border-radius: 50%;
+  background: var(--pearl);
 }
 
 .title {
   font-size: clamp(1.3125rem, 1.6vw, 1.6875rem); /* 21–27px */
   margin-bottom: var(--space-sm);
+  color: var(--text-strong);
 }
 
 .text {
   font-size: clamp(1.0625rem, 1.2vw, 1.1875rem); /* 17–19px */
-  color: var(--slate);
+  color: var(--text-body);
   line-height: 1.8;
+}
+
+/* ---- Process rail variant (How It Works) ----
+   Left-aligned steps hang from a single gold rail. The numeral sits on the
+   rail as a station marker. Reading order is the DOM order at every width. */
+.railStep {
+  position: relative;
+  padding: var(--space-xl) var(--space-xl) 0 0;
+}
+
+.railNumber {
+  position: relative;
+  display: block;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(3.25rem, 6vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text-strong);
+  margin-bottom: var(--space-lg);
+}
+
+/* station dot on the rail */
+.railNumber::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: calc(-1 * var(--space-lg) - 5px);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px var(--ivory, #f6f2ea);
+}
+
+.railStep .title {
+  padding-top: var(--space-md);
+}
+
+.railStep .text {
+  max-width: 38ch;
+}
+
+@media (max-width: 900px) {
+  /* Rail turns vertical: line down the left, numeral beside copy */
+  .railStep {
+    padding: 0 0 var(--space-xl) var(--space-xl);
+  }
+  .railNumber {
+    font-size: 2.75rem;
+    margin-bottom: var(--space-sm);
+  }
+  .railNumber::after {
+    left: calc(-1 * var(--space-xl) - 5px);
+    bottom: auto;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .railStep .title {
+    padding-top: 0;
+  }
 }

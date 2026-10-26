@@ -1,86 +1,50 @@
-/* Cinematic Hero */
+/* Cinematic Hero.
+   Desktop/laptop (≥1024px): full-frame 16:9 stage with overlay copy, preserved.
+   Mobile/tablet: the video IS the hero background — content sits over it in a
+   readable bottom-anchored treatment, like a cinematic title card. The full
+   frame is never cropped: letterbox rails tint to the video's edges. */
+
 .hero {
   position: relative;
-  min-height: 100vh;
+  /* Light canvas so the strip behind the fixed navbar blends with the bar —
+     never a navy band flashing through the frosted glass or rubber-band. */
+  background: var(--pearl);
+  overflow: hidden;
+  /* Fixed navbar clears the hero on every device. */
+  padding-top: var(--header-height);
+}
+
+/* ——— Desktop/laptop: full-bleed stage with overlay copy ——— */
+.heroContent {
+  position: absolute;
+  inset: var(--header-height) 0 0 0;
+  z-index: 2;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-}
-
-.heroBg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: var(--navy-deep);
-}
-
-.heroBgImg {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  /* Standard overlay — used on all inner pages with static images.
-     Strong enough to ensure text readability on any background. */
-  background: linear-gradient(
-    180deg,
-    rgba(9, 22, 40, 0.45) 0%,
-    rgba(9, 22, 40, 0.70) 50%,
-    rgba(9, 22, 40, 0.85) 100%
-  );
-  z-index: 1;
-}
-
-/* Natural overlay — Home hero only.
-   Much lighter overall; preserves sky warmth, ocean color,
-   and yacht detail. Heavy darkness only where text lives. */
-.heroOverlayNatural {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  /* Layer 1: very light neutral vignette across the whole frame */
-  background:
-    /* Radial dark pool pinned to center — just enough for text plate */
-    radial-gradient(
-      ellipse 70% 55% at 50% 60%,
-      rgba(6, 14, 28, 0.52) 0%,
-      rgba(6, 14, 28, 0.0) 100%
-    ),
-    /* Thin linear shadow at the very bottom for CTA area */
-    linear-gradient(
-      to top,
-      rgba(6, 14, 28, 0.68) 0%,
-      rgba(6, 14, 28, 0.28) 28%,
-      rgba(0, 0, 0, 0.0) 52%
-    ),
-    /* Extremely light top-edge fade to keep nav readable */
-    linear-gradient(
-      to bottom,
-      rgba(6, 14, 28, 0.30) 0%,
-      rgba(0, 0, 0, 0.0) 18%
-    );
-}
-
-.heroContent {
-  position: relative;
-  z-index: 2;
   text-align: center;
   max-width: 860px;
+  margin: 0 auto;
   padding: var(--space-4xl) var(--space-lg) var(--space-2xl);
   width: 100%;
+  pointer-events: none;
+}
+
+.heroContent > * {
+  pointer-events: auto;
 }
 
 .heroContent h1 {
   color: var(--white);
   margin-bottom: var(--space-md);
+  text-wrap: balance;
+  text-shadow: 0 2px 28px rgba(6, 14, 28, 0.5);
 }
 
 .heroContent p {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-on-dark-strong);
+  text-shadow: 0 1px 14px rgba(6, 14, 28, 0.55);
   font-size: var(--text-lg);
   line-height: 1.8;
   margin-bottom: var(--space-xl);
@@ -100,70 +64,197 @@
 .label {
   display: block;
   font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold);
+  /* Small essential text over moving video: pure white, not gold */
+  color: var(--text-on-dark-strong);
+  text-shadow: 0 1px 12px rgba(6, 14, 28, 0.6);
   margin-bottom: var(--space-sm);
 }
 
-/* Video Support */
-.videoDesktop,
-.videoTablet,
-.videoMobile {
-  display: none;
+/* ——— Desktop media stage ——— */
+.heroVisual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  /* Pull the stage up under the frosted navbar — the 8%-tint glass diffuses
+     the video edge instead of exposing a flat padded band. */
+  margin-top: calc(var(--header-height) * -1);
+  padding-top: var(--header-height);
+  box-sizing: content-box;
+  min-height: 560px;
+  max-height: calc(100vh - var(--header-height));
+  overflow: hidden;
+  background: var(--navy-deep);
 }
 
-/* Desktop — ≥1024px */
-@media (min-width: 1024px) {
-  @media (prefers-reduced-motion: no-preference) {
-    .videoDesktop {
-      display: block;
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-    .heroBgImg.hasVideo {
-      display: none;
-    }
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  background: var(--navy-deep);
+}
+
+.heroMedia img,
+.heroMedia video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* wide stage — frame fills without letterbox */
+}
+
+.videoActive {
+  display: block;
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+  .videoActive {
+    display: none;
+  }
+  .heroMediaImg.hasVideo {
+    display: block !important;
   }
 }
 
-/* Tablet — 768px–1023px */
-@media (min-width: 768px) and (max-width: 1023px) {
-  @media (prefers-reduced-motion: no-preference) {
-    .videoTablet {
-      display: block;
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-    .heroBgImg.hasVideo {
-      display: none;
-    }
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .heroMediaImg.hasVideo {
+    display: none;
   }
 }
 
-/* Mobile — ≤767px */
+.heroOverlay,
+.heroOverlayNatural {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.heroOverlay {
+  background: linear-gradient(
+    180deg,
+    rgba(9, 22, 40, 0.45) 0%,
+    rgba(9, 22, 40, 0.70) 50%,
+    rgba(9, 22, 40, 0.85) 100%
+  );
+}
+
+.heroOverlayNatural {
+  background:
+    /* Local readability scrim, centred on the copy block (label → CTA-free
+       paragraph). Stronger core, long soft falloff, so the rest of the frame
+       keeps its natural brightness. */
+    radial-gradient(
+      ellipse 62% 60% at 50% 48%,
+      rgba(6, 14, 28, 0.74) 0%,
+      rgba(6, 14, 28, 0.48) 55%,
+      rgba(6, 14, 28, 0.0) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(6, 14, 28, 0.68) 0%,
+      rgba(6, 14, 28, 0.28) 28%,
+      rgba(0, 0, 0, 0.0) 52%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(6, 14, 28, 0.30) 0%,
+      rgba(0, 0, 0, 0.0) 18%
+    );
+}
+
+/* ——— Narrow screens: content over the video, not beside it ———
+   The stage keeps the source's own ratio (tablet 16:9-ish, mobile 9:16
+   portrait) so nothing is cropped. Copy sits inside the frame, anchored
+   low, over a readability grade — a title card, not a split layout. */
+@media (max-width: 1023px) {
+  .hero {
+    padding-top: var(--header-height);
+  }
+
+  .heroVisual {
+    aspect-ratio: var(--tablet-aspect, 16 / 9);
+    margin-top: calc(var(--header-height) * -1);
+    min-height: calc(100svh - var(--header-height));
+    max-height: none;
+    /* Letterbox rails pick up the panel tone, never black */
+    background: linear-gradient(180deg, var(--navy-deep) 0%, #0e2c47 100%);
+  }
+
+  .heroMedia {
+    background: transparent;
+  }
+
+  .heroMedia img,
+  .heroMedia video {
+    object-fit: cover; /* stage IS the ratio — fill it, no rails */
+  }
+
+  /* Readability grade tuned for text-over-video */
+  .heroOverlay,
+  .heroOverlayNatural {
+    display: block;
+    background:
+      linear-gradient(
+        to top,
+        rgba(6, 16, 30, 0.82) 0%,
+        rgba(6, 16, 30, 0.55) 34%,
+        rgba(6, 16, 30, 0.12) 62%,
+        rgba(6, 16, 30, 0.18) 100%
+      );
+  }
+
+  .heroContent {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 2;
+    order: unset;
+    text-align: center;
+    max-width: 100%;
+    padding: var(--space-xl) var(--space-lg) calc(var(--space-2xl) + env(safe-area-inset-bottom));
+    pointer-events: none;
+  }
+
+  .heroContent > * {
+    pointer-events: auto;
+  }
+
+  .heroContent h1 {
+    color: var(--white);
+    font-size: clamp(2rem, 8.5vw, 3rem);
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  .heroContent p {
+    color: var(--text-on-dark-strong);
+    font-size: clamp(1.0625rem, 4.2vw, 1.25rem);
+    max-width: 34ch;
+  }
+
+  .hero .label {
+    color: var(--text-on-dark-strong);
+  }
+}
+
 @media (max-width: 767px) {
-  @media (prefers-reduced-motion: no-preference) {
-    .videoMobile {
-      display: block;
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-    .heroBgImg.hasVideo {
-      display: none;
-    }
+  .heroVisual {
+    aspect-ratio: var(--mobile-aspect, 9 / 16);
+  }
+}
+
+/* Short-height landscape phones: keep the title card compact */
+@media (max-height: 520px) and (max-width: 1023px) {
+  .heroVisual {
+    aspect-ratio: auto;
+    min-height: calc(100svh - var(--header-height));
+  }
+  .heroContent {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+  }
+  .heroContent p {
+    display: none; /* headline + eyebrow only when height is scarce */
   }
 }

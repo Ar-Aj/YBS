@@ -34,11 +34,9 @@ export default function ContactPage() {
           <div className={shared.contactLayout}>
             {/* Form */}
             <RevealOnScroll variant="left">
-              <div>
-                <h2 style={{ fontSize: 'var(--text-2xl)', marginBottom: 'var(--space-xs)' }}>
-                  Send Us a Message
-                </h2>
-                <p style={{ color: 'var(--slate)', marginBottom: 'var(--space-xl)' }}>
+              <div className={shared.contactForm}>
+                <h2>Send Us a Message</h2>
+                <p className={shared.contactLead}>
                   We typically respond within one business day.
                 </p>
                 <ContactForm />
@@ -48,17 +46,7 @@ export default function ContactPage() {
             {/* Sidebar */}
             <RevealOnScroll variant="right">
               <div className={shared.sidebar}>
-                <span style={{
-                  display: 'block',
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: 600,
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase' as const,
-                  color: 'var(--gold)',
-                  marginBottom: 'var(--space-md)',
-                }}>
-                  Prefer a Call?
-                </span>
+                <span className={shared.sidebarLabel}>Prefer a Call?</span>
                 <h3>Book a Confidential<br />Strategy Session</h3>
                 <p>
                   Speak directly with our team about your goals, your current

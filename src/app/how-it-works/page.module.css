@@ -1,3 +1,52 @@
+/* How It Works — one connected rail. Visible by default; the line only
+   "draws" when JS is present and the block has not yet been revealed. */
+.process {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  position: relative;
+}
+
+.process::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* sits on the station dots: number height + gap below it */
+  top: calc(var(--space-xl) + clamp(3.25rem, 6vw, 5.5rem) + var(--space-lg));
+  height: 1px;
+  background: var(--gold);
+  transform-origin: left center;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+:global(html.js) :global(.reveal:not(.revealed)) .process::before {
+  transform: scaleX(0);
+}
+
+@media (max-width: 900px) {
+  .process {
+    grid-template-columns: 1fr;
+  }
+  .process::before {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    width: 1px;
+    height: auto;
+    transform-origin: center top;
+  }
+  :global(html.js) :global(.reveal:not(.revealed)) .process::before {
+    transform: scaleY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process::before { transition: none; }
+}
+
 /* How It Works Page — Deliverables */
 
 .deliverables {
@@ -14,7 +63,7 @@
   align-items: flex-start;
   gap: var(--space-md);
   padding: var(--space-md) 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid var(--border-dark);
   transition: padding-left var(--duration-fast) var(--ease-out);
 }
 
@@ -23,8 +72,8 @@
 
 .deliverableNum {
   font-size: var(--text-lg);
-  font-weight: 600;
-  color: var(--gold);
+  font-weight: 500;
+  color: var(--text-accent-on-dark);
   flex-shrink: 0;
   width: 40px;
   line-height: 1.8;
@@ -32,7 +81,7 @@
 
 .deliverableText {
   font-size: clamp(1.0625rem, 1.2vw, 1.1875rem); /* 17–19px */
-  color: rgba(255,255,255,0.85);
+  color: var(--text-on-dark);
   line-height: 1.75;
 }
 

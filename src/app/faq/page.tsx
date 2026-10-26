@@ -37,9 +37,17 @@ export default function FAQPage() {
 
       <Section variant="ivory">
         <Container>
-          <div className={shared.faqColumns}>
+          <div className={shared.faqLayout}>
+            <nav className={shared.faqNav} aria-label="FAQ categories">
+              {faqCategories.map((category) => (
+                <a key={category.id} href={`#${category.id}`} className={shared.faqNavLink}>
+                  {category.title}
+                </a>
+              ))}
+            </nav>
+            <div className={shared.faqColumns}>
             {faqCategories.map((category) => (
-              <div key={category.id} className={shared.faqGroup}>
+              <div key={category.id} id={category.id} className={shared.faqGroup}>
                 <RevealOnScroll>
                   <div className={shared.categoryHeader}>
                     <EyebrowLabel>{category.title}</EyebrowLabel>
@@ -51,6 +59,7 @@ export default function FAQPage() {
                 </RevealOnScroll>
               </div>
             ))}
+            </div>
           </div>
         </Container>
       </Section>
