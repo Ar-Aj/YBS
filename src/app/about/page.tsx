@@ -3,7 +3,6 @@ import { SectionHeader, GoldRule } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { Stagger } from '@/components/motion/Stagger';
-import { VideoHero } from '@/components/content/VideoHero';
 import { FounderPreview } from '@/components/content/FounderProfile';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
@@ -29,19 +28,6 @@ export default function AboutPage() {
       />
 
       <Breadcrumbs items={[{ label: 'About', href: '/about' }]} />
-
-      {/* Video */}
-      <Section variant="ivory">
-        <Container>
-          <Reveal variant="clip" duration="signature">
-            <VideoHero
-              poster="/hero-about-poster.jpg"
-              title="Where Independence Meets Infrastructure"
-              ariaLabel="Cinematic yacht footage showcasing the luxury brokerage lifestyle"
-            />
-          </Reveal>
-        </Container>
-      </Section>
 
       {/* Philosophy */}
       <Section variant="white">

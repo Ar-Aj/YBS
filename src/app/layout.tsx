@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Playfair_Display, Inter } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { ScrollToTop } from '@/components/layout/ScrollToTop';
 import { BrandLoader } from '@/components/ui/BrandLoader';
 import { JsClassBootstrap } from '@/components/ui/JsClassBootstrap';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -64,6 +65,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${playfair.variable} ${inter.variable}`}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>
@@ -85,6 +87,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <BrandLoader />
+        <ScrollToTop />
         <Header />
         <main id="main-content">{children}</main>
         <Footer />

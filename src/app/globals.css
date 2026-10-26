@@ -175,7 +175,9 @@
   --container-wide:   1700px;
 
   /* ——— Fixed header offset (used by sticky/scroll targets) ——— */
-  --header-height: 116px;
+  /* Un-scrolled navbar height: logo 76.8px + 2x18px padding + 1px border.
+     Heroes and anchors offset by exactly this, so there is no gap and no overlap. */
+  --header-height: 113.8px;
 
   /* Radius */
   --radius-sm: 6px;
@@ -244,6 +246,13 @@ section:has(> [data-hero-visual]) {
   --border-warm:    rgba(138, 100, 24, 0.22);
   --white:          #ffffff;
   --navy-deep:      #0b2239;
+}
+
+/* Navbar height at rest follows the logo: 62.4px logo on <=900px. */
+@media (max-width: 900px) {
+  :root {
+    --header-height: 99.4px;
+  }
 }
 
 /* ————— 2. Base Reset & Typography ————— */

@@ -13,7 +13,7 @@
   /* Measured desktop navbar height (logo 64px + 2×18px padding + 1px border).
      The hero begins exactly where the bar ends: below it, flush, never under
      it, so the bar can never cover the video. */
-  --hero-nav: 101px;
+  --hero-nav: var(--header-height);
   padding-top: var(--hero-nav);
 }
 
@@ -176,7 +176,7 @@
   .hero {
     /* Measured navbar height (logo 64px + 2×18px padding + 1px border) so the
        hero begins exactly where the bar ends: below it, flush, never under it. */
-    --hero-nav: 101px;
+    --hero-nav: var(--header-height);
     padding-top: var(--hero-nav);
   }
 
@@ -270,7 +270,7 @@
 
 @media (max-width: 900px) {
   .hero {
-    --hero-nav: 89px; /* logo 52px + 2×18px padding + 1px border */
+    --hero-nav: var(--header-height);
   }
 }
 
