@@ -38,6 +38,22 @@
   border-bottom: 1px solid var(--border-dark);
 }
 
+/* Logo.png is square (1254x1254). Fix width and let the intrinsic 1:1 ratio
+   drive height, so it can never be stretched by the grid or global img rules. */
+.logo {
+  display: block;
+  width: 112px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    width: 96px;
+  }
+}
+
 .brand p {
   color: var(--text-on-dark);
   font-size: var(--text-sm); /* 15px */

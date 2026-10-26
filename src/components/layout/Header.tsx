@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -12,6 +12,7 @@ export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
+  const wordmarkRef = useRef<HTMLSpanElement>(null);
   // The menu is opened "for" a route. Deriving `menuOpen` from the current
   // pathname means a navigation closes it automatically — no reset effect.
   const [menuPath, setMenuPath] = useState<string | null>(null);
@@ -34,6 +35,76 @@ export function Header() {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Wordmark scroll behaviour. Entirely ref-driven: one passive, rAF-throttled
+  // listener flips `data-collapsed` only when the target state actually changes.
+  //  - scrolling down (>12px of sustained travel, past the top zone) -> collapse
+  //  - scrolling up   (>8px of sustained travel) or back at the top   -> reveal
+  //  - scrolling stops for 250ms                                      -> reveal
+  // Reduced-motion users keep the wordmark permanently visible and static.
+  useEffect(() => {
+    const el = wordmarkRef.current;
+    if (!el) return;
+
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let lastY = window.scrollY;
+    let travel = 0;
+    let collapsed = false;
+    let ticking = false;
+    let idleTimer: number | undefined;
+
+    const setCollapsed = (next: boolean) => {
+      if (next === collapsed) return;
+      collapsed = next;
+      el.dataset.collapsed = String(next);
+    };
+
+    const onIdle = () => {
+      travel = 0;
+      setCollapsed(false);
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        if (mq.matches) return;
+
+        const y = Math.max(0, window.scrollY);
+        const delta = y - lastY;
+        lastY = y;
+
+        if (y <= 24) {
+          travel = 0;
+          setCollapsed(false);
+        } else if (delta !== 0) {
+          // Sum travel only while direction is constant; a reversal restarts it.
+          travel = Math.sign(delta) === Math.sign(travel) ? travel + delta : delta;
+          if (travel > 12) setCollapsed(true);
+          else if (travel < -8) setCollapsed(false);
+        }
+
+        window.clearTimeout(idleTimer);
+        idleTimer = window.setTimeout(onIdle, 250);
+      });
+    };
+
+    const onMotionPref = () => {
+      if (mq.matches) {
+        window.clearTimeout(idleTimer);
+        onIdle();
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    mq.addEventListener('change', onMotionPref);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      mq.removeEventListener('change', onMotionPref);
+      window.clearTimeout(idleTimer);
+    };
   }, []);
 
   // Scroll lock is an external-system side effect of the menu state.
@@ -77,10 +148,21 @@ export function Header() {
           <Image
             src="/Logo.png"
             alt="Yacht Broker Services logo"
-            width={180}
-            height={48}
+            width={80}
+            height={80}
             priority
           />
+          {/* Wordmark: collapses on scroll-down (driven by data-collapsed via ref,
+              so toggling never re-renders React). The link's aria-label already
+              names the brand, so the visual collapse costs AT users nothing. */}
+          <span className={styles.wordmark} ref={wordmarkRef} aria-hidden="true">
+            <span className={styles.wordmarkClip}>
+              <span className={styles.logoText}>
+                <span className={styles.logoTextDark}>Yacht Broker</span>{' '}
+                <span className={styles.logoTextGold}>Services</span>
+              </span>
+            </span>
+          </span>
         </Link>
 
         <div className={styles.links}>

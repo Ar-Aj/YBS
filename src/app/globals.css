@@ -175,7 +175,7 @@
   --container-wide:   1700px;
 
   /* ——— Fixed header offset (used by sticky/scroll targets) ——— */
-  --header-height: 92px;
+  --header-height: 116px;
 
   /* Radius */
   --radius-sm: 6px;
