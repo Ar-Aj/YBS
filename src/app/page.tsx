@@ -11,13 +11,10 @@ import { ServiceDetail } from '@/components/home/ServiceDetail';
 import { TierCard } from '@/components/content/TierCard';
 import { StepCard } from '@/components/content/StepCard';
 import { FAQAccordion } from '@/components/content/FAQAccordion';
-import { FounderPreview } from '@/components/content/FounderProfile';
 import { buildMetadata } from '@/lib/metadata';
 import { tiers, pricingExplanation } from '@/data/difference';
 import { steps } from '@/data/howItWorks';
 import { servicePillars } from '@/data/services';
-import { founders } from '@/data/leadership';
-import { faqCategories } from '@/data/faq';
 import styles from './page.module.css';
 
 export const metadata = buildMetadata({
@@ -29,17 +26,10 @@ export const metadata = buildMetadata({
 });
 
 export default function HomePage() {
-  const previewFaqs = [
-    ...faqCategories[0].items.slice(0, 2),
-    faqCategories[1].items[0],
-    faqCategories[1].items[1],
-  ];
-
   return (
     <>
       {/* 1. Hero (protected, unchanged) */}
       <CinematicHero
-        label="Yacht Broker Services"
         title={<>Be The Architect<br />of Your Future</>}
         subtitle="Retain up to 90% of your commissions, while accessing personalized marketing programs, customized back-office operations, and administrative support tailored to elite yacht brokers."
         posterSrc="/hero-home.jpg"
@@ -136,7 +126,7 @@ export default function HomePage() {
           <SectionHeader
             label="What You Get"
             title="Everything Included in Your Membership"
-            subtitle="From entity formation to closing support, YBS handles the infrastructure while you build your practice."
+            subtitle="From entity formation to closing support, and everything between"
             light
           />
           <Reveal>
@@ -196,41 +186,7 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* 8. Leadership preview */}
-      <Section variant="ivory">
-        <Container>
-          <SectionHeader label="Leadership" title="Meet the Founder" />
-          <Reveal>
-            <div className={styles.foundersGrid}>
-              {founders.map((f) => (
-                <FounderPreview key={f.name} founder={f} />
-              ))}
-            </div>
-          </Reveal>
-          <div className={styles.centerCta}>
-            <Button href="/leadership" variant="secondary">
-              About Our Leadership
-            </Button>
-          </div>
-        </Container>
-      </Section>
-
-      {/* 9. FAQ preview */}
-      <Section variant="white">
-        <Container>
-          <SectionHeader label="FAQ" title="Common Questions" />
-          <Reveal>
-            <FAQAccordion items={previewFaqs} />
-          </Reveal>
-          <div className={styles.centerCta}>
-            <Button href="/faq" variant="secondary">
-              View All Questions
-            </Button>
-          </div>
-        </Container>
-      </Section>
-
-      {/* 10. Final CTA */}
+      {/* 8. Final CTA */}
       <Section variant="charcoal">
         <Container narrow>
           <Reveal variant="rise" duration="signature">

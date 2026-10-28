@@ -35,7 +35,6 @@ export function ServiceDetail({ pillars }: Props) {
                 aria-expanded={isExpanded}
                 aria-controls={panelId}
               >
-                <span className={styles.number}>{String(i + 1).padStart(2, '0')}</span>
                 <span className={styles.title}>{pillar.title}</span>
                 <span className={styles.icon} aria-hidden="true" />
               </button>

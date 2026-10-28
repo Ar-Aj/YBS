@@ -15,9 +15,9 @@ export const steps: Step[] = [
   },
   {
     number: '03',
-    title: 'Launch your own brokerage',
+    title: 'Launch your brokerage',
     description:
-      'YBS guides you through setup: your operating entity, brand kit, website, CRM and MLS access. You run your clients and your sales your way.',
+      'YBS creates your operating entity, brand kit, website, and sets up CRM and MLS access. You work your clients, and we run your business.',
   },
 ];
 

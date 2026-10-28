@@ -32,8 +32,7 @@ export const biography = {
   heading: 'A Career in Large-Yacht Brokerage',
   paragraphs: [
     'Kent\u2019s work has centered on the large-yacht market. He has worked with yacht owners, buyers and other brokerage firms to market, sell, charter and manage yachts.',
-    'His earlier positions include owner of San Diego Yacht Sales and of Chamberlain Yachts, General Manager of Bradford Yacht Sales, Vice President of Westship World Yachts and CEO of Merle Wood & Associates. YBS draws on that background to support independent brokers with the marketing, operations and transaction work behind each sale.',
-    'He has also built businesses of his own. In 2001 he created the International Yacht & Jet Show in Nassau, Bahamas, which he later sold, and he has been involved with PartnerShips and Certified Yachts, two companies that serve different parts of the yacht market.',
+    'His earlier positions include owner of San Diego Yacht Sales and Chamberlain Yachts, General Manager of Bradford Yacht Sales, Vice President of Westship World Yachts, and CEO of Merle Wood & Associates. He has also built other yacht-related businesses. In 2001 he created the International Yacht & Jet Show in Nassau, Bahamas, which he later sold, and then started the fractional yacht company PartnerShips, and the yacht refurbishment business Certified Yachts.',
   ],
 } as const;
 
@@ -74,13 +73,13 @@ export const industryInvolvement = {
   heading: 'Industry Involvement',
   organization: 'Superyacht Network',
   summary:
-    'The Superyacht Network is a group of large-yacht brokers who meet to discuss industry trends and opportunities. Kent\u2019s 2006 biography identifies him as its Chairman.',
+    'The Superyacht Network is a group of large-yacht brokers who meet to discuss industry trends and opportunities. Kent is Chairman.',
 } as const;
 
 export const education = {
   heading: 'Education',
   institution: 'University of Denver',
-  summary: 'Studied Business Management and Sports Science.',
+  summary: 'Business Management and Sports Science.',
 } as const;
 
 /** Used for Person structured data. Each item is supported by the biography. */

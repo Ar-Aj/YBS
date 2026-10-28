@@ -20,9 +20,6 @@ export function TierCard({ tier }: { tier: Tier }) {
           <li key={h}>{h}</li>
         ))}
       </ul>
-      <Button href="/contact" size="lg" fullWidth>
-        Request a Confidential Call
-      </Button>
     </div>
   );
 }

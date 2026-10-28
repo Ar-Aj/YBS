@@ -13,7 +13,7 @@ export const comparisonRows: ComparisonRow[] = [
   },
   {
     feature: 'Autonomy & Brand',
-    traditional: 'Strict corporate guidelines',
+    traditional: 'Dictated by corporate guidelines',
     ybs: 'Full autonomy to market your brand',
   },
   {
@@ -24,7 +24,7 @@ export const comparisonRows: ComparisonRow[] = [
   {
     feature: 'Monthly Overhead',
     traditional:
-      'You effectively pay a monthly operating expense which is hidden under the high commission split',
+      'You effectively pay a high monthly operating expense which is hidden under the commission split',
     ybs: 'Predictable membership dues provide maximum commissions',
   },
 ];
@@ -34,21 +34,6 @@ export const comparisonRows: ComparisonRow[] = [
  * Source: Detailed YBS Explainer Video Script, Part I.
  */
 export const tiers: Tier[] = [
-  {
-    name: 'preferred',
-    label: 'Preferred',
-    retention: 90,
-    split: '90/10',
-    price: '$3,000',
-    period: 'per month, paid by ACH',
-    description:
-      'Retain 90% of your gross commissions. The higher monthly fee suits brokers whose volume makes maximum retention the priority.',
-    highlights: [
-      'MLS and CRM access',
-      'All services listed in the Membership Agreement',
-    ],
-    featured: true,
-  },
   {
     name: 'express',
     label: 'Express',
@@ -63,6 +48,21 @@ export const tiers: Tier[] = [
       'All services listed in the Membership Agreement',
     ],
     featured: false,
+  },
+  {
+    name: 'preferred',
+    label: 'Preferred',
+    retention: 90,
+    split: '90/10',
+    price: '$3,000',
+    period: 'per month, paid by ACH',
+    description:
+      'Retain 90% of your gross commissions. The higher monthly fee suits brokers whose volume makes maximum retention the priority.',
+    highlights: [
+      'MLS and CRM access',
+      'All services listed in the Membership Agreement',
+    ],
+    featured: true,
   },
 ];
 
@@ -93,7 +93,7 @@ export const membershipTerms: { title: string; text: string }[] = [
   },
   {
     title: 'Licensing',
-    text: 'In the United States you must hold a yacht broker\u2019s license or be licensed under an Employing Broker who is a member. YBS can introduce an Employing Broker if needed. Outside the US, you need a license wherever the jurisdiction requires one.',
+    text: 'In some States you may be required to hold a yacht broker\u2019s license or be licensed under an Employing Broker who is a member. YBS can introduce an Employing Broker if needed. Outside the US, you need a license wherever the jurisdiction requires one.',
   },
   {
     title: 'Other expenses',

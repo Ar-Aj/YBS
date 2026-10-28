@@ -10,9 +10,6 @@ export function ServiceChapter({
 }) {
   return (
     <article className={styles.chapter}>
-      <div className={styles.index} aria-hidden="true">
-        {String(index + 1).padStart(2, '0')}
-      </div>
       <div className={styles.body}>
         <div className={styles.head}>
           <h3 className={styles.title}>{pillar.title}</h3>

@@ -104,6 +104,13 @@ export default function HowItWorksPage() {
               <p>{pricingExplanation}</p>
             </div>
           </Reveal>
+          <Reveal>
+            <div style={{ textAlign: 'center', marginTop: 'var(--space-lg)' }}>
+              <Button href="/contact" size="lg">
+                Request a Confidential Call
+              </Button>
+            </div>
+          </Reveal>
         </Container>
       </Section>
 

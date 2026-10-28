@@ -50,9 +50,7 @@ export default function ServicesPage() {
       <Section variant="ivory">
         <Container>
           <SectionHeader
-            label="Four Pillars"
-            title="Everything Behind Your Practice"
-            subtitle="Each pillar covers a part of running an independent brokerage, so you can spend your time with clients."
+            title="What we do for you"
           />
           <Stagger>
             {servicePillars.map((p, i) => (

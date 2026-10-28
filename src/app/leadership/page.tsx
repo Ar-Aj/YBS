@@ -127,8 +127,7 @@ export default function LeadershipPage() {
             </h2>
             <GoldRule />
             <p>
-              Selected positions and ventures from Kent&rsquo;s career, as
-              recorded in his 2006 biography.
+              Selected history from Kent&rsquo;s career.
             </p>
           </Reveal>
 

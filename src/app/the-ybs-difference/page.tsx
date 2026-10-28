@@ -42,7 +42,6 @@ export default function DifferencePage() {
           <SectionHeader
             label="Side by Side"
             title="Traditional Brokerage vs. Yacht Broker Services"
-            subtitle="Figures are those supplied by YBS. Individual brokerage terms vary."
           />
           <Reveal variant="clip" duration="signature">
             <ComparisonTable rows={comparisonRows} />
@@ -129,6 +128,13 @@ export default function DifferencePage() {
           <Reveal>
             <div className={styles.pricingNote}>
               <p>{pricingExplanation}</p>
+            </div>
+          </Reveal>
+          <Reveal>
+            <div style={{ textAlign: 'center', marginTop: 'var(--space-lg)' }}>
+              <Button href="/contact" size="lg">
+                Request a Confidential Call
+              </Button>
             </div>
           </Reveal>
         </Container>
