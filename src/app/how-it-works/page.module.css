@@ -76,7 +76,10 @@
   font-weight: 400;
   color: var(--text-accent);
   flex-shrink: 0;
-  width: 40px;
+  /* Single-digit numerals (1, 2, 3) with no leading zero. Tabular figures plus
+     a 2ch column keeps "9" and "10" left-aligned on the same edge. */
+  font-variant-numeric: tabular-nums;
+  width: 2ch;
   line-height: 1.8;
 }
 

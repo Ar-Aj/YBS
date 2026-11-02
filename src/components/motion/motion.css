@@ -124,29 +124,6 @@
   will-change: transform, opacity;
 }
 
-/* ——— Accessible accordion panel (CSS grid height, no layout thrash in JS) ——— */
-.m-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 520ms var(--m-ease-settle);
-}
-
-.m-panel[data-open="true"] { grid-template-rows: 1fr; }
-
-.m-panel > .m-panel-inner {
-  min-height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 360ms ease-out, visibility 0s linear 520ms;
-}
-
-.m-panel[data-open="true"] > .m-panel-inner {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 520ms ease-out 140ms, visibility 0s;
-}
-
 /* ——— Reduced motion: final state at first render, always ——— */
 @media (prefers-reduced-motion: reduce) {
   .m-rise, .m-fade, .m-clip, .m-wipe, .m-pop, .m-draw, .m-draw-y,
@@ -157,7 +134,4 @@
     clip-path: none !important;
     will-change: auto !important;
   }
-
-  .m-panel,
-  .m-panel > .m-panel-inner { transition: none !important; }
 }

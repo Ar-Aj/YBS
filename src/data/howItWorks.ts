@@ -2,19 +2,19 @@ import type { Step } from './site';
 
 export const steps: Step[] = [
   {
-    number: '01',
+    number: '1',
     title: 'Hold a confidential call',
     description:
       'Discuss your practice, your goals and your licensing position with YBS. Every conversation is confidential, and you can review the Independent Broker Membership Agreement.',
   },
   {
-    number: '02',
+    number: '2',
     title: 'Choose Express or Preferred',
     description:
       'Express is $1,500 a month with 75% of gross commissions retained. Preferred is $3,000 a month with 90% retained. You choose your tier annually.',
   },
   {
-    number: '03',
+    number: '3',
     title: 'Launch your brokerage',
     description:
       'YBS creates your operating entity, brand kit, website, and sets up CRM and MLS access. You work your clients, and we run your business.',

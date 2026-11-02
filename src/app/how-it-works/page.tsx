@@ -77,9 +77,7 @@ export default function HowItWorksPage() {
           <Stagger as="ol" className={styles.deliverables}>
             {deliverables.map((item, i) => (
               <li key={item} className={styles.deliverableItem}>
-                <span className={styles.deliverableNum}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
+                <span className={styles.deliverableNum}>{i + 1}</span>
                 <span className={styles.deliverableText}>{item}</span>
               </li>
             ))}
