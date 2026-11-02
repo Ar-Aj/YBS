@@ -1,6 +1,6 @@
-/* Extended profile — editorial plate: portrait with layered depth beside
-   large display type. Depth is two flat planes (champagne block + gold keyline),
-   no blur or shadow stack. */
+/* Extended profile — editorial plate: portrait in a hairline frame beside
+   large display type. The frame is a single offset keyline: no fill, no
+   shadow, no second plane behind the photograph. */
 .profile {
   display: grid;
   grid-template-columns: minmax(280px, 40%) minmax(0, 1fr);
@@ -15,16 +15,17 @@
 .imageWrap {
   position: relative;
   isolation: isolate;
-  margin: 0 var(--space-lg) var(--space-lg) 0;
 }
 
-/* champagne plane behind the portrait, offset down-right */
+/* A single gold keyline, offset from the photograph by the mat below.
+   Nothing fills the frame: the portrait sits on white, the line draws the edge. */
 .imageWrap::before {
   content: '';
   position: absolute;
-  inset: var(--space-lg) calc(-1 * var(--space-lg)) calc(-1 * var(--space-lg)) var(--space-lg);
-  background: var(--gradient-gold);
-  z-index: -1;
+  inset: 0;
+  border: 1px solid var(--border-gold);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .image {
@@ -33,11 +34,12 @@
   height: auto;
   border-radius: 0;
   border: none;
-  outline: 1px solid var(--pearl);
-  outline-offset: -12px;
+  /* The mat: 12px of white between the photograph and the keyline, so the
+     portrait reads as a mounted print rather than a bleeding edge. */
+  padding: 12px;
+  background: var(--white);
   object-fit: cover;
   aspect-ratio: 3 / 4;
-  background: var(--ivory-warm);
 }
 
 .placeholderBadge {
@@ -149,11 +151,6 @@
   .imageWrap {
     max-width: 280px;
     margin: 0 auto var(--space-lg);
-    /* keep the champagne plane inside the viewport on narrow screens */
-    padding-right: var(--space-md);
-  }
-  .imageWrap::before {
-    inset: var(--space-md) 0 calc(-1 * var(--space-md)) var(--space-md);
   }
   .bio { margin-left: auto; margin-right: auto; }
   .reverse .imageWrap { order: unset; }
