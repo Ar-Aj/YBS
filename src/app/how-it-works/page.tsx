@@ -22,7 +22,7 @@ import shared from '../shared.module.css';
 export const metadata = buildMetadata({
   title: 'Membership, Tiers and Key Terms',
   description:
-    'Three steps to join YBS, everything included in membership, the Express ($1,500/mo) and Preferred ($3,000/mo) options, and the key terms of the membership agreement.',
+    'Three steps to join YBS, everything included in membership, the Standard ($1,500/mo) and Elevated ($3,000/mo) options, and the key terms of the membership agreement.',
   path: '/how-it-works',
 });
 
@@ -47,7 +47,7 @@ export default function HowItWorksPage() {
             </h2>
             <GoldRule center />
             <p style={{ textAlign: 'center', maxWidth: '72ch', margin: '0 auto', lineHeight: 1.85 }}>
-              You hold a confidential call with YBS, choose the Express or Preferred
+              You hold a confidential call with YBS, choose the Standard or Elevated
               membership option, and launch your own brokerage with the YBS
               platform behind you. The Independent Broker Membership Agreement
               governs the arrangement.
@@ -89,7 +89,7 @@ export default function HowItWorksPage() {
         <Container>
           <SectionHeader
             label="What You Pay"
-            title="Express or Preferred"
+            title="Standard or Elevated"
             subtitle="You choose your tier annually, and dues are paid monthly."
           />
           <Stagger className={shared.grid2}>

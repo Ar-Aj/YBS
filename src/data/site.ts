@@ -48,7 +48,7 @@ export type ServicePillar = {
 };
 
 export type Tier = {
-  name: 'express' | 'preferred';
+  name: 'standard' | 'elevated';
   label: string;
   /** Percentage of gross commissions the member retains. */
   retention: number;

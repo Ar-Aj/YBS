@@ -39,7 +39,7 @@ type AmountMode = 'price' | 'commission';
  * "Compare it against your own numbers."
  *
  * Three columns: the broker's own figures (and what they keep today), then the
- * same commission under YBS Express (75%) and YBS Preferred (90%).
+ * same commission under YBS Standard (75%) and YBS Elevated (90%).
  *
  * The tiered commission structure is the client-supplied logic; the broker's
  * share of the commission is then split at the current rate or the YBS rate.
@@ -57,7 +57,7 @@ export function CommissionCalculator() {
 
   const today = grossCommission * (toPercent(currentSplit) / 100);
 
-  // Express (75%) first, Preferred (90%) second — 90% sits to the right of 75%.
+  // Standard (75%) first, Elevated (90%) second — 90% sits to the right of 75%.
   const columns = tiers.map((tier) => {
     const take = grossCommission * (tier.retention / 100);
     return {

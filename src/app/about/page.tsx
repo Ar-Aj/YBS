@@ -96,7 +96,7 @@ export default function AboutPage() {
               <div className={styles.origin}>
                 <p>
                   You are the broker and the brand. YBS is a service platform: you
-                  choose Express ($1,500 a month, 75% retained) or Preferred ($3,000 a
+                  choose Standard ($1,500 a month, 75% retained) or Elevated ($3,000 a
                   month, 90% retained), and YBS works for you.
                 </p>
                 <p>

@@ -35,14 +35,14 @@ export const comparisonRows: ComparisonRow[] = [
  */
 export const tiers: Tier[] = [
   {
-    name: 'express',
-    label: 'Express',
+    name: 'standard',
+    label: 'Standard',
     retention: 75,
     split: '75/25',
     price: '$1,500',
     period: 'per month, paid by ACH',
     description:
-      'Retain 75% of your gross commissions with a lower monthly fee. The same platform and services as Preferred.',
+      'Retain 75% of your gross commissions with a lower monthly fee. The same platform and services as Elevated.',
     highlights: [
       'MLS and CRM access',
       'All services listed in the Membership Agreement',
@@ -50,8 +50,8 @@ export const tiers: Tier[] = [
     featured: false,
   },
   {
-    name: 'preferred',
-    label: 'Preferred',
+    name: 'elevated',
+    label: 'Elevated',
     retention: 90,
     split: '90/10',
     price: '$3,000',
@@ -67,7 +67,7 @@ export const tiers: Tier[] = [
 ];
 
 export const pricingExplanation =
-  'There are two membership options. You choose your tier annually, and dues are paid monthly. To keep 90% of your gross commissions you pay $3,000 a month (Preferred), or you pay $1,500 a month and retain 75% (Express).';
+  'There are two membership options. You choose your tier annually, and dues are paid monthly. To keep 90% of your gross commissions you pay $3,000 a month (Elevated), or you pay $1,500 a month and retain 75% (Standard).';
 
 /**
  * Contractual qualifications that apply to both options.

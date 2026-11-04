@@ -14,7 +14,7 @@ import shared from '../shared.module.css';
 export const metadata = buildMetadata({
   title: 'Membership FAQ: Fees and Terms',
   description:
-    'Answers on Express and Preferred fees, the 24-month term, licensing, expenses beyond dues, changing tiers, client-data ownership and getting started.',
+    'Answers on Standard and Elevated fees, the 24-month term, licensing, expenses beyond dues, changing tiers, client-data ownership and getting started.',
   path: '/faq',
 });
 

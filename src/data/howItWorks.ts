@@ -9,9 +9,9 @@ export const steps: Step[] = [
   },
   {
     number: '2',
-    title: 'Choose Express or Preferred',
+    title: 'Choose Standard or Elevated',
     description:
-      'Express is $1,500 a month with 75% of gross commissions retained. Preferred is $3,000 a month with 90% retained. You choose your tier annually.',
+      'Standard is $1,500 a month with 75% of gross commissions retained. Elevated is $3,000 a month with 90% retained. You choose your tier annually.',
   },
   {
     number: '3',

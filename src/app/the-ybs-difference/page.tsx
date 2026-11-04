@@ -81,7 +81,7 @@ export default function DifferencePage() {
               <h3>Retention</h3>
               <GoldRule />
               <p>
-                Retain 75% (Express) or 90% (Preferred) of your gross commissions,
+                Retain 75% (Standard) or 90% (Elevated) of your gross commissions,
                 with dues paid monthly by ACH.
               </p>
             </div>
@@ -118,7 +118,7 @@ export default function DifferencePage() {
         <Container>
           <SectionHeader
             label="Membership"
-            title="Express or Preferred"
+            title="Standard or Elevated"
             subtitle="Higher dues, higher retention. Same platform and services."
           />
           <Stagger className={styles.grid2}>

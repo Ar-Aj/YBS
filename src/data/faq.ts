@@ -13,7 +13,7 @@ export const faqCategories: FAQCategory[] = [
       {
         question: 'What are the YBS membership options?',
         answer:
-          'There are two. Express is $1,500 a month and you retain 75% of your gross commissions. Preferred is $3,000 a month and you retain 90% of your gross commissions. Both include MLS and CRM access and the services detailed in the Membership Agreement.',
+          'There are two. Standard is $1,500 a month and you retain 75% of your gross commissions. Elevated is $3,000 a month and you retain 90% of your gross commissions. Both include MLS and CRM access and the services detailed in the Membership Agreement.',
       },
       {
         question: 'How are fees paid?',

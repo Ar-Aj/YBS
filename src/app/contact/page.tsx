@@ -12,7 +12,7 @@ import shared from '../shared.module.css';
 export const metadata = buildMetadata({
   title: 'Request a Confidential Call',
   description:
-    'Request a confidential call to discuss your practice, your licensing position and the Express and Preferred membership options at Yacht Broker Services.',
+    'Request a confidential call to discuss your practice, your licensing position and the Standard and Elevated membership options at Yacht Broker Services.',
   path: '/contact',
 });
 

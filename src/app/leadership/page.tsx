@@ -184,7 +184,7 @@ export default function LeadershipPage() {
               <GoldRule center />
               <p>
                 Schedule a confidential call to discuss your practice and which
-                membership option, Express or Preferred, fits.
+                membership option, Standard or Elevated, fits.
               </p>
               <div className={shared.ctaActions}>
                 <Button href="/contact" size="lg">

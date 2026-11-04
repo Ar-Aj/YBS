@@ -162,7 +162,7 @@ Score 6 for motion: the implementation is careful and layout-stable, but the hea
 
 - The repository uses `https://yachtbrokerservices.com` for canonicals, sitemap, Open Graph and JSON-LD. `siteConfig.url` carries a `REPLACE: confirm canonical domain` comment.
 - `yachtbrokerservices.com` could not be fetched from this machine. A direct DNS query returned an A record (207.148.248.143) and no MX record, but the HTTP client failed with "remote name could not be resolved" in the final check, and an earlier attempt in this audit ended in a 504 gateway timeout. These results disagree, so I cannot say whether the site is live. This could be a local resolver issue or a half-configured host. The owner needs to confirm what is deployed there. The missing MX record also means no mail is set up for `info@yachtbrokerservices.com` as far as this query shows, and the contact page and the footer both publish that address [Unverified].
-- The brand film script and `docs/YBS_REPOSITIONING_AND_MOTION_PLAN.md` name `www.yachtbroker.services`. That domain is live now: HTTP 200, `robots.txt` and `sitemap.xml` present, canonical `https://yachtbroker.services/`, title "Yacht Broker Services", H1 "Navigate Your Yacht Journey". It carries no Express, Preferred, Cannes or Monaco wording. It appears to be a different, older site.
+- The brand film script and `docs/YBS_REPOSITIONING_AND_MOTION_PLAN.md` name `www.yachtbroker.services`. That domain is live now: HTTP 200, `robots.txt` and `sitemap.xml` present, canonical `https://yachtbroker.services/`, title "Yacht Broker Services", H1 "Navigate Your Yacht Journey". It carries no Standard, Elevated, Cannes or Monaco wording. It appears to be a different, older site.
 - If the new site launches on one domain while canonicals, sitemap and structured data name the other, every canonical will point at the wrong host. Until the domain is confirmed, no SEO work that depends on absolute URLs is safe to ship. This is the first decision needed.
 
 ### On-page SEO [Measured, Inspected]
@@ -267,28 +267,28 @@ This is the weakest category and the most important one for a membership busines
 | C4 | Contact email unverified | `site.ts`: `email: 'info@yachtbrokerservices.com', // REPLACE: real email`. Published in the footer and contact page as `mailto:` links. No MX record was returned in the DNS check. | High |
 | C5 | No phone or address | Withheld by design pending confirmation. Brokers weighing a 24-month agreement will look for them. | Medium |
 | C6 | Single-person trust base | `/leadership` has one profile. No LinkedIn link, no association membership, no verifiable third-party reference. No testimonials exist, which is correct, since none are supported. | Medium |
-| C7 | Fee and term clarity is good | Express $1,500/month at 75% retention and Preferred $3,000/month at 90% retention, a 24-month initial term, non-digital marketing costs disclosed. This is a strength and supports trust. | Strength |
+| C7 | Fee and term clarity is good | Standard $1,500/month at 75% retention and Elevated $3,000/month at 90% retention, a 24-month initial term, non-digital marketing costs disclosed. This is a strength and supports trust. | Strength |
 | C8 | No secondary conversion step | Only the contact form. No short "what happens after you enquire" summary, no downloadable overview, no scheduling link. | Medium |
 
 The form also has a honeypot field named `website` and client-side validation, which are fine. With C1 unresolved, none of the lead-generation work on any other page can produce a result.
 
 ## 7. Membership terminology and reference sites
 
-### 7.1 Express and Preferred terminology check [Measured, Inspected]
+### 7.1 Standard and Elevated terminology check [Measured, Inspected]
 
 | Surface | Result |
 | --- | --- |
-| Rendered HTML, all nine routes | Zero hits for Cannes, Monaco, Monte Carlo, Platinum, Silver, Essential, Signature, "Standard Tier", "Premium Tier" or "Standard/Premium". "Express" and "Preferred" appear on every route (for example 18 and 20 times on `/how-it-works`). |
-| Source (`src`) | No Cannes or Monaco. The type `Tier['name']` is `'express' \| 'preferred'` in `site.ts`. "Express" or "Preferred" appears in 15 source files. The only matches for other tier-like words were "bronze" in CSS colour comments and "elite" in two copy strings (not tier names). |
-| Metadata | Titles, descriptions, Open Graph and Twitter text use "Express" and "Preferred" only (for example `/how-it-works`, `/faq`, `/contact`). |
+| Rendered HTML, all nine routes | Zero hits for Cannes, Monaco, Monte Carlo, Platinum, Silver, Essential, Signature, Express, Preferred, "Standard Tier", "Premium Tier" or "Standard/Premium". "Standard" and "Elevated" appear on every route (for example 18 and 20 times on `/how-it-works`). |
+| Source (`src`) | No Cannes or Monaco. The type `Tier['name']` is `'standard' \| 'elevated'` in `site.ts`. "Standard" or "Elevated" appears in 15 source files. The only matches for other tier-like words were "bronze" in CSS colour comments and "elite" in two copy strings (not tier names). |
+| Metadata | Titles, descriptions, Open Graph and Twitter text use "Standard" and "Elevated" only (for example `/how-it-works`, `/faq`, `/contact`). |
 | Structured data | No tier names at all in the JSON-LD. The `FAQPage` answers carry the current names through the visible text. |
 | Backend | There is no backend. `src/app/api` does not exist. The contact form has no tier field. |
 | `public/` | No text file in `public` mentions a legacy name. Image and video file names were not checked for legacy names beyond a size listing. |
 | `docs/` | Legacy names remain in two documents. `docs/YBS_REPOSITIONING_AND_MOTION_PLAN.md` (lines 11, 12, 115, 118, 128) says the tiers are "Cannes" and "Monaco" and that "Tier data renamed to `cannes` / `monaco`". `docs/YBS_IMMERSIVE_MOTION_BLUEPRINT.md` (lines 775, 940) mentions them as well. |
 
-Conclusion: the live site and code are consistent on Express and Preferred. The two documents are stale and contradict the code. A future contributor following the plan would reintroduce the old names. Fix 9 in section 9 adds a note to those two files. Wording elsewhere should be checked for the retention figures: home subtitle says "up to 90%", meta says "75% or 90%", and both match the tier data.
+Conclusion: the live site and code are consistent on Standard and Elevated. The two documents are stale and contradict the code. A future contributor following the plan would reintroduce the old names. Fix 9 in section 9 adds a note to those two files. Wording elsewhere should be checked for the retention figures: home subtitle says "up to 90%", meta says "75% or 90%", and both match the tier data.
 
-One note, not a defect: `featured: true` is set on Preferred in `src/data/difference.ts` and drives visual emphasis in `TierCard`. The type comment in `site.ts` says this is "factual visual emphasis only (e.g. highest retention). Not a popularity claim." The repositioning plan removed a "Most Popular" badge. No popularity claim was found in the rendered text.
+One note, not a defect: `featured: true` is set on Elevated in `src/data/difference.ts` and drives visual emphasis in `TierCard`. The type comment in `site.ts` says this is "factual visual emphasis only (e.g. highest retention). Not a popularity claim." The repositioning plan removed a "Most Popular" badge. No popularity claim was found in the rendered text.
 
 ### 7.2 Reference sites [Inspected via web fetch, current as of 27 October 2026]
 
@@ -350,7 +350,7 @@ Ordered by impact first, then confidence, then low effort and low risk. Effort: 
 | # | Fix | Impact | Confidence | Effort | Risk | File-level change |
 | --- | --- | --- | --- | --- | --- | --- |
 | 8 | Complete the entity once facts are confirmed | Medium to high | Medium | S then ongoing | Low | In `src/data/structured-data.ts` add `address`, `telephone`, `sameAs`, `founder` (link to the `#person` node) and `contactPoint`, and add `sameAs` for the founder's confirmed profiles from `src/data/leadership.ts`. Only confirmed facts. Off-site: a Google Business Profile if eligible, and listings with the trade bodies YBS actually belongs to. These are what make a small brand name resolvable. No outcome is guaranteed. |
-| 9 | Correct stale terminology in the docs | Low (risk reduction) | High | S | None | Add a "superseded" note to the tier table in `docs/YBS_REPOSITIONING_AND_MOTION_PLAN.md` (lines 11 to 12, 115, 118, 128) and `docs/YBS_IMMERSIVE_MOTION_BLUEPRINT.md` (lines 775 and 940), pointing at Express and Preferred. |
+| 9 | Correct stale terminology in the docs | Low (risk reduction) | High | S | None | Add a "superseded" note to the tier table in `docs/YBS_REPOSITIONING_AND_MOTION_PLAN.md` (lines 11 to 12, 115, 118, 128) and `docs/YBS_IMMERSIVE_MOTION_BLUEPRINT.md` (lines 775 and 940), pointing at Standard and Elevated. |
 | 10 | Housekeeping and hardening | Low to medium | High | S to M | Low | Remove `three`, `@react-three/fiber` and `@react-three/drei` from `package.json` (no imports in `src`). Add `lastmod` to `src/app/sitemap.ts`. Set `poweredByHeader: false` and security headers in `next.config.ts` (currently empty). Re-test the footer logo aspect ratio after the post-build edits. Add a web manifest. Decide whether `/insights` stays in the sitemap while all content is "Coming Soon". Per-page Open Graph images are optional. |
 
 ### What is deliberately not on the list
@@ -423,7 +423,7 @@ Realistic expectation after stages 1 to 3 [Judgement, not a promise]: conversion
 
 ### Where YBS stands today
 
-The site is well built on the technical basics. All nine routes prerender, canonicals and sitemap are clean, structured data parses, Lighthouse accessibility and SEO score 100 on 18 of 18 runs, CLS is 0, and the Express and Preferred terminology is consistent in all rendered pages, metadata and structured data. The content is factual, professional and avoids unsupported claims.
+The site is well built on the technical basics. All nine routes prerender, canonicals and sitemap are clean, structured data parses, Lighthouse accessibility and SEO score 100 on 18 of 18 runs, CLS is 0, and the Standard and Elevated terminology is consistent in all rendered pages, metadata and structured data. The content is factual, professional and avoids unsupported claims.
 
 What the site cannot yet do is act as a business asset. The contact form shows a success message and sends nothing, the privacy link is a 404, there is no analytics, and the canonical domain and contact email are not confirmed. Mobile performance is acceptable but not strong (lab scores 61 to 83), because of very large hero video files and a render delay on two pages. As an AI-search source the site is eligible but uncorroborated.
 

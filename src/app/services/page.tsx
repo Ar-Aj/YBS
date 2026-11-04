@@ -68,7 +68,7 @@ export default function ServicesPage() {
               <h2>See How the Membership Works</h2>
               <GoldRule center />
               <p>
-                Choose Express at $1,500 a month or Preferred at $3,000 a month. Some
+                Choose Standard at $1,500 a month or Elevated at $3,000 a month. Some
                 costs, such as non-digital marketing and boat shows, are separate,
                 and the Membership Agreement sets out the details.
               </p>

@@ -49,13 +49,13 @@ export default function HomePage() {
               <span className={styles.statValue}>
                 <Counter value={90} />
               </span>
-              <span className={styles.statLabel}>Preferred: $3,000 per month</span>
+              <span className={styles.statLabel}>Elevated: $3,000 per month</span>
             </div>
             <div className={styles.stat}>
               <span className={styles.statValue}>
                 <Counter value={75} />
               </span>
-              <span className={styles.statLabel}>Express: $1,500 per month</span>
+              <span className={styles.statLabel}>Standard: $1,500 per month</span>
             </div>
             <div className={styles.stat}>
               <span className={styles.statValue}>Yours</span>

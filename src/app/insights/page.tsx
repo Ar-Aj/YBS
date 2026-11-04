@@ -14,7 +14,7 @@ import styles from './page.module.css';
 export const metadata = buildMetadata({
   title: 'Insights for Independent Brokers',
   description:
-    'Upcoming guides on what an independent broker membership includes, choosing between Express and Preferred, and building your own brokerage brand.',
+    'Upcoming guides on what an independent broker membership includes, choosing between Standard and Elevated, and building your own brokerage brand.',
   path: '/insights',
 });
 

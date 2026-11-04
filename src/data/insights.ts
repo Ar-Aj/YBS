@@ -17,13 +17,13 @@ export const insightPosts: InsightPost[] = [
     placeholder: true,
   },
   {
-    title: 'Choosing Between Express and Preferred',
+    title: 'Choosing Between Standard and Elevated',
     excerpt:
       'How to weigh a lower monthly fee against higher commission retention, and how the annual tier change and transaction-level lock work.',
     tag: 'Strategy',
     date: 'Coming Soon',
     dateISO: '',
-    slug: 'choosing-express-or-preferred',
+    slug: 'choosing-standard-or-elevated',
     placeholder: true,
   },
   {
@@ -42,7 +42,7 @@ export const resources: Resource[] = [
   {
     title: 'Membership Overview',
     description:
-      'A short summary of the Express and Preferred options and the services included in each.',
+      'A short summary of the Standard and Elevated options and the services included in each.',
     icon: 'fileText',
     available: false,
   },
