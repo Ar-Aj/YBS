@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { Stagger } from '@/components/motion/Stagger';
 import { ComparisonTable } from '@/components/content/ComparisonTable';
+import { CommissionCalculator } from '@/components/content/CommissionCalculator';
 import { TierCard } from '@/components/content/TierCard';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
@@ -140,11 +141,25 @@ export default function DifferencePage() {
         </Container>
       </Section>
 
+      {/* Compare against your own numbers — the calculator */}
+      <Section variant="ivory">
+        <Container>
+          <SectionHeader
+            label="Your Numbers"
+            title="Compare It Against Your Own Numbers"
+            subtitle="Enter what you sell for and what you keep today, then see the same commission under YBS."
+          />
+          <Reveal variant="rise" duration="signature">
+            <CommissionCalculator />
+          </Reveal>
+        </Container>
+      </Section>
+
       <Section variant="charcoal">
         <Container narrow>
           <Reveal variant="rise" duration="signature">
             <div className={styles.ctaBlock}>
-              <h2>Compare It Against Your Own Numbers</h2>
+              <h2>Talk It Through With a Person</h2>
               <GoldRule center />
               <p>
                 A confidential call is the quickest way to see which option fits
