@@ -6,7 +6,6 @@ import { siteConfig } from '@/data/site';
 const paths = [
   '',
   '/about',
-  '/services',
   '/the-ybs-difference',
   '/how-it-works',
   '/leadership',

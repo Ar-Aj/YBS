@@ -1,3 +1,5 @@
+> Historical reference. The approved November 2026 client cleanup supersedes the loader, decorative-rule, repeated-content and standalone Services-page recommendations here. Current tier names are Standard and Elevated. The logo intro now plays once in the navbar; the home hero remains the opening experience. See the current source for implemented behavior.
+
 # YBS Immersive Motion Blueprint
 
 Status: design blueprint only. No application source, styles, components, dependencies, configuration, or assets were changed to produce it.

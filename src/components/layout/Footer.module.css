@@ -7,17 +7,6 @@
   min-height: auto;
 }
 
-.footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--gradient-gold-line);
-  pointer-events: none;
-}
-
 @media (max-width: 767px) {
   .footer {
     padding-top: var(--space-2xl);
@@ -35,7 +24,6 @@
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: var(--space-2xl);
   padding-bottom: var(--space-2xl);
-  border-bottom: 1px solid var(--border-dark);
 }
 
 /* Logo.png is 1672x941 (~1.777:1). The old 160x44 attributes forced ~3.6:1,
@@ -81,8 +69,9 @@
   text-decoration: underline;
   text-decoration-color: transparent;
   text-underline-offset: 4px;
-  transition: color var(--duration-fast) var(--ease-out),
-              text-decoration-color var(--duration-fast) var(--ease-out);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    text-decoration-color var(--duration-fast) var(--ease-out);
 }
 
 .link:hover {

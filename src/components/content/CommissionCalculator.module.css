@@ -15,7 +15,6 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   padding: var(--space-xl);
-  border-top: 2px solid var(--border-warm);
 }
 
 .label {
@@ -39,8 +38,9 @@
   border: none;
   border-bottom: 1.5px solid #7a7062;
   border-radius: 0;
-  transition: border-color var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .input:focus {
@@ -81,8 +81,9 @@
   color: var(--text-secondary);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out);
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
 }
 
 .modeBtn:hover {
@@ -104,7 +105,6 @@
 .todayBlock {
   margin-top: var(--space-xl);
   padding-top: var(--space-md);
-  border-top: 1px solid var(--border-light);
 }
 
 .todayAmount {
@@ -127,8 +127,9 @@
 .card {
   background: var(--gradient-champagne-surface);
   border-radius: var(--radius-lg);
-  border-top: 2px solid var(--gold-500);
-  box-shadow: var(--shadow-card), inset 0 0 0 1px var(--border-warm);
+  box-shadow:
+    var(--shadow-card),
+    inset 0 0 0 1px var(--border-warm);
   padding: var(--space-xl);
 }
 
@@ -170,7 +171,6 @@
   line-height: 1.2;
   margin-top: var(--space-md);
   padding-bottom: var(--space-md);
-  border-bottom: 1px solid var(--border-warm);
   font-variant-numeric: tabular-nums;
 }
 
@@ -196,7 +196,6 @@
   font-size: var(--text-sm);
   color: var(--text-secondary);
   padding: 8px 0;
-  border-bottom: 1px solid var(--border-light);
 }
 
 .ledgerRow:last-child {

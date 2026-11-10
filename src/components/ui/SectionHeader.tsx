@@ -1,5 +1,4 @@
 import { Stagger } from '@/components/motion/Stagger';
-import { DrawRule } from '@/components/motion/DrawRule';
 import styles from './SectionHeader.module.css';
 
 type Props = {
@@ -10,41 +9,24 @@ type Props = {
 };
 
 /**
- * Section heading. Label, title, rule and subtitle arrive in order, with the
- * gold rule drawing across after the title. Server HTML is fully visible.
+ * Section heading with optional supporting copy. Server HTML is fully visible.
  */
 export function SectionHeader({ label, title, subtitle, light }: Props) {
   return (
     <Stagger className={styles.header}>
       {label && <span className={styles.label}>{label}</span>}
       <h2 className={light ? styles.titleLight : undefined}>{title}</h2>
-      <div className={styles.ruleWrap}>
-        <DrawRule center delay={450} />
-      </div>
       {subtitle && <p className={light ? styles.subtitleLight : undefined}>{subtitle}</p>}
     </Stagger>
   );
 }
 
-export function GoldRule({
-  center,
+export function EyebrowLabel({
+  children,
   className = '',
-  delay = 0,
 }: {
-  center?: boolean;
+  children: string;
   className?: string;
-  delay?: number;
 }) {
-  return (
-    <DrawRule
-      center={center}
-      delay={delay}
-      className={className}
-      style={{ marginBlock: 'var(--space-md)' }}
-    />
-  );
-}
-
-export function EyebrowLabel({ children, className = '' }: { children: string; className?: string }) {
   return <span className={`${styles.label} ${className}`}>{children}</span>;
 }

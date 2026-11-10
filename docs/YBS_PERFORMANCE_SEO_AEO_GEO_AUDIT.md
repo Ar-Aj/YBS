@@ -1,3 +1,5 @@
+> Historical reference. The approved November 2026 client cleanup supersedes the loader, decorative-rule, repeated-content and standalone Services-page recommendations here. Current tier names are Standard and Elevated. The logo intro now plays once in the navbar; the home hero remains the opening experience. See the current source for implemented behavior.
+
 # YBS Performance, SEO, AEO and GEO Audit
 
 Audit date: 27 October 2026. Scope: the working tree at `c:\Yacht Broker Service` (Next.js 16.3.5, React 19.2.8, App Router, all nine routes statically prerendered).

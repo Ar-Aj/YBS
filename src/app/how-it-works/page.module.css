@@ -1,97 +1,25 @@
-/* How It Works — one connected rail. Visible by default; the line only
-   "draws" when JS is present and the block has not yet been revealed. */
 .process {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
-  position: relative;
+  gap: var(--space-2xl);
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
-.process::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  /* sits on the station dots: number height + gap below it */
-  top: calc(var(--space-xl) + clamp(3.25rem, 6vw, 5.5rem) + var(--space-lg));
-  height: 1px;
-  background: var(--gradient-gold-rule);
-  transform-origin: left center;
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
+.processLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-md) var(--space-xl);
+  margin-top: var(--space-2xl);
 }
-
-:global(html.js) :global(.reveal:not(.revealed)) .process::before {
-  transform: scaleX(0);
+.processLinks a {
+  color: var(--text-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
-
 @media (max-width: 900px) {
   .process {
     grid-template-columns: 1fr;
-  }
-  .process::before {
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: auto;
-    width: 1px;
-    height: auto;
-    transform-origin: center top;
-  }
-  :global(html.js) :global(.reveal:not(.revealed)) .process::before {
-    transform: scaleY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .process::before { transition: none; }
-}
-
-/* How It Works Page — Deliverables */
-
-.deliverables {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0 var(--space-3xl);
-  list-style: none;
-  padding: 0;
-  margin-bottom: var(--space-xl);
-}
-
-.deliverableItem {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-md);
-  padding: var(--space-md) 0;
-  border-bottom: 1px solid var(--border-warm);
-  transition: padding-left var(--duration-fast) var(--ease-out);
-}
-
-.deliverableItem:last-child { border-bottom: none; }
-.deliverableItem:hover { padding-left: var(--space-sm); }
-
-.deliverableNum {
-  font-family: var(--font-serif, Georgia, serif);
-  font-size: var(--text-lg);
-  font-weight: 400;
-  color: var(--text-accent);
-  flex-shrink: 0;
-  /* Single-digit numerals (1, 2, 3) with no leading zero. Tabular figures plus
-     a 2ch column keeps "9" and "10" left-aligned on the same edge. */
-  font-variant-numeric: tabular-nums;
-  width: 2ch;
-  line-height: 1.8;
-}
-
-.deliverableText {
-  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem); /* 17–19px */
-  color: var(--text-body);
-  line-height: 1.75;
-}
-
-@media (max-width: 768px) {
-  .deliverables {
-    grid-template-columns: 1fr;
-    gap: 0;
   }
 }

@@ -5,9 +5,8 @@
    white, pearl and warm ivory. Text is black and soft charcoal.
    There is NO navy or blue anywhere in the interface tokens.
 
-   The two protected experiences (cinematic hero + brand loader) keep
-   their exact legacy appearance through the frozen-token blocks in
-   section 1b. Nothing outside those blocks may reference legacy navy.
+   The cinematic hero keeps its legacy palette through the frozen
+   tokens in section 1b. Nothing outside those blocks may reference legacy navy.
 
    Sections:  1. Tokens  1b. Protected-element freeze  2. Base & type
               3. Focus / a11y  4. Motion  5. Layout  6. Helpers
@@ -175,9 +174,9 @@
   --container-wide:   1700px;
 
   /* ——— Fixed header offset (used by sticky/scroll targets) ——— */
-  /* Un-scrolled navbar height: logo 76.8px + 2x18px padding + 1px border.
+  /* Un-scrolled navbar height: logo 76.8px + 2x18px padding.
      Heroes and anchors offset by exactly this, so there is no gap and no overlap. */
-  --header-height: 113.8px;
+  --header-height: 112.8px;
 
   /* Radius */
   --radius-sm: 6px;
@@ -203,8 +202,8 @@
 }
 
 /* ————— 1b. Protected-element freeze —————
-   The cinematic hero and the brand loader were matched to existing video
-   and must look exactly as they did before the 2026 palette. They consume
+   The cinematic hero was matched to existing video
+   and retains its original palette. It consumes
    global tokens whose values have now changed, so those tokens are pinned
    to their ORIGINAL values inside each protected subtree. Custom properties
    inherit, so every descendant (buttons in the hero, loader controls)
@@ -237,21 +236,10 @@ section:has(> [data-hero-visual]) {
   --btn-focus-ring:           0 0 0 5px rgba(201, 162, 77, 0.55);
 }
 
-/* Brand loader: the fixed dialog overlay and everything inside it. */
-[role="dialog"][aria-label="Loading Yacht Broker Services"] {
-  --gold:           #b4872c;
-  --gold-deep:      #8a6418;
-  --charcoal:       #26374a;
-  --charcoal-light: #44566a;
-  --border-warm:    rgba(138, 100, 24, 0.22);
-  --white:          #ffffff;
-  --navy-deep:      #0b2239;
-}
-
-/* Navbar height at rest follows the logo: 62.4px logo on <=900px. */
-@media (max-width: 900px) {
+/* The compact menu starts before the desktop links can crowd the logo. */
+@media (max-width: 1100px) {
   :root {
-    --header-height: 99.4px;
+    --header-height: 98.4px;
   }
 }
 

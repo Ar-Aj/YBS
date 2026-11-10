@@ -12,10 +12,6 @@
   min-width: 0;
 }
 
-.index > :last-child {
-  border-bottom: 1px solid var(--text-strong);
-}
-
 @media (max-width: 900px) {
   .masthead {
     grid-template-columns: 1fr;

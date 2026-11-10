@@ -1,20 +1,13 @@
 import { Section, Container } from '@/components/layout/Section';
-import { SectionHeader, GoldRule } from '@/components/ui/SectionHeader';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
-import { Stagger } from '@/components/motion/Stagger';
 import { ComparisonTable } from '@/components/content/ComparisonTable';
 import { CommissionCalculator } from '@/components/content/CommissionCalculator';
-import { TierCard } from '@/components/content/TierCard';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { buildMetadata } from '@/lib/metadata';
-import {
-  comparisonRows,
-  tiers,
-  pricingExplanation,
-  membershipDisclaimer,
-} from '@/data/difference';
+import { comparisonRows, membershipDisclaimer } from '@/data/difference';
 import styles from '../shared.module.css';
 
 export const metadata = buildMetadata({
@@ -40,10 +33,7 @@ export default function DifferencePage() {
       {/* The only comparison on the site */}
       <Section variant="ivory">
         <Container>
-          <SectionHeader
-            label="Side by Side"
-            title="Traditional Brokerage vs. Yacht Broker Services"
-          />
+          <SectionHeader title="Traditional Brokerage vs. Yacht Broker Services" />
           <Reveal variant="clip" duration="signature">
             <ComparisonTable rows={comparisonRows} />
           </Reveal>
@@ -53,99 +43,10 @@ export default function DifferencePage() {
         </Container>
       </Section>
 
-      {/* AEO: brand */}
-      <Section variant="white">
-        <Container>
-          <Reveal>
-            <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-md)' }}>
-              Can Brokers Keep Their Own Brand with YBS?
-            </h2>
-            <GoldRule center />
-            <p style={{ textAlign: 'center', maxWidth: '72ch', margin: '0 auto', lineHeight: 1.85 }}>
-              Yes. YBS is built around the independent broker&apos;s own brand: you
-              market your company under your name and YBS supplies the brand kit,
-              website and marketing support behind it. Your client data stays with
-              you, and after the initial term you keep your company identity, logo
-              and marketing materials, subject to the agreement.
-            </p>
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* Impact */}
-      <Section variant="white">
-        <Container>
-          <SectionHeader label="Your Advantage" title="What This Means for You" />
-          <Stagger className={styles.grid4}>
-            <div className={styles.impactCard}>
-              <h3>Retention</h3>
-              <GoldRule />
-              <p>
-                Retain 75% (Standard) or 90% (Elevated) of your gross commissions,
-                with dues paid monthly by ACH.
-              </p>
-            </div>
-            <div className={styles.impactCard}>
-              <h3>Your Brand</h3>
-              <GoldRule />
-              <p>
-                Market under your own name and build your own reputation. YBS
-                supports your identity and does not replace it.
-              </p>
-            </div>
-            <div className={styles.impactCard}>
-              <h3>Your Approach</h3>
-              <GoldRule />
-              <p>
-                You decide how to present your listings and run your clients and
-                sales. Support is tailored and marketing is personalized.
-              </p>
-            </div>
-            <div className={styles.impactCard}>
-              <h3>Predictable Dues</h3>
-              <GoldRule />
-              <p>
-                One fixed monthly membership fee covers the platform and services.
-                Non-digital marketing and boat show costs are separate.
-              </p>
-            </div>
-          </Stagger>
-        </Container>
-      </Section>
-
-      {/* Tiers */}
-      <Section variant="ivory">
-        <Container>
-          <SectionHeader
-            label="Membership"
-            title="Standard or Elevated"
-            subtitle="Higher dues, higher retention. Same platform and services."
-          />
-          <Stagger className={styles.grid2}>
-            {tiers.map((t) => (
-              <TierCard key={t.name} tier={t} />
-            ))}
-          </Stagger>
-          <Reveal>
-            <div className={styles.pricingNote}>
-              <p>{pricingExplanation}</p>
-            </div>
-          </Reveal>
-          <Reveal>
-            <div style={{ textAlign: 'center', marginTop: 'var(--space-lg)' }}>
-              <Button href="/contact" size="lg">
-                Request a Confidential Call
-              </Button>
-            </div>
-          </Reveal>
-        </Container>
-      </Section>
-
       {/* Compare against your own numbers — the calculator */}
       <Section variant="ivory">
         <Container>
           <SectionHeader
-            label="Your Numbers"
             title="Compare It Against Your Own Numbers"
             subtitle="Enter what you sell for and what you keep today, then see the same commission under YBS."
           />
@@ -160,17 +61,12 @@ export default function DifferencePage() {
           <Reveal variant="rise" duration="signature">
             <div className={styles.ctaBlock}>
               <h2>Talk It Through With a Person</h2>
-              <GoldRule center />
-              <p>
-                A confidential call is the quickest way to see which option fits
-                your volume and your practice.
-              </p>
               <div className={styles.ctaActions}>
                 <Button href="/contact" size="lg">
                   Schedule a Confidential Call
                 </Button>
-                <Button href="/how-it-works" variant="ghost" size="lg">
-                  See How It Works
+                <Button href="/#membership" variant="ghost" size="lg">
+                  View Membership Options
                 </Button>
               </div>
             </div>

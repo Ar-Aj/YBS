@@ -45,6 +45,11 @@
   text-shadow: 0 2px 28px rgba(6, 14, 28, 0.5);
 }
 
+.heroContent .cursiveTitle {
+  font-style: italic;
+  font-weight: 400;
+}
+
 .heroContent p {
   color: var(--text-on-dark-strong);
   text-shadow: 0 1px 14px rgba(6, 14, 28, 0.55);
@@ -121,11 +126,8 @@
   }
 }
 
-@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
-  .heroMediaImg.hasVideo {
-    display: none;
-  }
-}
+/* The poster stays underneath the video, including before hydration and when
+   autoplay is unavailable. This keeps the opening media visible immediately. */
 
 .heroOverlay,
 .heroOverlayNatural {
@@ -139,7 +141,7 @@
   background: linear-gradient(
     180deg,
     rgba(9, 22, 40, 0.45) 0%,
-    rgba(9, 22, 40, 0.70) 50%,
+    rgba(9, 22, 40, 0.7) 50%,
     rgba(9, 22, 40, 0.85) 100%
   );
 }
@@ -153,19 +155,15 @@
       ellipse 62% 60% at 50% 48%,
       rgba(6, 14, 28, 0.74) 0%,
       rgba(6, 14, 28, 0.48) 55%,
-      rgba(6, 14, 28, 0.0) 100%
+      rgba(6, 14, 28, 0) 100%
     ),
     linear-gradient(
       to top,
       rgba(6, 14, 28, 0.68) 0%,
       rgba(6, 14, 28, 0.28) 28%,
-      rgba(0, 0, 0, 0.0) 52%
+      rgba(0, 0, 0, 0) 52%
     ),
-    linear-gradient(
-      to bottom,
-      rgba(6, 14, 28, 0.30) 0%,
-      rgba(0, 0, 0, 0.0) 18%
-    );
+    linear-gradient(to bottom, rgba(6, 14, 28, 0.3) 0%, rgba(0, 0, 0, 0) 18%);
 }
 
 /* ——— Narrow screens: content over the video, not beside it ———

@@ -40,14 +40,7 @@ export const tiers: Tier[] = [
     retention: 75,
     split: '75/25',
     price: '$1,500',
-    period: 'per month, paid by ACH',
-    description:
-      'Retain 75% of your gross commissions with a lower monthly fee. The same platform and services as Elevated.',
-    highlights: [
-      'MLS and CRM access',
-      'All services listed in the Membership Agreement',
-    ],
-    featured: false,
+    period: 'per month',
   },
   {
     name: 'elevated',
@@ -55,19 +48,9 @@ export const tiers: Tier[] = [
     retention: 90,
     split: '90/10',
     price: '$3,000',
-    period: 'per month, paid by ACH',
-    description:
-      'Retain 90% of your gross commissions. The higher monthly fee suits brokers whose volume makes maximum retention the priority.',
-    highlights: [
-      'MLS and CRM access',
-      'All services listed in the Membership Agreement',
-    ],
-    featured: true,
+    period: 'per month',
   },
 ];
-
-export const pricingExplanation =
-  'There are two membership options. You choose your tier annually, and dues are paid monthly. To keep 90% of your gross commissions you pay $3,000 a month (Elevated), or you pay $1,500 a month and retain 75% (Standard).';
 
 /**
  * Contractual qualifications that apply to both options.

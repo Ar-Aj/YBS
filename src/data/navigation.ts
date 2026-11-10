@@ -2,7 +2,6 @@ import type { NavLink } from './site';
 
 export const primaryNav: NavLink[] = [
   { label: 'Home', href: '/' },
-  { label: 'Services', href: '/services' },
   { label: 'The Difference', href: '/the-ybs-difference' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'About', href: '/about' },
@@ -20,7 +19,6 @@ export const footerNav = {
   navigate: [
     { label: 'Home', href: '/' },
     { label: 'About YBS', href: '/about' },
-    { label: 'Services', href: '/services' },
     { label: 'Leadership', href: '/leadership' },
     { label: 'Contact', href: '/contact' },
   ] as NavLink[],

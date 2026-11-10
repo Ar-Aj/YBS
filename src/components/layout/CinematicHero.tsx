@@ -26,6 +26,7 @@ type Props = {
   tabletAspect?: string;
   /** Intrinsic ratio of the mobile video. Home mobile cut is a 9:16 portrait. */
   mobileAspect?: string;
+  cursiveTitle?: boolean;
 };
 
 export function CinematicHero({
@@ -41,6 +42,7 @@ export function CinematicHero({
   secondaryCta,
   tabletAspect = '16 / 9',
   mobileAspect = '16 / 9',
+  cursiveTitle = false,
 }: Props) {
   const titleText = typeof title === 'string' ? title : 'Yacht Broker Services';
   return (
@@ -49,7 +51,7 @@ export function CinematicHero({
       <div className={styles.heroContent}>
         <RevealOnScroll>
           {label && <span className={styles.label}>{label}</span>}
-          <h1>{title}</h1>
+          <h1 className={cursiveTitle ? styles.cursiveTitle : undefined}>{title}</h1>
           {subtitle && <p>{subtitle}</p>}
 
           {(primaryCta || secondaryCta) && (
@@ -60,7 +62,11 @@ export function CinematicHero({
                 </Button>
               )}
               {secondaryCta && (
-                <Button href={secondaryCta.href} size="lg" variant={secondaryCta.variant || 'ghost'}>
+                <Button
+                  href={secondaryCta.href}
+                  size="lg"
+                  variant={secondaryCta.variant || 'ghost'}
+                >
                   {secondaryCta.label}
                 </Button>
               )}
@@ -73,7 +79,10 @@ export function CinematicHero({
       <div
         className={styles.heroVisual}
         data-hero-visual
-        style={{ ['--tablet-aspect' as string]: tabletAspect, ['--mobile-aspect' as string]: mobileAspect }}
+        style={{
+          ['--tablet-aspect' as string]: tabletAspect,
+          ['--mobile-aspect' as string]: mobileAspect,
+        }}
       >
         <div className={styles.heroMedia}>
           <Image
@@ -94,11 +103,7 @@ export function CinematicHero({
           )}
         </div>
         <div
-          className={
-            overlayVariant === 'natural'
-              ? styles.heroOverlayNatural
-              : styles.heroOverlay
-          }
+          className={overlayVariant === 'natural' ? styles.heroOverlayNatural : styles.heroOverlay}
           aria-hidden="true"
         />
       </div>

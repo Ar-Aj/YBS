@@ -1,20 +1,14 @@
 import Link from 'next/link';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Section, Container } from '@/components/layout/Section';
-import { SectionHeader, GoldRule } from '@/components/ui/SectionHeader';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { Stagger } from '@/components/motion/Stagger';
-import { Counter } from '@/components/motion/Counter';
 import { ServicesEcosystem } from '@/components/home/ServicesEcosystem';
-import { ServiceDetail } from '@/components/home/ServiceDetail';
 import { TierCard } from '@/components/content/TierCard';
-import { StepCard } from '@/components/content/StepCard';
-import { FAQAccordion } from '@/components/content/FAQAccordion';
 import { buildMetadata } from '@/lib/metadata';
-import { tiers, pricingExplanation } from '@/data/difference';
-import { steps } from '@/data/howItWorks';
-import { servicePillars } from '@/data/services';
+import { tiers } from '@/data/difference';
 import styles from './page.module.css';
 
 export const metadata = buildMetadata({
@@ -28,9 +22,15 @@ export const metadata = buildMetadata({
 export default function HomePage() {
   return (
     <>
-      {/* 1. Hero (protected, unchanged) */}
       <CinematicHero
-        title={<>Be The Architect<br />of Your Future</>}
+        title={
+          <>
+            Be The Architect
+            <br />
+            of Your Future
+          </>
+        }
+        cursiveTitle
         subtitle="Retain up to 90% of your commissions, while accessing personalized marketing programs, customized back-office operations, and administrative support tailored to elite yacht brokers."
         posterSrc="/hero-home.jpg"
         videoSrc="/videos/hero-home.mp4"
@@ -41,52 +41,19 @@ export default function HomePage() {
         overlayVariant="natural"
       />
 
-      {/* 2. Offer strip: verified figures only */}
-      <section className={styles.statStrip} aria-label="Membership at a glance">
-        <Container>
-          <Stagger className={styles.stats}>
-            <div className={styles.stat}>
-              <span className={styles.statValue}>
-                <Counter value={90} />
-              </span>
-              <span className={styles.statLabel}>Elevated: $3,000 per month</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statValue}>
-                <Counter value={75} />
-              </span>
-              <span className={styles.statLabel}>Standard: $1,500 per month</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statValue}>Yours</span>
-              <span className={styles.statLabel}>Your client data stays with you</span>
-            </div>
-          </Stagger>
-        </Container>
-      </section>
-
-      {/* 3. You are the firm */}
-      <section className={styles.narrative}>
+      <section className={styles.narrative} aria-label="Your independent brokerage">
         <div className={styles.narrativeInner}>
           <div className={styles.narrativeLeft}>
             <Reveal variant="rise" duration="signature">
               <div className={styles.narrativeContent}>
-                <span className={styles.labelDark}>You Are the Firm</span>
                 <h2>Your Name Above the Door</h2>
-                <GoldRule />
                 <p className={styles.leadPara}>
-                  You&apos;ve earned every client, negotiated every deal, and built
-                  trust through years of expertise.
+                  You&apos;ve earned every client, negotiated every deal, and built trust through
+                  years of expertise.
                 </p>
                 <p>
-                  YBS gives independent brokers a stylized brand kit, a website
-                  created and maintained for you, and a monthly newsletter in your
-                  company&apos;s branding, so the reputation you&apos;ve built carries
-                  your name.
-                </p>
-                <p className={styles.closePara}>
-                  Your client data is yours entirely. YBS sees only what you choose to
-                  share and uses it only to support your activities.
+                  Build your brokerage under your own name, with the independence to decide how you
+                  work with your clients.
                 </p>
               </div>
             </Reveal>
@@ -94,116 +61,56 @@ export default function HomePage() {
           <div className={styles.narrativeRight}>
             <Reveal variant="rise" duration="signature" delay={180}>
               <div className={styles.narrativeContent}>
-                <span className={styles.label}>We Work for You</span>
                 <h2>Autonomy, Fully Supported</h2>
-                <GoldRule delay={180} />
                 <p className={styles.leadPara}>
-                  Retain 75% or 90% of your gross commissions while YBS handles the
-                  operational mechanics of running a brokerage.
+                  YBS handles the operational mechanics behind your practice, so you can focus on
+                  your clients and sales.
                 </p>
                 <p>
-                  MLS and CRM access, entity formation, contract production, KYC
-                  support, survey and sea-trial coordination, legal documentation,
-                  closing coordination, and assistant support, all within one
-                  membership.
+                  You remain independent. YBS supplies the infrastructure and support behind your
+                  business.
                 </p>
-                <div className={styles.narrativeHighlight}>
-                  <strong>At Yacht Broker Services you&apos;re our client.</strong>{' '}
-                  We work for you.
-                </div>
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* 4. Services ecosystem (signature moment) */}
       <ServicesEcosystem />
 
-      {/* 5. What is included */}
-      <Section variant="champagne">
+      <Section variant="ivory" id="membership">
         <Container>
           <SectionHeader
-            label="What You Get"
-            title="Everything Included in Your Membership"
-            subtitle="From entity formation to closing support, and everything between"
-            light
-          />
-          <Reveal>
-            <ServiceDetail pillars={servicePillars} />
-          </Reveal>
-          <div className={styles.centerCta}>
-            <Button href="/services" variant="ghost">
-              Explore All Services
-            </Button>
-          </div>
-        </Container>
-      </Section>
-
-      {/* 6. Membership */}
-      <Section variant="ivory">
-        <Container>
-          <SectionHeader
-            label="Membership"
             title="Two Membership Options"
-            subtitle="Choose your tier annually. Dues are paid monthly."
+            subtitle="Same platform and services. Choose your tier annually."
           />
           <Stagger className={styles.tiersGrid}>
-            {tiers.map((t) => (
-              <TierCard key={t.name} tier={t} />
+            {tiers.map((tier) => (
+              <TierCard key={tier.name} tier={tier} />
             ))}
           </Stagger>
-          <Reveal>
-            <p className={styles.tierNote}>
-              {pricingExplanation}{' '}
-              <Link href="/how-it-works#terms" className={styles.inlineLink}>
-                Read the key terms
-              </Link>
-              {' '}or{' '}
-              <Link href="/the-ybs-difference" className={styles.inlineLink}>
-                see how the membership compares
-              </Link>
-              .
-            </p>
-          </Reveal>
+          <nav className={styles.membershipLinks} aria-label="Membership details">
+            <Link href="/how-it-works#terms" className={styles.inlineLink}>
+              Key terms
+            </Link>
+            <Link href="/the-ybs-difference" className={styles.inlineLink}>
+              Compare your numbers
+            </Link>
+            <Link href="/how-it-works" className={styles.inlineLink}>
+              How to join
+            </Link>
+          </nav>
         </Container>
       </Section>
 
-      {/* 7. How it works */}
-      <Section variant="white">
-        <Container>
-          <SectionHeader label="How It Works" title="Three Steps to Independence" />
-          <Stagger className={styles.stepsGrid}>
-            {steps.map((s) => (
-              <StepCard key={s.number} step={s} />
-            ))}
-          </Stagger>
-          <div className={styles.centerCta}>
-            <Button href="/how-it-works" variant="secondary">
-              See the Full Process
-            </Button>
-          </div>
-        </Container>
-      </Section>
-
-      {/* 8. Final CTA */}
       <Section variant="charcoal">
         <Container narrow>
           <Reveal variant="rise" duration="signature">
             <div className={styles.finalCta}>
-              <span className={styles.label}>Next Step</span>
               <h2>Your Future Starts with a Conversation</h2>
-              <GoldRule center />
-              <p>
-                Schedule a confidential call to discuss your practice, your licensing
-                position, and which membership option fits. Complete discretion.
-              </p>
               <div className={styles.heroActions}>
                 <Button href="/contact" size="lg">
                   Schedule a Confidential Call
-                </Button>
-                <Button href="/how-it-works" variant="ghost" size="lg">
-                  Explore Membership
                 </Button>
               </div>
             </div>

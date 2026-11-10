@@ -1,5 +1,5 @@
 import { Section, Container } from '@/components/layout/Section';
-import { SectionHeader, GoldRule } from '@/components/ui/SectionHeader';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { Stagger } from '@/components/motion/Stagger';
@@ -32,11 +32,7 @@ export default function InsightsPage() {
 
       <Section variant="ivory">
         <Container>
-          <SectionHeader
-            label="In Preparation"
-            title="Upcoming Guides"
-            subtitle="Articles are being prepared. Topics below reflect questions brokers ask about membership."
-          />
+          <SectionHeader title="Upcoming Guides" subtitle="Articles are being prepared." />
           <Reveal>
             <div className={styles.masthead}>
               <InsightCard post={insightPosts[0]} featured />
@@ -52,12 +48,7 @@ export default function InsightsPage() {
 
       <Section variant="champagne">
         <Container>
-          <SectionHeader
-            label="Resources"
-            title="Broker Resources"
-            subtitle="Planned guides for independent yacht brokers."
-            light
-          />
+          <SectionHeader title="Broker Resources" light />
           <Stagger className={shared.grid3}>
             {resources.map((r) => (
               <div key={r.title} className={shared.resourceCard}>
@@ -77,11 +68,6 @@ export default function InsightsPage() {
           <Reveal variant="rise" duration="signature">
             <div className={shared.ctaBlock}>
               <h2>Questions in the Meantime?</h2>
-              <GoldRule center />
-              <p>
-                Read the membership FAQ or schedule a confidential call with the
-                YBS team.
-              </p>
               <div className={shared.ctaActions}>
                 <Button href="/faq" size="lg">
                   Read the FAQ

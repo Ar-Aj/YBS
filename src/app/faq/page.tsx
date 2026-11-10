@@ -1,5 +1,4 @@
 import { Section, Container } from '@/components/layout/Section';
-import { GoldRule, EyebrowLabel } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { FAQAccordion } from '@/components/content/FAQAccordion';
@@ -14,7 +13,7 @@ import shared from '../shared.module.css';
 export const metadata = buildMetadata({
   title: 'Membership FAQ: Fees and Terms',
   description:
-    'Answers on Standard and Elevated fees, the 24-month term, licensing, expenses beyond dues, changing tiers, client-data ownership and getting started.',
+    'Answers on independent status, client-data access and employing brokers, with links to membership fees, services and key terms.',
   path: '/faq',
 });
 
@@ -48,8 +47,7 @@ export default function FAQPage() {
                 <div key={category.id} id={category.id} className={shared.faqGroup}>
                   <Reveal>
                     <div className={shared.categoryHeader}>
-                      <EyebrowLabel>{category.title}</EyebrowLabel>
-                      <GoldRule />
+                      <h2>{category.title}</h2>
                     </div>
                   </Reveal>
                   <Reveal>
@@ -67,11 +65,6 @@ export default function FAQPage() {
           <Reveal variant="rise" duration="signature">
             <div className={shared.ctaBlock}>
               <h2>Still Have Questions?</h2>
-              <GoldRule center />
-              <p>
-                Every conversation is confidential. Ask us anything that is not
-                covered here.
-              </p>
               <div className={shared.ctaActions}>
                 <Button href="/contact" size="lg">
                   Get in Touch

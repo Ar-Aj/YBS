@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Section, Container } from '@/components/layout/Section';
-import { SectionHeader, GoldRule, EyebrowLabel } from '@/components/ui/SectionHeader';
+import { EyebrowLabel } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { Stagger } from '@/components/motion/Stagger';
@@ -13,7 +13,6 @@ import { personJsonLd, webPageJsonLd } from '@/data/structured-data';
 import { siteConfig } from '@/data/site';
 import {
   founders,
-  foundingPrinciple,
   biography,
   previousPositions,
   ventures,
@@ -65,14 +64,7 @@ export default function LeadershipPage() {
           knowsAbout: founderExpertise,
         })}
       />
-      <JsonLd
-        data={webPageJsonLd(
-          TITLE,
-          DESCRIPTION,
-          PATH,
-          `${siteConfig.url}${PATH}#person`
-        )}
-      />
+      <JsonLd data={webPageJsonLd(TITLE, DESCRIPTION, PATH, `${siteConfig.url}${PATH}#person`)} />
 
       <CinematicHero
         label="Leadership"
@@ -104,7 +96,6 @@ export default function LeadershipPage() {
             <Reveal variant="rise">
               <EyebrowLabel>Biography</EyebrowLabel>
               <h2 className={styles.sectionTitle}>{biography.heading}</h2>
-              <GoldRule />
             </Reveal>
             <Reveal variant="rise" delay={120}>
               <div className={styles.prose}>
@@ -125,10 +116,6 @@ export default function LeadershipPage() {
             <h2 className={styles.sectionTitle} style={{ maxWidth: 'none' }}>
               Leadership and Ownership
             </h2>
-            <GoldRule />
-            <p>
-              Selected history from Kent&rsquo;s career.
-            </p>
           </Reveal>
 
           <div className={styles.experienceGrid}>
@@ -164,28 +151,11 @@ export default function LeadershipPage() {
         </Container>
       </Section>
 
-      {/* Company principle (a company statement, not a personal quotation) */}
-      <Section variant="champagne">
-        <Container narrow>
-          <div className={styles.principleWrap}>
-            <SectionHeader label="Our Principle" title="Why the Broker Comes First" light />
-            <Reveal variant="fade" duration="signature">
-              <p className={styles.principle}>{foundingPrinciple}</p>
-            </Reveal>
-          </div>
-        </Container>
-      </Section>
-
       <Section variant="charcoal">
         <Container narrow>
           <Reveal variant="rise" duration="signature">
             <div className={shared.ctaBlock}>
               <h2>Start with a Conversation</h2>
-              <GoldRule center />
-              <p>
-                Schedule a confidential call to discuss your practice and which
-                membership option, Standard or Elevated, fits.
-              </p>
               <div className={shared.ctaActions}>
                 <Button href="/contact" size="lg">
                   Schedule a Confidential Call
@@ -198,7 +168,7 @@ export default function LeadershipPage() {
                 <Link href="/how-it-works" className={styles.textLink}>
                   How membership works
                 </Link>
-                <Link href="/services" className={styles.textLink}>
+                <Link href="/#services" className={styles.textLink}>
                   Services for independent brokers
                 </Link>
                 <Link href="/the-ybs-difference" className={styles.textLink}>

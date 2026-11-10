@@ -20,7 +20,9 @@
   margin-bottom: var(--space-md);
 }
 
-.titleLight { color: var(--fg-strong); }
+.titleLight {
+  color: var(--fg-strong);
+}
 
 .header p {
   font-size: clamp(1.0625rem, 1.2vw, 1.25rem); /* 17-20px */
@@ -28,9 +30,6 @@
   line-height: 1.75;
 }
 
-.subtitleLight { color: var(--fg-secondary); }
-
-/* The rule itself is a DrawRule (gold hairline that draws on entry) */
-.ruleWrap {
-  margin: var(--space-md) 0;
+.subtitleLight {
+  color: var(--fg-secondary);
 }

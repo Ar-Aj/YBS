@@ -3,7 +3,6 @@ import { Playfair_Display, Inter } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollToTop } from '@/components/layout/ScrollToTop';
-import { BrandLoader } from '@/components/ui/BrandLoader';
 import { JsClassBootstrap } from '@/components/ui/JsClassBootstrap';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { AnalyticsProvider } from '@/components/seo/AnalyticsProvider';
@@ -56,11 +55,7 @@ export const metadata: Metadata = {
   // buildMetadata(), so a page that forgets cannot inherit "/".
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
@@ -69,8 +64,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Preload the intro clip so it can own the first paint. */}
-        <link rel="preload" href="/logo/ybs-logo-intro.mp4" as="video" type="video/mp4" />
         {/* Marks that JS is available so the reveal-on-scroll hidden states
             apply. Runs synchronously before the first paint; without JS the
             class is never set and the content stays visible. */}
@@ -86,7 +79,6 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <BrandLoader />
         <ScrollToTop />
         <Header />
         <main id="main-content">{children}</main>

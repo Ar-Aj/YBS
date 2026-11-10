@@ -20,15 +20,12 @@ export function FounderProfile({ founder, reverse }: Props) {
           sizes="(max-width: 768px) 280px, 480px"
         />
         {founder.placeholder && (
-          <span className={styles.placeholderBadge}>
-            Placeholder — replace with real photo
-          </span>
+          <span className={styles.placeholderBadge}>Placeholder — replace with real photo</span>
         )}
       </div>
       <div className={styles.content}>
         <span className={styles.role}>{founder.role}</span>
         <h2 className={styles.name}>{founder.name}</h2>
-        <hr className={styles.rule} />
         <p className={styles.bio}>{founder.bio}</p>
         {founder.linkedIn && (
           <a

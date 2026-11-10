@@ -32,6 +32,7 @@ export type Founder = {
 export type FAQ = {
   question: string;
   answer: string;
+  link?: { label: string; href: string };
 };
 
 export type FAQCategory = {
@@ -56,10 +57,6 @@ export type Tier = {
   split: string;
   price: string;
   period: string;
-  description: string;
-  highlights: string[];
-  /** Factual visual emphasis only (e.g. highest retention). Not a popularity claim. */
-  featured: boolean;
 };
 
 export type ComparisonRow = {

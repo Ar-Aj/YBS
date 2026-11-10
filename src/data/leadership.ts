@@ -20,19 +20,11 @@ export const founders: Founder[] = [
   },
 ];
 
-/**
- * Taken verbatim from the client brand film. This is a company statement,
- * not a personal quotation.
- */
-export const foundingPrinciple =
-  'At Yacht Broker Services you\u2019re our client. We work for you.';
-
 /** Editorial biography, in reading order. */
 export const biography = {
   heading: 'A Career in Large-Yacht Brokerage',
   paragraphs: [
     'Kent\u2019s work has centered on the large-yacht market. He has worked with yacht owners, buyers and other brokerage firms to market, sell, charter and manage yachts.',
-    'His earlier positions include owner of San Diego Yacht Sales and Chamberlain Yachts, General Manager of Bradford Yacht Sales, Vice President of Westship World Yachts, and CEO of Merle Wood & Associates. He has also built other yacht-related businesses. In 2001 he created the International Yacht & Jet Show in Nassau, Bahamas, which he later sold, and then started the fractional yacht company PartnerShips, and the yacht refurbishment business Certified Yachts.',
   ],
 } as const;
 
@@ -61,11 +53,12 @@ export const ventures: ExperienceEntry[] = [
   },
   {
     organization: 'PartnerShips',
-    detail: 'Involved with this fractional yacht sales and management company',
+    detail:
+      'Started this fractional yacht sales and management company after selling the International Yacht & Jet Show',
   },
   {
     organization: 'Certified Yachts',
-    detail: 'Involved with this yacht acquisition and sales organization',
+    detail: 'Started this yacht refurbishment, acquisition and sales business',
   },
 ];
 
@@ -83,11 +76,7 @@ export const education = {
 } as const;
 
 /** Used for Person structured data. Each item is supported by the biography. */
-export const founderExpertise = [
-  'Large-yacht sales',
-  'Yacht charter',
-  'Yacht management',
-] as const;
+export const founderExpertise = ['Large-yacht sales', 'Yacht charter', 'Yacht management'] as const;
 
 /**
  * Facts to confirm with Kent before launch. Kept here so they are not lost;

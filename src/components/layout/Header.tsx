@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { NavbarLogo } from './NavbarLogo';
 import { usePathname } from 'next/navigation';
 import { primaryNav, mobileNav } from '@/data/navigation';
 
@@ -11,7 +11,6 @@ import styles from './Header.module.css';
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [progress, setProgress] = useState(0);
   const wordmarkRef = useRef<HTMLSpanElement>(null);
   const navRef = useRef<HTMLElement>(null);
   // The menu is opened "for" a route. Deriving `menuOpen` from the current
@@ -26,8 +25,6 @@ export function Header() {
         requestAnimationFrame(() => {
           const y = window.scrollY;
           setScrolled(y > 24);
-          const max = document.documentElement.scrollHeight - window.innerHeight;
-          setProgress(max > 0 ? Math.min(1, Math.max(0, y / max)) : 0);
           ticking = false;
         });
         ticking = true;
@@ -156,22 +153,9 @@ export function Header() {
       role="navigation"
       aria-label="Main navigation"
     >
-      {/* Scroll progress hairline — quiet, futuristic, non-disturbing */}
-      <span
-        className={styles.progress}
-        aria-hidden="true"
-        style={{ transform: `scaleX(${progress})` }}
-      />
       <div className={styles.inner}>
         <Link href="/" className={styles.logo} aria-label="Yacht Broker Services — Home">
-          <Image
-            src="/Logo.png"
-            alt="Yacht Broker Services logo"
-            width={137}
-            height={77}
-            sizes="137px"
-            priority
-          />
+          <NavbarLogo />
           {/* Wordmark: collapses on scroll-down (driven by data-collapsed via ref,
               so toggling never re-renders React). The link's aria-label already
               names the brand, so the visual collapse costs AT users nothing. */}
@@ -190,6 +174,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
+              aria-current={pathname === link.href ? 'page' : undefined}
               className={`${styles.link} ${pathname === link.href ? styles.linkActive : ''}`}
             >
               {link.label}
@@ -197,15 +182,15 @@ export function Header() {
           ))}
         </div>
 
-
-
         <button
           className={`${styles.toggle} ${menuOpen ? styles.toggleActive : ''}`}
           onClick={toggleMenu}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
         >
-          <span /><span /><span />
+          <span />
+          <span />
+          <span />
         </button>
       </div>
 
@@ -221,13 +206,13 @@ export function Header() {
           <Link
             key={link.href}
             href={link.href}
+            aria-current={pathname === link.href ? 'page' : undefined}
             className={`${styles.link} ${pathname === link.href ? styles.linkActive : ''}`}
             onClick={closeMenu}
           >
             {link.label}
           </Link>
         ))}
-
       </div>
     </nav>
   );

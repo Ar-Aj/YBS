@@ -12,8 +12,8 @@
   background: color-mix(in srgb, var(--white) 82%, transparent);
   backdrop-filter: blur(18px) saturate(1.4);
   -webkit-backdrop-filter: blur(18px) saturate(1.4);
-  border-bottom: 1px solid var(--border-warm);
-  transition: box-shadow var(--duration-base) var(--ease-out),
+  transition:
+    box-shadow var(--duration-base) var(--ease-out),
     padding var(--duration-base) var(--ease-out),
     background var(--duration-base) var(--ease-out);
 }
@@ -21,20 +21,6 @@
 .scrolled {
   background: color-mix(in srgb, var(--white) 92%, transparent);
   box-shadow: 0 8px 32px rgba(60, 42, 10, 0.09);
-}
-
-/* Quiet gold scroll-progress hairline along the bar's bottom edge */
-.progress {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--gold-300), var(--gold-500) 60%, var(--gold-600));
-  transform-origin: left center;
-  transform: scaleX(0);
-  opacity: 0.9;
-  pointer-events: none;
 }
 
 .inner {
@@ -55,7 +41,7 @@
   padding-top: 11px;
   padding-bottom: 11px;
 }
-.nav[data-compact='true'] .logo img {
+.nav[data-compact='true'] .logoMark {
   height: 50px; /* 76.8px * ~0.65 */
 }
 /* Scoped to .links so the mobile overlay links are never affected */
@@ -74,21 +60,49 @@
 .logo {
   gap: 12px;
 }
-/* Logo mark: original heights 64px / 52px (scrolled) scaled by 20%.
-   Logo.png is 1672x941 (~1.777:1). Height is set, width follows from the
-   intrinsic ratio, so growing it never stretches or distorts the artwork. */
-.logo img {
-  height: 76.8px; /* 64px * 1.2 */
-  width: auto;
+/* Fixed footprint for both the animation and the static artwork. */
+.logoMark {
+  position: relative;
+  display: block;
+  flex: none;
+  height: 76.8px;
   aspect-ratio: 1672 / 941;
+  overflow: hidden;
+  transition: height var(--duration-base) var(--ease-out);
+}
+.logoImage,
+.logoVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  transition: height var(--duration-base) var(--ease-out),
-    width var(--duration-base) var(--ease-out),
-    filter var(--duration-base) var(--ease-out);
+  transition: opacity 180ms ease;
 }
-.logo:hover img {
-  filter: drop-shadow(0 2px 10px rgba(200, 164, 90, 0.35));
+.logoVideo {
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
 }
+.logoMark[data-logo-state='playing'] .logoVideo {
+  opacity: 1;
+}
+.logoMark[data-logo-state='playing'] .logoImage {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .logoImage,
+  .logoVideo {
+    transition: none;
+  }
+  .logoVideo {
+    display: none;
+  }
+  .logoMark[data-logo-state='playing'] .logoImage {
+    opacity: 1;
+  }
+}
+
 /* Wordmark — collapses to zero width/opacity on scroll-down (via ref-set
    data-collapsed), so it frees navbar space instead of just fading. */
 .wordmark {
@@ -98,7 +112,8 @@
   max-width: 20rem;
   opacity: 1;
   transform: translateX(0);
-  transition: max-width var(--duration-slow) var(--ease-out),
+  transition:
+    max-width var(--duration-slow) var(--ease-out),
     opacity var(--duration-base) var(--ease-out),
     transform var(--duration-slow) var(--ease-out),
     margin var(--duration-slow) var(--ease-out);
@@ -126,8 +141,12 @@
   line-height: 1.1;
   white-space: nowrap;
 }
-.logoTextDark { color: var(--text-strong); }
-.logoTextGold { color: var(--gold-600); }
+.logoTextDark {
+  color: var(--text-strong);
+}
+.logoTextGold {
+  color: var(--gold-600);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .wordmark {
@@ -149,54 +168,21 @@
   letter-spacing: 0.015em;
   color: var(--charcoal);
   padding: 10px 2px;
-  transition: color var(--duration-fast) var(--ease-out),
+  transition:
+    color var(--duration-fast) var(--ease-out),
     font-size var(--duration-base) var(--ease-out),
     padding var(--duration-base) var(--ease-out);
   position: relative;
   white-space: nowrap;
 }
 
-.link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 4px;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--gold-light), var(--gold));
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform var(--duration-base) var(--ease-out);
-}
-
 .link:hover {
   color: var(--text-strong);
 }
 
-.link:hover::after {
-  transform: scaleX(1);
-}
-
 .linkActive {
-  color: var(--text-strong);
-}
-
-.linkActive::after {
-  transform: scaleX(1);
-}
-
-/* Active link gets a quiet gold dot above the underline */
-.linkActive::before {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--gold);
-  transform: translateX(-50%);
+  color: var(--text-accent);
+  font-weight: 600;
 }
 
 /* Tighter rhythm on smaller laptops so links never collide with the logo */
@@ -229,8 +215,9 @@
   background: var(--white);
   border: 1.5px solid var(--gold);
   border-radius: var(--radius-sm);
-  transition: background var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out);
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .toggle:hover {
@@ -267,7 +254,7 @@
   display: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .inner {
     display: flex;
     justify-content: space-between;
@@ -275,9 +262,8 @@
     padding-right: var(--space-lg);
   }
 
-  .logo img {
-    height: 62.4px; /* 52px * 1.2 */
-    width: auto;
+  .logoMark {
+    height: 62.4px;
   }
 
   /* Compact on mobile/tablet: 99.4px -> ~65px (~35% smaller) */
@@ -285,7 +271,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
   }
-  .nav[data-compact='true'] .logo img {
+  .nav[data-compact='true'] .logoMark {
     height: 43px; /* 62.4px * ~0.69 */
   }
   .nav[data-compact='true'] .logoText {
@@ -302,8 +288,13 @@
     font-size: 1.0625rem;
   }
 
-  .links { display: none; }
-  .toggle { display: flex; justify-self: unset; }
+  .links {
+    display: none;
+  }
+  .toggle {
+    display: flex;
+    justify-self: unset;
+  }
 
   .overlay {
     display: none;
@@ -337,10 +328,6 @@
     outline: 2px solid var(--gold);
     outline-offset: 3px;
     border-radius: var(--radius-sm);
-  }
-
-  .overlay .linkActive::before {
-    display: none;
   }
 }
 

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useSyncExternalStore } from 'react';
 import styles from './CinematicHero.module.css';
 
 type Props = {
@@ -20,6 +20,19 @@ function currentTier(): Tier {
   return 'desktop';
 }
 
+function subscribeToViewport(onChange: () => void) {
+  window.addEventListener('resize', onChange);
+  window.addEventListener('orientationchange', onChange);
+  return () => {
+    window.removeEventListener('resize', onChange);
+    window.removeEventListener('orientationchange', onChange);
+  };
+}
+
+function serverTier(): Tier | 'server' {
+  return 'server';
+}
+
 /**
  * Single-source responsive hero video. Only the active device tier mounts a
  * <video> element, so inactive variants are never downloaded. The tablet tier
@@ -28,25 +41,16 @@ function currentTier(): Tier {
  */
 export function HeroVideo({ src, posterSrc, mobileSrc, tabletSrc }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [tier, setTier] = useState<Tier>('desktop');
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    setTier(currentTier());
-    const onChange = () => setTier(currentTier());
-    window.addEventListener('resize', onChange);
-    window.addEventListener('orientationchange', onChange);
-    return () => {
-      window.removeEventListener('resize', onChange);
-      window.removeEventListener('orientationchange', onChange);
-    };
-  }, []);
+  const viewport = useSyncExternalStore(subscribeToViewport, currentTier, serverTier);
+  const mounted = viewport !== 'server';
+  const tier = mounted ? viewport : 'desktop';
 
   const activeSrc =
-    tier === 'mobile' ? (mobileSrc ?? tabletSrc ?? src)
-    : tier === 'tablet' ? (tabletSrc ?? src)
-    : src;
+    tier === 'mobile'
+      ? (mobileSrc ?? tabletSrc ?? src)
+      : tier === 'tablet'
+        ? (tabletSrc ?? src)
+        : src;
 
   useEffect(() => {
     if (!mounted) return;
