@@ -1,7 +1,8 @@
 /* ————— Section ————— */
 .section {
-  padding-top: var(--space-section);
-  padding-bottom: var(--space-section);
+  --default-section-padding: var(--space-section);
+  padding-block-start: var(--section-padding-start, var(--default-section-padding));
+  padding-block-end: var(--section-padding-end, var(--default-section-padding));
   /* Sections size to their content on every viewport. The old 80vh rule
      produced large empty bands on desktop and is intentionally gone. */
   min-height: auto;
@@ -94,7 +95,6 @@
   /* Sections don't enforce 80vh on mobile — content-driven height */
   .section {
     min-height: unset;
-    padding-top: clamp(48px, 10vw, 72px);
-    padding-bottom: clamp(48px, 10vw, 72px);
+    --default-section-padding: clamp(48px, 10vw, 72px);
   }
 }

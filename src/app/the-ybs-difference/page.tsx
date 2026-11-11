@@ -8,7 +8,8 @@ import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { buildMetadata } from '@/lib/metadata';
 import { comparisonRows, membershipDisclaimer } from '@/data/difference';
-import styles from '../shared.module.css';
+import shared from '../shared.module.css';
+import styles from './page.module.css';
 
 export const metadata = buildMetadata({
   title: 'YBS vs. Traditional Brokerage',
@@ -31,44 +32,57 @@ export default function DifferencePage() {
       <Breadcrumbs items={[{ label: 'The YBS Difference', href: '/the-ybs-difference' }]} />
 
       {/* The only comparison on the site */}
-      <Section variant="ivory">
+      <Section variant="ivory" className={styles.comparison}>
         <Container>
-          <SectionHeader title="Traditional Brokerage vs. Yacht Broker Services" />
+          <SectionHeader
+            className={styles.comparisonHeader}
+            title={
+              <>
+                Traditional Brokerage
+                <br />
+                vs.
+                <br />
+                Yacht Broker Services
+              </>
+            }
+          />
           <Reveal variant="clip" duration="signature">
             <ComparisonTable rows={comparisonRows} />
           </Reveal>
+        </Container>
+        <Container wide>
           <Reveal>
-            <p className={styles.disclaimer}>{membershipDisclaimer}</p>
+            <p className={`${shared.disclaimer} ${styles.comparisonDisclaimer}`}>
+              {membershipDisclaimer}
+            </p>
           </Reveal>
         </Container>
       </Section>
 
       {/* Compare against your own numbers — the calculator */}
-      <Section variant="ivory">
+      <Section variant="ivory" className={styles.calculator}>
         <Container>
           <SectionHeader
             title="Compare It Against Your Own Numbers"
-            subtitle="Enter what you sell for and what you keep today, then see the same commission under YBS."
+            subtitle="Enter any gross selling price and your current percentage, and see how much higher your commissions would be at YBS"
           />
           <Reveal variant="rise" duration="signature">
+            <h3 className={styles.calculatorTitle}>Calculator</h3>
             <CommissionCalculator />
           </Reveal>
         </Container>
       </Section>
 
-      <Section variant="charcoal">
+      <Section variant="charcoal" className={styles.actionSection}>
         <Container narrow>
           <Reveal variant="rise" duration="signature">
-            <div className={styles.ctaBlock}>
-              <h2>Talk It Through With a Person</h2>
-              <div className={styles.ctaActions}>
-                <Button href="/contact" size="lg">
-                  Schedule a Confidential Call
-                </Button>
-                <Button href="/#membership" variant="ghost" size="lg">
-                  View Membership Options
-                </Button>
-              </div>
+            <div className={`${shared.ctaActions} ${styles.actions}`}>
+              <Button href="/contact" size="lg">
+                Schedule a Confidential Call
+              </Button>
+              <Button href="/#membership" variant="ghost" size="lg">
+                View Membership Options
+              </Button>
             </div>
           </Reveal>
         </Container>

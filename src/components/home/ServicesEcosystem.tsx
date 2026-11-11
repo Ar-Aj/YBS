@@ -8,9 +8,14 @@ import styles from './ServicesEcosystem.module.css';
 /** The single, complete service list; also the destination for legacy /services links. */
 export function ServicesEcosystem() {
   return (
-    <Section variant="white" id="services" ariaLabel="Membership services">
+    <Section
+      variant="white"
+      id="services"
+      ariaLabel="Membership services"
+      className={styles.services}
+    >
       <Container>
-        <SectionHeader title="One Membership, Four Areas of Support" />
+        <SectionHeader title="Minimal Hassle, Maximum Support" />
         <Stagger className={styles.pillars}>
           {servicePillars.map((pillar) => (
             <article key={pillar.title} className={styles.card}>

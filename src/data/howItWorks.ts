@@ -10,12 +10,13 @@ export const steps: Step[] = [
   {
     number: '2',
     title: 'Choose Standard or Elevated',
-    description: 'Select the membership option that fits your volume and practice.',
+    description:
+      'Select the membership option that fits your volume and practice. Both memberships provide the same thorough, detailed services.',
   },
   {
     number: '3',
     title: 'Launch your brokerage',
     description:
-      'YBS sets up your business infrastructure so you can begin operating under your own company identity.',
+      'YBS sets up your business infrastructure, marketing and sales programs, and ongoing back-office support, so you can focus entirely on sales.',
   },
 ];

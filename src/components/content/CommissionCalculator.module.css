@@ -1,20 +1,7 @@
-/* Commission calculator — three columns: your numbers, then YBS Standard (75%)
-   and YBS Elevated (90%). Champagne surfaces, gold rules, no blue. */
-
 .calc {
   display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr;
-  gap: var(--space-lg);
-  align-items: start;
-  margin-top: var(--space-xl);
-}
-
-/* ——— Column 1 — the inputs and today's figure ——— */
-.yours {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  padding: var(--space-xl);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2.2vw, 32px);
 }
 
 .label {
@@ -23,7 +10,7 @@
   font-weight: 500;
   color: var(--text-strong);
   margin-bottom: var(--space-xs);
-  margin-top: var(--space-md);
+  margin-top: var(--space-sm);
   letter-spacing: 0.02em;
 }
 
@@ -68,7 +55,6 @@
   background: var(--ivory);
   padding: 4px;
   border-radius: var(--radius-sm);
-  margin-top: var(--space-sm);
 }
 
 .modeBtn {
@@ -103,18 +89,19 @@
 
 /* What the broker keeps today, under their own split */
 .todayBlock {
-  margin-top: var(--space-xl);
+  margin-top: auto;
   padding-top: var(--space-md);
 }
 
-.todayAmount {
+.resultAmount {
   font-family: var(--font-serif, Georgia, serif);
-  font-size: clamp(1.5rem, 2vw, 1.875rem);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
   font-weight: 500;
-  color: var(--text-strong);
+  color: #0b2239;
   line-height: 1.2;
   margin-top: var(--space-xs);
   font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
 }
 
 .todayNote {
@@ -123,14 +110,30 @@
   margin-top: 4px;
 }
 
-/* ——— Columns 2–3 — the YBS comparison ——— */
 .card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   background: var(--gradient-champagne-surface);
   border-radius: var(--radius-lg);
-  box-shadow:
-    var(--shadow-card),
-    inset 0 0 0 1px var(--border-warm);
-  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+  padding: clamp(20px, 2.4vw, 36px);
+}
+
+.currentCard {
+  background: var(--white);
+}
+
+.cardTitle {
+  font-size: clamp(1.5rem, 2.25vw, 2rem);
+  margin-bottom: var(--space-sm);
+}
+
+.outputSummary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
 }
 
 .cardLabel {
@@ -163,15 +166,8 @@
   letter-spacing: 0.04em;
 }
 
-.amount {
-  font-family: var(--font-serif, Georgia, serif);
-  font-size: clamp(1.5rem, 2vw, 1.875rem);
-  font-weight: 500;
-  color: var(--text-strong);
-  line-height: 1.2;
-  margin-top: var(--space-md);
-  padding-bottom: var(--space-md);
-  font-variant-numeric: tabular-nums;
+.outputSummary .resultAmount {
+  margin-top: var(--space-sm);
 }
 
 .delta {
@@ -198,46 +194,17 @@
   padding: 8px 0;
 }
 
-.ledgerRow:last-child {
-  border-bottom: none;
-}
-
 .ledgerRow dd {
   font-weight: 500;
   color: var(--text-strong);
   font-variant-numeric: tabular-nums;
+  text-align: right;
+  overflow-wrap: anywhere;
 }
 
-/* ——— Disclaimer ——— */
-.note {
-  grid-column: 1 / -1;
-  font-size: var(--text-xs);
-  color: var(--text-meta);
-  line-height: 1.65;
-  text-align: center;
-  max-width: 720px;
-  margin: var(--space-sm) auto 0;
-}
-
-/* ——— Tablet: inputs full width, tiers side by side ——— */
-@media (max-width: 1024px) {
+@media (max-width: 920px) {
   .calc {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .yours {
-    grid-column: 1 / -1;
-  }
-}
-
-/* ——— Mobile: one column ——— */
-@media (max-width: 640px) {
-  .calc {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-  .yours,
-  .card {
-    padding: var(--space-lg);
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

@@ -1,3 +1,9 @@
+.services {
+  --section-padding-start: clamp(40px, 5.5vw, 96px);
+  --section-padding-end: var(--section-padding-start);
+  --section-header-gap: clamp(28px, 3.3vw, 48px);
+}
+
 .pillars {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -21,15 +27,20 @@
   max-width: 55ch;
 }
 .features {
-  display: grid;
-  gap: var(--space-sm);
-  list-style: none;
-  padding: 0;
-  margin: var(--space-lg) 0 0;
+  list-style: disc;
+  padding-inline-start: 1.25em;
+  margin: var(--space-md) 0 0;
 }
 .features li {
-  font-size: var(--text-base);
-  line-height: 1.65;
+  font-size: clamp(1rem, 1.1vw, 1.0625rem);
+  line-height: 1.55;
+  padding-inline-start: 0.15em;
+}
+.features li + li {
+  margin-block-start: 0.5rem;
+}
+.features li::marker {
+  color: var(--text-accent);
 }
 @media (max-width: 767px) {
   .pillars {

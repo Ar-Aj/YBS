@@ -74,8 +74,8 @@ export function CommissionCalculator() {
   return (
     <div className={styles.calc}>
       {/* Column 1 — the broker's own numbers, and what they keep today */}
-      <div className={styles.yours}>
-        <span className={styles.cardLabel}>Your Numbers</span>
+      <article className={`${styles.card} ${styles.currentCard}`}>
+        <h4 className={styles.cardTitle}>Your Numbers</h4>
 
         <div className={styles.modeToggle} role="group" aria-label="Amount type">
           <button
@@ -128,29 +128,31 @@ export function CommissionCalculator() {
 
         <div className={styles.todayBlock}>
           <span className={styles.cardLabel}>You keep today</span>
-          <div className={styles.todayAmount}>{usd.format(today)}</div>
+          <div className={styles.resultAmount}>{usd.format(today)}</div>
           <p className={styles.todayNote}>
             On a {usd.format(grossCommission)} gross commission
           </p>
         </div>
-      </div>
+      </article>
 
       {/* Columns 2 and 3 — the same commission under YBS */}
       {columns.map((column) => (
-        <div key={column.key} className={styles.card}>
-          <span className={styles.cardLabel}>YBS {column.label}</span>
-          <div className={styles.pill}>
-            <span className={styles.pillValue}>{column.retention}%</span>
-            <span className={styles.pillLabel}>to you</span>
+        <article key={column.key} className={styles.card}>
+          <h4 className={styles.cardTitle}>YBS {column.label}</h4>
+          <div className={styles.outputSummary}>
+            <div className={styles.pill}>
+              <span className={styles.pillValue}>{column.retention}%</span>
+              <span className={styles.pillLabel}>to you</span>
+            </div>
+            <div className={styles.resultAmount}>{usd.format(column.take)}</div>
+            <p className={styles.delta}>
+              {Math.round(column.difference) === 0
+                ? 'About the same as today'
+                : column.difference > 0
+                  ? `+${usd.format(column.difference)} more than today`
+                  : `${usd.format(Math.abs(column.difference))} less than today`}
+            </p>
           </div>
-          <div className={styles.amount}>{usd.format(column.take)}</div>
-          <p className={styles.delta}>
-            {Math.round(column.difference) === 0
-              ? 'About the same as today'
-              : column.difference > 0
-                ? `+${usd.format(column.difference)} more than today`
-                : `${usd.format(Math.abs(column.difference))} less than today`}
-          </p>
           <dl className={styles.ledger}>
             <div className={styles.ledgerRow}>
               <dt>YBS share</dt>
@@ -161,13 +163,8 @@ export function CommissionCalculator() {
               <dd>{column.dues} per month</dd>
             </div>
           </dl>
-        </div>
+        </article>
       ))}
-
-      <p className={styles.note}>
-        Illustrative only, before dues and deal costs. Your actual split depends
-        on your agreement and the Independent Broker Membership Agreement.
-      </p>
     </div>
   );
 }

@@ -78,11 +78,12 @@ export default function HomePage() {
 
       <ServicesEcosystem />
 
-      <Section variant="ivory" id="membership">
+      <Section variant="ivory" id="membership" className={styles.membership}>
         <Container>
           <SectionHeader
             title="Two Membership Options"
-            subtitle="Same platform and services. Choose your tier annually."
+            subtitle="Both provide the same amazing services"
+            className={styles.membershipHeader}
           />
           <Stagger className={styles.tiersGrid}>
             {tiers.map((tier) => (

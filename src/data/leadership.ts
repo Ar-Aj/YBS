@@ -1,13 +1,8 @@
 import type { Founder } from './site';
 
 /**
- * Source: Kent Chamberlain biography dated 2006, supplied by the client.
- *
- * That biography is historical. Every position below is stated in the past
- * tense or as "involvement", and no dates are given beyond the one the source
- * itself supplies (2001). Do not turn any entry into a "current" role without
- * written confirmation from Kent. Items awaiting confirmation are listed in
- * `leadershipOpenQuestions` at the foot of this file.
+ * Sources: Kent Chamberlain's 2006 biography for historical roles and the
+ * client's approved revisions for the founder profile and network description.
  */
 export const founders: Founder[] = [
   {
@@ -15,7 +10,7 @@ export const founders: Founder[] = [
     role: 'Founder',
     image: '/kent-chamberlain.png',
     placeholder: false,
-    bio: 'Kent Chamberlain is the founder of Yacht Broker Services. His career in the large-yacht industry spans sales, charter and management, and includes owning and leading brokerage firms and creating an international yacht show.',
+    bio: 'As the founder of Yacht Broker Services, Kent Chamberlain brings decades of leadership to the large-yacht sector. His distinguished career spans yacht sales, chartering, and management, alongside a proven track record of owning and leading prominent brokerage firms, shipyards, as well as creating international yacht shows.',
     // REPLACE: Add LinkedIn URL when supplied and approved.
   },
 ];
@@ -49,7 +44,7 @@ export const previousPositions: ExperienceEntry[] = [
 export const ventures: ExperienceEntry[] = [
   {
     organization: 'International Yacht & Jet Show',
-    detail: 'Created in 2001 in Nassau, Bahamas, and later sold',
+    detail: 'Created in Nassau, Bahamas, and later sold',
   },
   {
     organization: 'PartnerShips',
@@ -66,7 +61,7 @@ export const industryInvolvement = {
   heading: 'Industry Involvement',
   organization: 'Superyacht Network',
   summary:
-    'The Superyacht Network is a group of large-yacht brokers who meet to discuss industry trends and opportunities. Kent is Chairman.',
+    'Kent is the Chairman of the Superyacht Network, a group of approximately 150 large-yacht brokers worldwide who regularly communicate and periodically meet to discuss industry trends and yacht sales opportunities around the world.',
 } as const;
 
 export const education = {
@@ -83,7 +78,6 @@ export const founderExpertise = ['Large-yacht sales', 'Yacht charter', 'Yacht ma
  * this export is not rendered anywhere.
  */
 export const leadershipOpenQuestions = [
-  'Is Kent still Chairman of the Superyacht Network? The page attributes the title to his 2006 biography. Once confirmed, it can be restated as current or as a past role.',
   'Is the University of Denver listing accurate as written (studied, no degree stated)? Person schema uses alumniOf.',
   'Dates and order of the previous positions, and whether any are still held.',
   'Status of PartnerShips and Certified Yachts, and what his involvement was.',
