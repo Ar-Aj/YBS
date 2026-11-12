@@ -5,10 +5,14 @@
 }
 
 .card {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: clamp(22px, 2.4vw, 36px);
+  min-height: 510px;
+  overflow: hidden;
+  padding: clamp(28px, 2.4vw, 36px);
   border-radius: var(--radius-lg);
   background: var(--gradient-champagne-surface);
   box-shadow: var(--shadow-card);
@@ -19,130 +23,282 @@
 }
 
 .standardCard {
-  background: #eef0ed;
+  background: #c3ceca;
+  box-shadow: 0 1px 2px rgb(20 33 27 / 5%), 0 10px 28px rgb(20 33 27 / 7%);
 }
 
 .featureCard {
-  background: var(--white);
+  background: #0e3a2b;
+  color: #eef6f1;
+  box-shadow: 0 1px 2px rgb(20 33 27 / 5%), 0 10px 28px rgb(20 33 27 / 7%);
+}
+
+.featureCard::before {
+  position: absolute;
+  z-index: -1;
+  top: -40%;
+  bottom: -40%;
+  left: -45%;
+  width: 42%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgb(255 255 255 / 4%) 32%,
+    rgb(255 255 255 / 14%) 50%,
+    rgb(255 255 255 / 4%) 68%,
+    transparent 100%
+  );
+  content: '';
+  pointer-events: none;
+  transform: skewX(-14deg);
+  animation: elevatedGlow 9s ease-in-out infinite;
+}
+
+.card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .cardTitle {
-  margin: 0 0 var(--space-md);
-  font-size: clamp(1.35rem, 1.9vw, 1.65rem);
+  margin: 0 0 var(--space-sm);
+  font-size: clamp(1.5rem, 2.25vw, 2rem);
+}
+
+.currentCard .cardTitle,
+.standardCard .cardTitle {
+  color: #14211b;
+}
+
+.featureCard .cardTitle {
+  color: #eef6f1;
 }
 
 .label {
   display: block;
-  margin: 0 0 9px;
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  line-height: 1.5;
-  text-transform: uppercase;
-}
-
-.inputWrap {
-  display: flex;
-  align-items: center;
-  min-width: 0;
-  height: 52px;
-  margin-bottom: var(--space-md);
-  padding: 0 14px;
-  border: 1px solid #dce3dd;
-  border-radius: 10px;
-  background: var(--white);
-  color: var(--text-secondary);
-  transition:
-    border-color var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
-}
-
-.inputWrap:focus-within {
-  border-color: var(--gold-600);
-  box-shadow: 0 0 0 3px rgb(169 130 47 / 16%);
+  margin: var(--space-sm) 0 var(--space-xs);
+  color: var(--text-strong);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .input {
   width: 100%;
   min-width: 0;
-  padding: 0;
+  min-height: 52px;
+  padding: 0.85em 0;
   border: 0;
-  outline: 0;
+  border-bottom: 1.5px solid #dce3dd;
+  border-radius: 0;
   background: transparent;
   color: var(--text-strong);
-  font: 600 17px var(--font-sans, Arial, sans-serif);
+  font: 400 1rem var(--font-sans, Inter, system-ui, sans-serif);
   font-variant-numeric: tabular-nums;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
 }
 
-.splitInput {
-  width: 3ch;
-  flex: none;
+.input:focus {
+  outline: none;
+  border-bottom-color: #1c7a4b;
+  box-shadow: 0 2px 0 0 #1c7a4b;
 }
 
-.outputHead,
+.input:focus-visible {
+  outline: 2px solid #1c7a4b;
+  outline-offset: 2px;
+}
+
+.hint {
+  margin-top: 6px;
+  color: var(--text-meta);
+  font-size: var(--text-xs);
+  line-height: 1.55;
+}
+
+.todayBlock {
+  margin-top: auto;
+  padding-top: var(--space-md);
+}
+
+.cardLabel {
+  display: block;
+  color: var(--text-accent);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.resultAmount {
+  margin-top: var(--space-xs);
+  color: #0b2239;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.75rem, 2.4vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.todayNote {
+  margin-top: 4px;
+  color: var(--text-meta);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+}
+
+.outputSummary {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pill {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: var(--space-sm);
+}
+
+.pillValue {
+  color: #1c7a4b;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.pillLabel {
+  color: var(--text-meta);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+}
+
+.outputSummary > .resultAmount {
+  margin-top: var(--space-sm);
+}
+
 .metric {
   display: flex;
-  flex-direction: row;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
 }
 
-.outputHead {
-  margin: auto 0 24px;
-}
-
-.split,
 .metricLabel {
   min-width: 0;
-  color: var(--text-secondary);
-  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  color: var(--text-accent);
+  font-size: var(--text-sm);
   font-weight: 500;
 }
 
-.primary,
 .amount {
   flex: none;
-  margin-left: auto;
   color: #0b2239;
-  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+  font-weight: 500;
   text-align: right;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 
-.metricLabel {
-  order: -1;
+.ledger {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-md);
 }
 
-@media (max-width: 850px) {
+.ledgerRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: 8px 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.ledgerRow dd {
+  margin: 0;
+  color: var(--text-strong);
+  font-weight: 500;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.standardCard .pillValue,
+.standardCard .resultAmount,
+.standardCard .amount {
+  color: #1c7a4b;
+}
+
+.standardCard .metricLabel,
+.standardCard .ledgerRow {
+  color: #566a5f;
+}
+
+.standardCard .ledgerRow dd {
+  color: #14211b;
+}
+
+.featureCard .pillValue,
+.featureCard .resultAmount,
+.featureCard .amount {
+  color: #78e6ae;
+}
+
+.featureCard .pillLabel,
+.featureCard .metricLabel,
+.featureCard .ledgerRow {
+  color: rgb(238 246 241 / 82%);
+}
+
+.featureCard .ledgerRow dd {
+  color: #eef6f1;
+}
+
+@keyframes elevatedGlow {
+  0% {
+    transform: translateX(0) skewX(-14deg);
+  }
+
+  18%,
+  100% {
+    transform: translateX(390%) skewX(-14deg);
+  }
+}
+
+@media (max-width: 920px) {
   .calc {
     grid-template-columns: minmax(0, 1fr);
-    gap: 16px;
   }
 
   .card {
+    min-height: 0;
     padding: 26px 24px;
   }
 }
 
-@media (max-width: 430px) {
-  .card {
-    padding: 22px 18px;
+@media (max-width: 480px) {
+  .metric {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
-  .primary,
   .amount {
-    font-size: clamp(1.25rem, 7vw, 1.75rem);
+    text-align: left;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .inputWrap {
+  .input,
+  .featureCard::before {
     transition: none;
+    animation: none;
   }
 }

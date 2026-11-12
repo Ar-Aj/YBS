@@ -39,6 +39,8 @@ export function CommissionCalculator() {
       retention: tier.retention,
       income,
       additionalIncome: income - currentIncome,
+      ybsShare: grossCommissionPool - income,
+      dues: tier.price,
     };
   });
 
@@ -48,46 +50,49 @@ export function CommissionCalculator() {
         <h4 className={styles.cardTitle}>Your Numbers</h4>
 
         <label className={styles.label} htmlFor={salesId}>
-          Your average annual gross sales
+          Average annual gross sales ($)
         </label>
-        <div className={styles.inputWrap}>
-          <span aria-hidden="true">$</span>
-          <input
-            id={salesId}
-            className={styles.input}
-            type="text"
-            inputMode="decimal"
-            value={sales}
-            aria-label="Average annual gross sales"
-            onFocus={() => setSales((value) => value.replace(/,/g, ''))}
-            onChange={(event) => setSales(event.target.value)}
-            onBlur={() =>
-              setSales(
-                new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(
-                  toNumber(sales),
-                ),
-              )
-            }
-          />
-        </div>
+        <input
+          id={salesId}
+          className={styles.input}
+          type="text"
+          inputMode="decimal"
+          value={sales}
+          aria-label="Average annual gross sales"
+          onFocus={() => setSales((value) => value.replace(/,/g, ''))}
+          onChange={(event) => setSales(event.target.value)}
+          onBlur={() =>
+            setSales(
+              new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(
+                toNumber(sales),
+              ),
+            )
+          }
+        />
 
         <label className={styles.label} htmlFor={splitId}>
           Your current average brokerage split (%)
         </label>
-        <div className={styles.inputWrap}>
-          <input
-            id={splitId}
-            className={`${styles.input} ${styles.splitInput}`}
-            type="number"
-            inputMode="decimal"
-            min={0}
-            max={100}
-            step="any"
-            value={currentSplit}
-            aria-label="Current average brokerage split"
-            onChange={(event) => setCurrentSplit(event.target.value)}
-          />
-          <span aria-hidden="true">%</span>
+        <input
+          id={splitId}
+          className={styles.input}
+          type="number"
+          inputMode="decimal"
+          min={0}
+          max={100}
+          step="any"
+          value={currentSplit}
+          aria-label="Current average brokerage split"
+          onChange={(event) => setCurrentSplit(event.target.value)}
+        />
+        <p className={styles.hint}>The share you keep under your current arrangement.</p>
+
+        <div className={styles.todayBlock}>
+          <span className={styles.cardLabel}>You keep today</span>
+          <div className={styles.resultAmount}>{usd.format(currentIncome)}</div>
+          <p className={styles.todayNote}>
+            On an estimated {usd.format(grossCommissionPool)} annual gross commission pool
+          </p>
         </div>
       </article>
 
@@ -98,14 +103,27 @@ export function CommissionCalculator() {
           aria-live="polite"
         >
           <h4 className={styles.cardTitle}>YBS {result.label}</h4>
-          <div className={styles.outputHead}>
-            <span className={styles.split}>{result.retention}% to you</span>
-            <strong className={styles.primary}>{usd.format(result.income)}</strong>
+          <div className={styles.outputSummary}>
+            <div className={styles.pill}>
+              <span className={styles.pillValue}>{result.retention}%</span>
+              <span className={styles.pillLabel}>to you</span>
+            </div>
+            <div className={styles.resultAmount}>{usd.format(result.income)}</div>
+            <div className={styles.metric}>
+              <span className={styles.metricLabel}>Additional annual income</span>
+              <strong className={styles.amount}>{usd.format(result.additionalIncome)}</strong>
+            </div>
           </div>
-          <div className={styles.metric}>
-            <span className={styles.metricLabel}>Additional annual income</span>
-            <strong className={styles.amount}>{usd.format(result.additionalIncome)}</strong>
-          </div>
+          <dl className={styles.ledger}>
+            <div className={styles.ledgerRow}>
+              <dt>YBS share</dt>
+              <dd>{usd.format(result.ybsShare)}</dd>
+            </div>
+            <div className={styles.ledgerRow}>
+              <dt>Dues</dt>
+              <dd>{result.dues} per month</dd>
+            </div>
+          </dl>
         </article>
       ))}
     </div>
