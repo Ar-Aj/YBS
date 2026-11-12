@@ -64,7 +64,7 @@ export default function DifferencePage() {
         <Container>
           <SectionHeader
             title="Compare It Against Your Own Numbers"
-            subtitle="Enter any gross selling price and your current percentage, and see how much higher your commissions would be at YBS"
+            subtitle="Enter your average annual gross sales and current brokerage split to compare estimated annual income under YBS."
           />
           <Reveal variant="rise" duration="signature">
             <h3 className={styles.calculatorTitle}>Calculator</h3>

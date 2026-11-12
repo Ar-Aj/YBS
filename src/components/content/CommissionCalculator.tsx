@@ -4,17 +4,7 @@ import { useId, useState } from 'react';
 import { tiers } from '@/data/difference';
 import styles from './CommissionCalculator.module.css';
 
-/**
- * Commission on gross selling price, per the client-supplied logic:
- * 10% on the first $10M, 5% on the next $10M, 2.5% on everything above $20M.
- */
-function commissionOnPrice(price: number): number {
-  if (price <= 0) return 0;
-  const firstBand = Math.min(price, 10_000_000) * 0.1;
-  const secondBand = Math.min(Math.max(price - 10_000_000, 0), 10_000_000) * 0.05;
-  const thirdBand = Math.max(price - 20_000_000, 0) * 0.025;
-  return firstBand + secondBand + thirdBand;
-}
+const COMMISSION_RATE = 0.065;
 
 const usd = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -22,147 +12,100 @@ const usd = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 });
 
-/** Non-negative number from a text field. */
 function toNumber(value: string): number {
-  const n = Number(value);
-  return Number.isFinite(n) ? Math.max(0, n) : 0;
+  const parsed = Number(value.replace(/[$,%\s,]/g, ''));
+  return Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
 }
 
-/** Percentage from a text field, clamped to 0–100. */
 function toPercent(value: string): number {
-  return Math.min(100, toNumber(value));
+  return Math.min(100, toNumber(value)) / 100;
 }
 
-type AmountMode = 'price' | 'commission';
-
-/**
- * "Compare it against your own numbers."
- *
- * Three columns: the broker's own figures (and what they keep today), then the
- * same commission under YBS Standard (75%) and YBS Elevated (90%).
- *
- * The tiered commission structure is the client-supplied logic; the broker's
- * share of the commission is then split at the current rate or the YBS rate.
- */
+/** Estimates annual income from average annual gross sales using the client's 6.5% model. */
 export function CommissionCalculator() {
-  const [mode, setMode] = useState<AmountMode>('price');
-  const [amount, setAmount] = useState('10000000');
-  const [currentSplit, setCurrentSplit] = useState('50');
-
-  const amountId = useId();
+  const [sales, setSales] = useState('25,000,000');
+  const [currentSplit, setCurrentSplit] = useState('65');
+  const salesId = useId();
   const splitId = useId();
 
-  const grossCommission =
-    mode === 'price' ? commissionOnPrice(toNumber(amount)) : toNumber(amount);
+  const grossCommissionPool = toNumber(sales) * COMMISSION_RATE;
+  const currentIncome = grossCommissionPool * toPercent(currentSplit);
 
-  const today = grossCommission * (toPercent(currentSplit) / 100);
-
-  // Standard (75%) first, Elevated (90%) second — 90% sits to the right of 75%.
-  const columns = tiers.map((tier) => {
-    const take = grossCommission * (tier.retention / 100);
+  const results = tiers.map((tier) => {
+    const income = grossCommissionPool * (tier.retention / 100);
     return {
       key: tier.name,
       label: tier.label,
       retention: tier.retention,
-      take,
-      ybsShare: grossCommission - take,
-      dues: tier.price,
-      difference: take - today,
+      income,
+      additionalIncome: income - currentIncome,
     };
   });
 
   return (
     <div className={styles.calc}>
-      {/* Column 1 — the broker's own numbers, and what they keep today */}
       <article className={`${styles.card} ${styles.currentCard}`}>
         <h4 className={styles.cardTitle}>Your Numbers</h4>
 
-        <div className={styles.modeToggle} role="group" aria-label="Amount type">
-          <button
-            type="button"
-            className={`${styles.modeBtn} ${mode === 'price' ? styles.modeBtnActive : ''}`}
-            aria-pressed={mode === 'price'}
-            onClick={() => setMode('price')}
-          >
-            Sell price
-          </button>
-          <button
-            type="button"
-            className={`${styles.modeBtn} ${mode === 'commission' ? styles.modeBtnActive : ''}`}
-            aria-pressed={mode === 'commission'}
-            onClick={() => setMode('commission')}
-          >
-            Commission
-          </button>
+        <label className={styles.label} htmlFor={salesId}>
+          Your average annual gross sales
+        </label>
+        <div className={styles.inputWrap}>
+          <span aria-hidden="true">$</span>
+          <input
+            id={salesId}
+            className={styles.input}
+            type="text"
+            inputMode="decimal"
+            value={sales}
+            aria-label="Average annual gross sales"
+            onFocus={() => setSales((value) => value.replace(/,/g, ''))}
+            onChange={(event) => setSales(event.target.value)}
+            onBlur={() =>
+              setSales(
+                new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(
+                  toNumber(sales),
+                ),
+              )
+            }
+          />
         </div>
 
-        <label className={styles.label} htmlFor={amountId}>
-          {mode === 'price' ? 'Gross selling price ($)' : 'Gross commission ($)'}
-        </label>
-        <input
-          id={amountId}
-          className={styles.input}
-          type="number"
-          inputMode="decimal"
-          min={0}
-          step="any"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-
         <label className={styles.label} htmlFor={splitId}>
-          Your current brokerage split (%)
+          Your current average brokerage split (%)
         </label>
-        <input
-          id={splitId}
-          className={styles.input}
-          type="number"
-          inputMode="decimal"
-          min={0}
-          max={100}
-          step="any"
-          value={currentSplit}
-          onChange={(e) => setCurrentSplit(e.target.value)}
-        />
-        <p className={styles.hint}>The share you keep under your current arrangement.</p>
-
-        <div className={styles.todayBlock}>
-          <span className={styles.cardLabel}>You keep today</span>
-          <div className={styles.resultAmount}>{usd.format(today)}</div>
-          <p className={styles.todayNote}>
-            On a {usd.format(grossCommission)} gross commission
-          </p>
+        <div className={styles.inputWrap}>
+          <input
+            id={splitId}
+            className={`${styles.input} ${styles.splitInput}`}
+            type="number"
+            inputMode="decimal"
+            min={0}
+            max={100}
+            step="any"
+            value={currentSplit}
+            aria-label="Current average brokerage split"
+            onChange={(event) => setCurrentSplit(event.target.value)}
+          />
+          <span aria-hidden="true">%</span>
         </div>
       </article>
 
-      {/* Columns 2 and 3 — the same commission under YBS */}
-      {columns.map((column) => (
-        <article key={column.key} className={styles.card}>
-          <h4 className={styles.cardTitle}>YBS {column.label}</h4>
-          <div className={styles.outputSummary}>
-            <div className={styles.pill}>
-              <span className={styles.pillValue}>{column.retention}%</span>
-              <span className={styles.pillLabel}>to you</span>
-            </div>
-            <div className={styles.resultAmount}>{usd.format(column.take)}</div>
-            <p className={styles.delta}>
-              {Math.round(column.difference) === 0
-                ? 'About the same as today'
-                : column.difference > 0
-                  ? `+${usd.format(column.difference)} more than today`
-                  : `${usd.format(Math.abs(column.difference))} less than today`}
-            </p>
+      {results.map((result, index) => (
+        <article
+          key={result.key}
+          className={`${styles.card} ${index === results.length - 1 ? styles.featureCard : styles.standardCard}`}
+          aria-live="polite"
+        >
+          <h4 className={styles.cardTitle}>YBS {result.label}</h4>
+          <div className={styles.outputHead}>
+            <span className={styles.split}>{result.retention}% to you</span>
+            <strong className={styles.primary}>{usd.format(result.income)}</strong>
           </div>
-          <dl className={styles.ledger}>
-            <div className={styles.ledgerRow}>
-              <dt>YBS share</dt>
-              <dd>{usd.format(column.ybsShare)}</dd>
-            </div>
-            <div className={styles.ledgerRow}>
-              <dt>Dues</dt>
-              <dd>{column.dues} per month</dd>
-            </div>
-          </dl>
+          <div className={styles.metric}>
+            <span className={styles.metricLabel}>Additional annual income</span>
+            <strong className={styles.amount}>{usd.format(result.additionalIncome)}</strong>
+          </div>
         </article>
       ))}
     </div>

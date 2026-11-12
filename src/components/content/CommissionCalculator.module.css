@@ -4,213 +4,145 @@
   gap: clamp(16px, 2.2vw, 32px);
 }
 
-.label {
-  display: block;
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--text-strong);
-  margin-bottom: var(--space-xs);
-  margin-top: var(--space-sm);
-  letter-spacing: 0.02em;
-}
-
-.input {
-  width: 100%;
-  min-width: 0;
-  padding: 0.85em 0;
-  min-height: 52px;
-  font-size: 1rem; /* 16px — prevents iOS auto-zoom on focus */
-  color: var(--text-strong);
-  background: transparent;
-  border: none;
-  border-bottom: 1.5px solid #7a7062;
-  border-radius: 0;
-  transition:
-    border-color var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
-}
-
-.input:focus {
-  outline: none;
-  border-bottom-color: var(--gold);
-  box-shadow: 0 2px 0 0 var(--gold);
-}
-
-.input:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
-}
-
-.hint {
-  font-size: var(--text-xs);
-  color: var(--text-meta);
-  line-height: 1.55;
-  margin-top: 6px;
-}
-
-/* Sell price / commission switch */
-.modeToggle {
-  display: flex;
-  gap: 4px;
-  background: var(--ivory);
-  padding: 4px;
-  border-radius: var(--radius-sm);
-}
-
-.modeBtn {
-  flex: 1;
-  padding: 9px 10px;
-  border: none;
-  background: transparent;
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--text-secondary);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition:
-    background var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out);
-}
-
-.modeBtn:hover {
-  color: var(--text-strong);
-}
-
-.modeBtnActive {
-  background: var(--white);
-  color: var(--text-accent);
-  box-shadow: var(--shadow-sm);
-}
-
-.modeBtn:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
-}
-
-/* What the broker keeps today, under their own split */
-.todayBlock {
-  margin-top: auto;
-  padding-top: var(--space-md);
-}
-
-.resultAmount {
-  font-family: var(--font-serif, Georgia, serif);
-  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
-  font-weight: 500;
-  color: #0b2239;
-  line-height: 1.2;
-  margin-top: var(--space-xs);
-  font-variant-numeric: tabular-nums;
-  overflow-wrap: anywhere;
-}
-
-.todayNote {
-  font-size: var(--text-xs);
-  color: var(--text-meta);
-  margin-top: 4px;
-}
-
 .card {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  background: var(--gradient-champagne-surface);
+  padding: clamp(22px, 2.4vw, 36px);
   border-radius: var(--radius-lg);
+  background: var(--gradient-champagne-surface);
   box-shadow: var(--shadow-card);
-  padding: clamp(20px, 2.4vw, 36px);
 }
 
 .currentCard {
   background: var(--white);
 }
 
+.standardCard {
+  background: #eef0ed;
+}
+
+.featureCard {
+  background: var(--white);
+}
+
 .cardTitle {
-  font-size: clamp(1.5rem, 2.25vw, 2rem);
-  margin-bottom: var(--space-sm);
+  margin: 0 0 var(--space-md);
+  font-size: clamp(1.35rem, 1.9vw, 1.65rem);
 }
 
-.outputSummary {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex: 1;
-}
-
-.cardLabel {
+.label {
   display: block;
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-accent);
-}
-
-.pill {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  margin-top: var(--space-sm);
-}
-
-.pillValue {
-  font-family: var(--font-serif, Georgia, serif);
-  font-size: 1.75rem;
-  font-weight: 500;
-  color: var(--gold-700);
-  line-height: 1;
-}
-
-.pillLabel {
-  font-size: var(--text-xs);
-  color: var(--text-meta);
-  letter-spacing: 0.04em;
-}
-
-.outputSummary .resultAmount {
-  margin-top: var(--space-sm);
-}
-
-.delta {
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--text-accent);
-  margin-top: var(--space-sm);
-}
-
-/* ——— Ledger ——— */
-.ledger {
-  margin-top: var(--space-md);
-  display: flex;
-  flex-direction: column;
-}
-
-.ledgerRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--space-sm);
-  font-size: var(--text-sm);
+  margin: 0 0 9px;
   color: var(--text-secondary);
-  padding: 8px 0;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  text-transform: uppercase;
 }
 
-.ledgerRow dd {
-  font-weight: 500;
+.inputWrap {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  height: 52px;
+  margin-bottom: var(--space-md);
+  padding: 0 14px;
+  border: 1px solid #dce3dd;
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--text-secondary);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.inputWrap:focus-within {
+  border-color: var(--gold-600);
+  box-shadow: 0 0 0 3px rgb(169 130 47 / 16%);
+}
+
+.input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
   color: var(--text-strong);
+  font: 600 17px var(--font-sans, Arial, sans-serif);
   font-variant-numeric: tabular-nums;
-  text-align: right;
-  overflow-wrap: anywhere;
 }
 
-@media (max-width: 920px) {
+.splitInput {
+  width: 3ch;
+  flex: none;
+}
+
+.outputHead,
+.metric {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.outputHead {
+  margin: auto 0 24px;
+}
+
+.split,
+.metricLabel {
+  min-width: 0;
+  color: var(--text-secondary);
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  font-weight: 500;
+}
+
+.primary,
+.amount {
+  flex: none;
+  margin-left: auto;
+  color: #0b2239;
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.metricLabel {
+  order: -1;
+}
+
+@media (max-width: 850px) {
   .calc {
     grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .card {
+    padding: 26px 24px;
+  }
+}
+
+@media (max-width: 430px) {
+  .card {
+    padding: 22px 18px;
+  }
+
+  .primary,
+  .amount {
+    font-size: clamp(1.25rem, 7vw, 1.75rem);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .input,
-  .modeBtn {
+  .inputWrap {
     transition: none;
   }
 }
