@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { Stagger } from '@/components/motion/Stagger';
 import { ServicesEcosystem } from '@/components/home/ServicesEcosystem';
+import { CalculatorVoyage } from '@/components/home/CalculatorVoyage';
 import { TierCard } from '@/components/content/TierCard';
 import { buildMetadata } from '@/lib/metadata';
 import { tiers } from '@/data/difference';
@@ -103,6 +104,8 @@ export default function HomePage() {
           </nav>
         </Container>
       </Section>
+
+      <CalculatorVoyage />
 
       <Section variant="charcoal">
         <Container narrow>

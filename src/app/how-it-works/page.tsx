@@ -8,22 +8,29 @@ import { StepCard } from '@/components/content/StepCard';
 import { TermsList } from '@/components/content/TermsList';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { buildMetadata } from '@/lib/metadata';
+import { webPageJsonLd } from '@/data/structured-data';
 import { steps } from '@/data/howItWorks';
 import { membershipTerms, membershipDisclaimer } from '@/data/difference';
 import styles from './page.module.css';
 import shared from '../shared.module.css';
 
+const TITLE = 'Joining YBS and Membership Terms';
+const DESCRIPTION =
+  'The three steps to join YBS and the key membership terms: initial term, renewal, annual tier changes, licensing, payment and additional expenses.';
+const PATH = '/how-it-works';
+
 export const metadata = buildMetadata({
-  title: 'Joining YBS and Membership Terms',
-  description:
-    'The three steps to join YBS and the key membership terms: initial term, renewal, annual tier changes, licensing, payment and additional expenses.',
-  path: '/how-it-works',
+  title: TITLE,
+  description: DESCRIPTION,
+  path: PATH,
 });
 
 export default function HowItWorksPage() {
   return (
     <>
+      <JsonLd data={webPageJsonLd(TITLE, DESCRIPTION, PATH)} />
       <CinematicHero
         label="How It Works"
         title="Three Steps to Independence"

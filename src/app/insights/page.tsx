@@ -16,6 +16,9 @@ export const metadata = buildMetadata({
   description:
     'Upcoming guides on what an independent broker membership includes, choosing between Standard and Elevated, and building your own brokerage brand.',
   path: '/insights',
+  // Every article and resource is still "Coming Soon". Keep the page out of
+  // search results (and out of sitemap.ts) until the first real article ships.
+  noindex: true,
 });
 
 export default function InsightsPage() {

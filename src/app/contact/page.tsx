@@ -3,20 +3,27 @@ import { Reveal } from '@/components/motion/Reveal';
 import { ContactForm } from '@/components/content/ContactForm';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { buildMetadata } from '@/lib/metadata';
+import { webPageJsonLd } from '@/data/structured-data';
 import { siteConfig } from '@/data/site';
 import shared from '../shared.module.css';
 
+const TITLE = 'Request a Confidential Call';
+const DESCRIPTION =
+  'Request a confidential call to discuss your practice, your licensing position and the Standard and Elevated membership options at Yacht Broker Services.';
+const PATH = '/contact';
+
 export const metadata = buildMetadata({
-  title: 'Request a Confidential Call',
-  description:
-    'Request a confidential call to discuss your practice, your licensing position and the Standard and Elevated membership options at Yacht Broker Services.',
-  path: '/contact',
+  title: TITLE,
+  description: DESCRIPTION,
+  path: PATH,
 });
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={webPageJsonLd(TITLE, DESCRIPTION, PATH)} />
       <CinematicHero
         label="Get in Touch"
         title="Let's Talk — Discreetly and Confidentially"

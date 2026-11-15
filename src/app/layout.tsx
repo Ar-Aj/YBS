@@ -27,7 +27,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://yachtbrokerservices.com'),
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: 'Yacht Broker Services | Independent Yacht Broker Membership',
     template: '%s | Yacht Broker Services',
@@ -49,7 +49,14 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
   },
   icons: {
-    icon: '/favicon.svg',
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48 64x64 192x192', type: 'image/x-icon' },
+      { url: '/icon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: ['/favicon.ico'],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
   // No root-level canonical: every route declares its own through
   // buildMetadata(), so a page that forgets cannot inherit "/".

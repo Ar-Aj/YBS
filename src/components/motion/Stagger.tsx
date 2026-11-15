@@ -21,13 +21,14 @@ type Props = {
  */
 export function Stagger({
   children,
-  as: Tag = 'div',
+  as = 'div',
   delay = 0,
   trigger,
   className = '',
   style,
 }: Props) {
-  const ref = useReveal<HTMLElement>({
+  const Tag = as as 'div';
+  const ref = useReveal<HTMLDivElement>({
     trigger,
     settle: settleTime({ delay, staggered: true }),
   });

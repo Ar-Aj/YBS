@@ -90,5 +90,6 @@
   .narrativeLeft,
   .narrativeRight {
     padding: clamp(48px, 10vw, 72px) 22px;
+    align-items: flex-start;
   }
 }

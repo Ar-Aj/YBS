@@ -6,21 +6,28 @@ import { ComparisonTable } from '@/components/content/ComparisonTable';
 import { CommissionCalculator } from '@/components/content/CommissionCalculator';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { buildMetadata } from '@/lib/metadata';
+import { webPageJsonLd } from '@/data/structured-data';
 import { comparisonRows, membershipDisclaimer } from '@/data/difference';
 import shared from '../shared.module.css';
 import styles from './page.module.css';
 
+const TITLE = 'YBS vs. Traditional Brokerage';
+const DESCRIPTION =
+  'A side-by-side look at commission split, autonomy, support and overhead for traditional yacht brokerage houses and YBS membership (75% or 90% retention).';
+const PATH = '/the-ybs-difference';
+
 export const metadata = buildMetadata({
-  title: 'YBS vs. Traditional Brokerage',
-  description:
-    'A side-by-side look at commission split, autonomy, support and overhead for traditional yacht brokerage houses and YBS membership (75% or 90% retention).',
-  path: '/the-ybs-difference',
+  title: TITLE,
+  description: DESCRIPTION,
+  path: PATH,
 });
 
 export default function DifferencePage() {
   return (
     <>
+      <JsonLd data={webPageJsonLd(TITLE, DESCRIPTION, PATH)} />
       <CinematicHero
         label="The Difference"
         title="Why YBS Changes Everything"
@@ -60,11 +67,11 @@ export default function DifferencePage() {
       </Section>
 
       {/* Compare against your own numbers — the calculator */}
-      <Section variant="ivory" className={styles.calculator}>
+      <Section variant="ivory" id="calculator" className={styles.calculator}>
         <Container>
           <SectionHeader
             title="Compare It Against Your Own Numbers"
-            subtitle="Enter your average annual gross sales and current brokerage split to compare estimated annual income under YBS."
+            subtitle="Enter your average annual gross sales or recent gross income and your current brokerage split to compare estimated annual income under YBS."
           />
           <Reveal variant="rise" duration="signature">
             <h3 className={styles.calculatorTitle}>Calculator</h3>

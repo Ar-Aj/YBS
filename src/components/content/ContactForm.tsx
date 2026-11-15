@@ -163,11 +163,9 @@ export function ContactForm() {
         {errors.message && <p id="message-error" role="alert" className={styles.error}>{errors.message}</p>}
       </div>
 
-      {/* REPLACE: Update with real privacy policy link */}
+      {/* Add a Privacy Policy link here once the client supplies the policy page. */}
       <p className={styles.privacy}>
-        By submitting this form, you agree to our{' '}
-        <a href="/privacy-policy">Privacy Policy</a>. All inquiries are treated
-        with the utmost confidentiality.
+        All inquiries are treated with the utmost confidentiality.
       </p>
 
       <Button

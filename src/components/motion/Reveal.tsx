@@ -27,7 +27,7 @@ type Props = {
  */
 export function Reveal({
   children,
-  as: Tag = 'div',
+  as = 'div',
   variant = 'rise',
   delay = 0,
   duration = 'standard',
@@ -36,7 +36,8 @@ export function Reveal({
   style,
   id,
 }: Props) {
-  const ref = useReveal<HTMLElement>({
+  const Tag = as as 'div';
+  const ref = useReveal<HTMLDivElement>({
     trigger,
     settle: settleTime({ delay, duration }),
   });

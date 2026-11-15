@@ -6,20 +6,27 @@ import { Stagger } from '@/components/motion/Stagger';
 import { FounderPreview } from '@/components/content/FounderProfile';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { buildMetadata } from '@/lib/metadata';
+import { webPageJsonLd } from '@/data/structured-data';
 import { founders } from '@/data/leadership';
 import styles from './page.module.css';
 
+const TITLE = 'About Independent Broker Membership';
+const DESCRIPTION =
+  'Yacht Broker Services gives solopreneurs and small teams the resources and backing of a world-class firm, without the heavy cost of corporate overhead.';
+const PATH = '/about';
+
 export const metadata = buildMetadata({
-  title: 'About Independent Broker Membership',
-  description:
-    'Yacht Broker Services gives solopreneurs and small teams the resources and backing of a world-class firm, without the heavy cost of corporate overhead.',
-  path: '/about',
+  title: TITLE,
+  description: DESCRIPTION,
+  path: PATH,
 });
 
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={webPageJsonLd(TITLE, DESCRIPTION, PATH)} />
       <CinematicHero
         label="About YBS"
         title={
