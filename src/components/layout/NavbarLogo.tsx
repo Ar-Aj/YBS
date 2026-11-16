@@ -22,6 +22,8 @@ export function NavbarLogo() {
     let pending = false;
     let blocked = false;
     let sourceAssigned = false;
+    let abortRetries = 0;
+    let retryTimer: number | undefined;
     const isVisible = () => document.visibilityState === 'visible';
     const showLogo = () => {
       mark.dataset.logoState = 'static';
@@ -29,6 +31,7 @@ export function NavbarLogo() {
     const finish = () => {
       if (finished || disposed) return;
       finished = true;
+      window.clearTimeout(retryTimer);
       showLogo();
       video.autoplay = false;
       video.pause();
@@ -41,6 +44,7 @@ export function NavbarLogo() {
         return;
       }
       blocked = false;
+      abortRetries = 0;
       mark.dataset.logoState = 'playing';
     };
     const attemptPlayback = () => {
@@ -51,12 +55,15 @@ export function NavbarLogo() {
       video.muted = true;
       video.playsInline = true;
       pending = true;
+      let interrupted = false;
       void video.play().catch((error: unknown) => {
         if (disposed || finished) return;
         showLogo();
         const name = error instanceof DOMException ? error.name : '';
         if (name === 'NotAllowedError') {
           blocked = true;
+        } else if (name === 'AbortError') {
+          interrupted = true;
         } else if (name !== 'AbortError') {
           finish();
         }
@@ -64,6 +71,12 @@ export function NavbarLogo() {
         // Keep the introduction eligible for the next visibility/ready event.
       }).finally(() => {
         pending = false;
+        // A visibility/ready event can arrive before an aborted play promise
+        // settles. Retry once after settlement so that event is not lost.
+        if (interrupted && !disposed && !finished && isVisible() && abortRetries < 1) {
+          abortRetries += 1;
+          retryTimer = window.setTimeout(attemptPlayback, 0);
+        }
       });
     };
     const onVisibility = () => {
@@ -95,6 +108,7 @@ export function NavbarLogo() {
     preference.addEventListener('change', onPreference);
     document.addEventListener('visibilitychange', onVisibility);
     document.addEventListener('pointerdown', onInteraction, { passive: true });
+    document.addEventListener('click', onInteraction, { passive: true });
     document.addEventListener('keydown', onInteraction);
     // Defer until paint so a development StrictMode remount cannot start a
     // discarded playback and interrupt the live instance's play promise.
@@ -124,6 +138,7 @@ export function NavbarLogo() {
       preference.removeEventListener('change', onPreference);
       document.removeEventListener('visibilitychange', onVisibility);
       document.removeEventListener('pointerdown', onInteraction);
+      document.removeEventListener('click', onInteraction);
       document.removeEventListener('keydown', onInteraction);
       video.removeAttribute('src');
       video.load();
