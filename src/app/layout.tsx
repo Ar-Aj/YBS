@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Inter } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollToTop } from '@/components/layout/ScrollToTop';
@@ -9,22 +8,8 @@ import { AnalyticsProvider } from '@/components/seo/AnalyticsProvider';
 import { siteJsonLd } from '@/data/structured-data';
 import { siteConfig } from '@/data/site';
 import './globals.css';
+import './fonts.css';
 import '@/components/motion/motion.css';
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
-  display: 'swap',
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-sans',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -66,11 +51,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${inter.variable}`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>
+        <link rel="preload" href="/fonts/inter-normal-15.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/playfair-display-normal-08.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/playfair-display-italic-04.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         {/* Marks that JS is available so the reveal-on-scroll hidden states
             apply. Runs synchronously before the first paint; without JS the
             class is never set and the content stays visible. */}
