@@ -18,40 +18,113 @@ export function NavbarLogo() {
     if (preference.matches) return;
 
     let finished = false;
-    const finish = () => {
-      if (finished) return;
-      finished = true;
+    let disposed = false;
+    let pending = false;
+    let blocked = false;
+    let sourceAssigned = false;
+    const isVisible = () => document.visibilityState === 'visible';
+    const showLogo = () => {
       mark.dataset.logoState = 'static';
+    };
+    const finish = () => {
+      if (finished || disposed) return;
+      finished = true;
+      showLogo();
+      video.autoplay = false;
       video.pause();
-      window.clearTimeout(timeout);
     };
     const show = () => {
-      if (!finished) mark.dataset.logoState = 'playing';
+      if (disposed) return;
+      if (finished || preference.matches || !isVisible()) {
+        showLogo();
+        video.pause();
+        return;
+      }
+      blocked = false;
+      mark.dataset.logoState = 'playing';
+    };
+    const attemptPlayback = () => {
+      if (disposed || finished || pending || blocked || !sourceAssigned || preference.matches || !isVisible()) return;
+      // Set both the default and live properties before every attempt. Some
+      // browsers inspect these separately when deciding whether to autoplay.
+      video.defaultMuted = true;
+      video.muted = true;
+      video.playsInline = true;
+      pending = true;
+      void video.play().catch((error: unknown) => {
+        if (disposed || finished) return;
+        showLogo();
+        const name = error instanceof DOMException ? error.name : '';
+        if (name === 'NotAllowedError') {
+          blocked = true;
+        } else if (name !== 'AbortError') {
+          finish();
+        }
+        // AbortError can occur when the tab is hidden during a pending play.
+        // Keep the introduction eligible for the next visibility/ready event.
+      }).finally(() => {
+        pending = false;
+      });
+    };
+    const onVisibility = () => {
+      if (disposed || finished) return;
+      video.autoplay = isVisible() && !preference.matches;
+      if (!isVisible()) {
+        showLogo();
+        video.pause();
+      } else {
+        attemptPlayback();
+      }
+    };
+    const onInteraction = () => {
+      if (!video.paused || finished || disposed) return;
+      blocked = false;
+      attemptPlayback();
     };
     const onPreference = () => {
       if (preference.matches) finish();
     };
-    // Always fall back to the already-visible image if playback is unavailable.
-    const timeout = window.setTimeout(finish, 8000);
+    // Loading has no page-load deadline: the static logo remains visible until
+    // the browser confirms playback, even on a slow connection.
     video.addEventListener('playing', show);
+    video.addEventListener('canplay', attemptPlayback);
+    video.addEventListener('waiting', showLogo);
+    video.addEventListener('pause', showLogo);
     video.addEventListener('ended', finish);
     video.addEventListener('error', finish);
     preference.addEventListener('change', onPreference);
+    document.addEventListener('visibilitychange', onVisibility);
+    document.addEventListener('pointerdown', onInteraction, { passive: true });
+    document.addEventListener('keydown', onInteraction);
     // Defer until paint so a development StrictMode remount cannot start a
     // discarded playback and interrupt the live instance's play promise.
     const frame = window.requestAnimationFrame(() => {
-      if (finished) return;
+      if (finished || disposed) return;
+      video.defaultMuted = true;
+      video.muted = true;
+      video.setAttribute('muted', '');
+      video.playsInline = true;
+      video.autoplay = isVisible();
       video.src = '/logo/ybs-navbar-intro.mp4';
-      video.play().catch(finish);
+      sourceAssigned = true;
+      video.load();
+      attemptPlayback();
     });
 
     return () => {
       window.cancelAnimationFrame(frame);
       finish();
+      disposed = true;
       video.removeEventListener('playing', show);
+      video.removeEventListener('canplay', attemptPlayback);
+      video.removeEventListener('waiting', showLogo);
+      video.removeEventListener('pause', showLogo);
       video.removeEventListener('ended', finish);
       video.removeEventListener('error', finish);
       preference.removeEventListener('change', onPreference);
+      document.removeEventListener('visibilitychange', onVisibility);
+      document.removeEventListener('pointerdown', onInteraction);
+      document.removeEventListener('keydown', onInteraction);
       video.removeAttribute('src');
       video.load();
     };
@@ -64,8 +137,9 @@ export function NavbarLogo() {
         ref={videoRef}
         className={styles.logoVideo}
         muted
+        autoPlay
         playsInline
-        preload="none"
+        preload="auto"
         disablePictureInPicture
         tabIndex={-1}
       />
