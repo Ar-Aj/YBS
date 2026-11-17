@@ -20,7 +20,32 @@ export function NavbarLogo() {
     const report = (status: string) => {
       if (!debugRef.current || !debug) return;
       debugRef.current.hidden = false;
-      debugRef.current.textContent = `Logo v2: ${status} | reduced motion: ${preference.matches} | ready: ${video.readyState} | network: ${video.networkState} | media error: ${video.error?.code ?? 'none'} | visibility: ${document.visibilityState}`;
+      const messages: Record<string, string> = {
+        initializing: 'Loading the logo animation…',
+        'requesting playback': 'Waiting for the logo animation to start…',
+        playing: 'Success: the logo animation is playing.',
+        'animation completed': 'Success: the logo animation played completely.',
+        'static logo: reduced motion enabled': 'Animation skipped: Reduce Motion is enabled on this device or browser.',
+        'autoplay blocked; waiting for click, tap or key': 'Autoplay blocked by the browser. Click or tap anywhere to retry.',
+        'playback interrupted': 'Playback was interrupted. Waiting to retry.',
+        'network load failed; waiting for reload': 'The video could not load over the network. Waiting to retry.',
+        'load interrupted; retrying once': 'The video download was interrupted. Retrying once…',
+        'buffering; static logo visible': 'The animation is buffering. The still logo is shown while it loads.',
+        'playback stopped': 'The animation has stopped.',
+        'tab hidden': 'Animation paused because this browser tab is not visible.',
+      };
+      const mediaReasons: Record<number, string> = {
+        1: 'The browser aborted the video download.',
+        2: 'A network error prevented the video from loading.',
+        3: 'The browser could not decode the video.',
+        4: 'The video source is unavailable or unsupported by this browser.',
+      };
+      const failed = status.startsWith('media failed') || status.startsWith('playback failed');
+      debugRef.current.textContent = messages[status] ?? (failed
+        ? `Animation failed: ${mediaReasons[video.error?.code ?? 0] ?? (status.includes('NotSupportedError') ? 'This browser could not play the video source.' : 'The browser did not provide a specific reason.')} (${status})`
+        : status);
+      debugRef.current.dataset.result = status === 'playing' || status === 'animation completed' ? 'success' : failed ? 'error' : 'waiting';
+      debugRef.current.title = `Logo v2 | ${status} | ready: ${video.readyState} | network: ${video.networkState} | media error: ${video.error?.code ?? 'none'}`;
     };
     report('initializing');
     if (preference.matches) {
@@ -108,6 +133,7 @@ export function NavbarLogo() {
       if (!isVisible()) {
         showLogo();
         video.pause();
+        report('tab hidden');
       } else {
         blocked = false;
         attemptPlayback();
