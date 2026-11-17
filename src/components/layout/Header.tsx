@@ -12,6 +12,8 @@ export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const wordmarkRef = useRef<HTMLSpanElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
   // The menu is opened "for" a route. Deriving `menuOpen` from the current
   // pathname means a navigation closes it automatically — no reset effect.
@@ -131,6 +133,10 @@ export function Header() {
   }, [menuOpen]);
 
   const closeMenu = useCallback(() => {
+    // Move focus out before the menu becomes hidden/inert.
+    if (overlayRef.current?.contains(document.activeElement)) {
+      toggleRef.current?.focus({ preventScroll: true });
+    }
     setMenuPath(null);
   }, []);
 
@@ -183,6 +189,8 @@ export function Header() {
         </div>
 
         <button
+          ref={toggleRef}
+          aria-controls="mobile-navigation"
           className={`${styles.toggle} ${menuOpen ? styles.toggleActive : ''}`}
           onClick={toggleMenu}
           aria-label="Toggle menu"
@@ -196,11 +204,13 @@ export function Header() {
 
       {/* Mobile overlay */}
       <div
+        id="mobile-navigation"
+        ref={overlayRef}
         className={`${styles.overlay} ${menuOpen ? styles.overlayActive : ''}`}
         role="dialog"
         aria-modal={menuOpen}
         aria-label="Mobile navigation"
-        aria-hidden={!menuOpen}
+        inert={!menuOpen}
       >
         {mobileNav.map((link) => (
           <Link

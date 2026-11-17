@@ -1,24 +1,21 @@
 import Link from 'next/link';
 import { Section, Container } from '@/components/layout/Section';
-import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { Stagger } from '@/components/motion/Stagger';
 import { StepCard } from '@/components/content/StepCard';
-import { TermsList } from '@/components/content/TermsList';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildMetadata } from '@/lib/metadata';
 import { webPageJsonLd } from '@/data/structured-data';
 import { steps } from '@/data/howItWorks';
-import { membershipTerms, membershipDisclaimer } from '@/data/difference';
 import styles from './page.module.css';
 import shared from '../shared.module.css';
 
-const TITLE = 'Joining YBS and Membership Terms';
+const TITLE = 'Joining YBS';
 const DESCRIPTION =
-  'The three steps to join YBS and the key membership terms: initial term, renewal, annual tier changes, licensing, payment and additional expenses.';
+  'Discover the three steps to joining YBS. Contact us for a confidential conversation about membership.';
 const PATH = '/how-it-works';
 
 export const metadata = buildMetadata({
@@ -49,19 +46,8 @@ export default function HowItWorksPage() {
             ))}
           </Stagger>
           <nav className={styles.processLinks} aria-label="Membership information">
-            <Link href="/#membership">Membership options</Link>
             <Link href="/#services">Included services</Link>
           </nav>
-        </Container>
-      </Section>
-
-      <Section variant="white" id="terms">
-        <Container>
-          <SectionHeader title="What to Know Before You Join" />
-          <TermsList terms={membershipTerms} />
-          <Reveal>
-            <p className={shared.disclaimer}>{membershipDisclaimer}</p>
-          </Reveal>
         </Container>
       </Section>
 

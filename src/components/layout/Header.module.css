@@ -341,3 +341,18 @@
     display: block;
   }
 }
+
+.logoDebug:not([hidden]) {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  max-width: calc(100vw - 24px);
+  padding: 10px 14px;
+  background: #fffdf9;
+  color: #0f1d2e;
+  border: 1px solid #c8a45a;
+  border-radius: 6px;
+  font: 12px/1.5 monospace;
+  z-index: 2000;
+  pointer-events: none;
+}

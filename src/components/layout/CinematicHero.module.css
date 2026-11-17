@@ -282,3 +282,11 @@
     display: none; /* headline + eyebrow only when height is scarce */
   }
 }
+
+/* Opt-in exact centering without changing other approved hero layouts. */
+.heroContent.centeredCopy {
+  padding-block: var(--space-xl);
+}
+.heroContent.centeredCopy > * > :last-child {
+  margin-bottom: 0;
+}

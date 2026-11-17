@@ -27,6 +27,7 @@ type Props = {
   /** Intrinsic ratio of the mobile video. Home mobile cut is a 9:16 portrait. */
   mobileAspect?: string;
   cursiveTitle?: boolean;
+  centeredCopy?: boolean;
 };
 
 export function CinematicHero({
@@ -43,12 +44,13 @@ export function CinematicHero({
   tabletAspect = '16 / 9',
   mobileAspect = '16 / 9',
   cursiveTitle = false,
+  centeredCopy = false,
 }: Props) {
   const titleText = typeof title === 'string' ? title : 'Yacht Broker Services';
   return (
     <section className={styles.hero}>
       {/* Narrow screens: light intro panel first … */}
-      <div className={styles.heroContent}>
+      <div className={`${styles.heroContent} ${centeredCopy ? styles.centeredCopy : ''}`}>
         <RevealOnScroll>
           {label && <span className={styles.label}>{label}</span>}
           <h1 className={cursiveTitle ? styles.cursiveTitle : undefined}>{title}</h1>

@@ -1,15 +1,9 @@
-import Link from 'next/link';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Section, Container } from '@/components/layout/Section';
-import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
-import { Stagger } from '@/components/motion/Stagger';
 import { ServicesEcosystem } from '@/components/home/ServicesEcosystem';
-import { CalculatorVoyage } from '@/components/home/CalculatorVoyage';
-import { TierCard } from '@/components/content/TierCard';
 import { buildMetadata } from '@/lib/metadata';
-import { tiers } from '@/data/difference';
 import styles from './page.module.css';
 
 export const metadata = buildMetadata({
@@ -78,34 +72,6 @@ export default function HomePage() {
       </section>
 
       <ServicesEcosystem />
-
-      <Section variant="ivory" id="membership" className={styles.membership}>
-        <Container>
-          <SectionHeader
-            title="Two Membership Options"
-            subtitle="Both provide the same amazing services"
-            className={styles.membershipHeader}
-          />
-          <Stagger className={styles.tiersGrid}>
-            {tiers.map((tier) => (
-              <TierCard key={tier.name} tier={tier} />
-            ))}
-          </Stagger>
-          <nav className={styles.membershipLinks} aria-label="Membership details">
-            <Link href="/how-it-works#terms" className={styles.inlineLink}>
-              Key terms
-            </Link>
-            <Link href="/the-ybs-difference" className={styles.inlineLink}>
-              Compare your numbers
-            </Link>
-            <Link href="/how-it-works" className={styles.inlineLink}>
-              How to join
-            </Link>
-          </nav>
-        </Container>
-      </Section>
-
-      <CalculatorVoyage />
 
       <Section variant="charcoal">
         <Container narrow>

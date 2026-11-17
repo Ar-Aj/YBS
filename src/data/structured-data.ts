@@ -138,7 +138,7 @@ export function personJsonLd(person: {
   path: string;
   imagePath: string;
   description: string;
-  alumniOf: string;
+  alumniOf?: string;
   knowsAbout: readonly string[];
 }): Record<string, unknown> {
   return {
@@ -151,7 +151,7 @@ export function personJsonLd(person: {
     image: `${siteConfig.url}${person.imagePath}`,
     url: `${siteConfig.url}${person.path}`,
     worksFor: { '@id': ORG_ID },
-    alumniOf: { '@type': 'CollegeOrUniversity', name: person.alumniOf },
+    ...(person.alumniOf ? { alumniOf: { '@type': 'CollegeOrUniversity', name: person.alumniOf } } : {}),
     knowsAbout: [...person.knowsAbout],
   };
 }

@@ -1,7 +1,11 @@
 'use client';
 
 import { useEffect, useId, useState, type CSSProperties } from 'react';
-import { tiers } from '@/data/difference';
+// Only calculation inputs are shipped here; membership pricing is discussed with YBS.
+const tiers = [
+  { name: 'standard', label: 'Standard', retention: 75 },
+  { name: 'elevated', label: 'Elevated', retention: 90 },
+] as const;
 import { calculateIncome, money, numberValue, percentageChange, whole } from '@/lib/commissionCalculator';
 import styles from './CommissionCalculator.module.css';
 

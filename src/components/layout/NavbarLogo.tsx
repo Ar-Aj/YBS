@@ -6,6 +6,7 @@ import styles from './Header.module.css';
 
 /** A single, non-blocking introduction in the existing logo footprint. */
 export function NavbarLogo() {
+  const debugRef = useRef<HTMLOutputElement>(null);
   const markRef = useRef<HTMLSpanElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -15,7 +16,17 @@ export function NavbarLogo() {
     if (!mark || !video) return;
 
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (preference.matches) return;
+    const debug = new URLSearchParams(window.location.search).get('logodebug') === '1';
+    const report = (status: string) => {
+      if (!debugRef.current || !debug) return;
+      debugRef.current.hidden = false;
+      debugRef.current.textContent = `Logo v2: ${status} | reduced motion: ${preference.matches} | ready: ${video.readyState} | network: ${video.networkState} | media error: ${video.error?.code ?? 'none'} | visibility: ${document.visibilityState}`;
+    };
+    report('initializing');
+    if (preference.matches) {
+      report('static logo: reduced motion enabled');
+      return;
+    }
 
     let finished = false;
     let disposed = false;
@@ -23,7 +34,9 @@ export function NavbarLogo() {
     let blocked = false;
     let sourceAssigned = false;
     let abortRetries = 0;
+    let loadRetries = 0;
     let retryTimer: number | undefined;
+    let loadTimer: number | undefined;
     const isVisible = () => document.visibilityState === 'visible';
     const showLogo = () => {
       mark.dataset.logoState = 'static';
@@ -31,7 +44,9 @@ export function NavbarLogo() {
     const finish = () => {
       if (finished || disposed) return;
       finished = true;
+      report(video.ended ? 'animation completed' : 'playback stopped');
       window.clearTimeout(retryTimer);
+      window.clearTimeout(loadTimer);
       showLogo();
       video.autoplay = false;
       video.pause();
@@ -46,6 +61,7 @@ export function NavbarLogo() {
       blocked = false;
       abortRetries = 0;
       mark.dataset.logoState = 'playing';
+      report('playing');
     };
     const attemptPlayback = () => {
       if (disposed || finished || pending || blocked || !sourceAssigned || preference.matches || !isVisible()) return;
@@ -55,6 +71,7 @@ export function NavbarLogo() {
       video.muted = true;
       video.playsInline = true;
       pending = true;
+      report('requesting playback');
       let interrupted = false;
       void video.play().catch((error: unknown) => {
         if (disposed || finished) return;
@@ -62,10 +79,16 @@ export function NavbarLogo() {
         const name = error instanceof DOMException ? error.name : '';
         if (name === 'NotAllowedError') {
           blocked = true;
+          report('autoplay blocked; waiting for click, tap or key');
         } else if (name === 'AbortError') {
           interrupted = true;
-        } else if (name !== 'AbortError') {
+          report('playback interrupted');
+        } else if (video.error?.code === 1 || video.error?.code === 2) {
+          // The media error event owns the bounded network reload.
+          report('network load failed; waiting for reload');
+        } else {
           finish();
+          report(`playback failed: ${name || 'unknown error'}`);
         }
         // AbortError can occur when the tab is hidden during a pending play.
         // Keep the introduction eligible for the next visibility/ready event.
@@ -73,7 +96,7 @@ export function NavbarLogo() {
         pending = false;
         // A visibility/ready event can arrive before an aborted play promise
         // settles. Retry once after settlement so that event is not lost.
-        if (interrupted && !disposed && !finished && isVisible() && abortRetries < 1) {
+        if (interrupted && !video.error && !disposed && !finished && isVisible() && abortRetries < 1) {
           abortRetries += 1;
           retryTimer = window.setTimeout(attemptPlayback, 0);
         }
@@ -86,6 +109,7 @@ export function NavbarLogo() {
         showLogo();
         video.pause();
       } else {
+        blocked = false;
         attemptPlayback();
       }
     };
@@ -95,17 +119,43 @@ export function NavbarLogo() {
       attemptPlayback();
     };
     const onPreference = () => {
-      if (preference.matches) finish();
+      if (preference.matches) {
+        finish();
+        report('static logo: reduced motion enabled');
+      }
     };
+    const onError = () => {
+      if (disposed || finished) return;
+      const code = video.error?.code;
+      showLogo();
+      // Retry a transient network/aborted load once, never loop on codec errors.
+      if ((code === 1 || code === 2) && loadRetries < 1) {
+        loadRetries += 1;
+        report('load interrupted; retrying once');
+        loadTimer = window.setTimeout(() => {
+          if (disposed || finished) return;
+          blocked = false;
+          video.load();
+          attemptPlayback();
+        }, 1000);
+      } else {
+        finish();
+        report(`media failed (code ${code ?? 'unknown'})`);
+      }
+    };
+    const onWaiting = () => { showLogo(); report('buffering; static logo visible'); };
+    const onOnline = () => { if (!finished) { blocked = false; attemptPlayback(); } };
+
     // Loading has no page-load deadline: the static logo remains visible until
     // the browser confirms playback, even on a slow connection.
     video.addEventListener('playing', show);
     video.addEventListener('canplay', attemptPlayback);
-    video.addEventListener('waiting', showLogo);
+    video.addEventListener('waiting', onWaiting);
     video.addEventListener('pause', showLogo);
     video.addEventListener('ended', finish);
-    video.addEventListener('error', finish);
+    video.addEventListener('error', onError);
     preference.addEventListener('change', onPreference);
+    window.addEventListener('online', onOnline);
     document.addEventListener('visibilitychange', onVisibility);
     document.addEventListener('pointerdown', onInteraction, { passive: true });
     document.addEventListener('click', onInteraction, { passive: true });
@@ -119,7 +169,7 @@ export function NavbarLogo() {
       video.setAttribute('muted', '');
       video.playsInline = true;
       video.autoplay = isVisible();
-      video.src = '/logo/ybs-navbar-intro.mp4';
+      video.src = '/logo/ybs-navbar-intro.mp4?v=2';
       sourceAssigned = true;
       video.load();
       attemptPlayback();
@@ -131,11 +181,12 @@ export function NavbarLogo() {
       disposed = true;
       video.removeEventListener('playing', show);
       video.removeEventListener('canplay', attemptPlayback);
-      video.removeEventListener('waiting', showLogo);
+      video.removeEventListener('waiting', onWaiting);
       video.removeEventListener('pause', showLogo);
       video.removeEventListener('ended', finish);
-      video.removeEventListener('error', finish);
+      video.removeEventListener('error', onError);
       preference.removeEventListener('change', onPreference);
+      window.removeEventListener('online', onOnline);
       document.removeEventListener('visibilitychange', onVisibility);
       document.removeEventListener('pointerdown', onInteraction);
       document.removeEventListener('click', onInteraction);
@@ -146,6 +197,7 @@ export function NavbarLogo() {
   }, []);
 
   return (
+    <>
     <span ref={markRef} className={styles.logoMark} data-logo-state="static" aria-hidden="true">
       <Image src="/Logo.png" alt="" fill sizes="137px" priority className={styles.logoImage} />
       <video
@@ -159,5 +211,7 @@ export function NavbarLogo() {
         tabIndex={-1}
       />
     </span>
+    <output ref={debugRef} hidden className={styles.logoDebug} aria-live="polite" />
+    </>
   );
 }

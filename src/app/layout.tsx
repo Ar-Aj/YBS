@@ -57,7 +57,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preload" href="/fonts/inter-normal-15.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/playfair-display-normal-08.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/playfair-display-italic-04.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         {/* Marks that JS is available so the reveal-on-scroll hidden states
             apply. Runs synchronously before the first paint; without JS the
             class is never set and the content stays visible. */}

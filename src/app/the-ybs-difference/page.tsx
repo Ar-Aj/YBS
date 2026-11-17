@@ -13,7 +13,7 @@ import { comparisonRows, membershipDisclaimer } from '@/data/difference';
 import shared from '../shared.module.css';
 import styles from './page.module.css';
 
-const TITLE = 'YBS vs. Traditional Brokerage';
+const TITLE = 'YBS Changes Everything';
 const DESCRIPTION =
   'A side-by-side look at commission split, autonomy, support and overhead for traditional yacht brokerage houses and YBS membership (75% or 90% retention).';
 const PATH = '/the-ybs-difference';
@@ -29,14 +29,14 @@ export default function DifferencePage() {
     <>
       <JsonLd data={webPageJsonLd(TITLE, DESCRIPTION, PATH)} />
       <CinematicHero
-        label="The Difference"
-        title="Why YBS Changes Everything"
+        centeredCopy
+        title="YBS Changes Everything"
         subtitle="A transparent comparison between the traditional brokerage model and the YBS platform."
         posterSrc="/hero_difference.jpg"
         videoSrc="/videos/hero-difference.mp4"
       />
 
-      <Breadcrumbs items={[{ label: 'The YBS Difference', href: '/the-ybs-difference' }]} />
+      <Breadcrumbs items={[{ label: 'YBS Changes Everything', href: '/the-ybs-difference' }]} />
 
       {/* The only comparison on the site */}
       <Section variant="ivory" className={styles.comparison}>
@@ -87,9 +87,7 @@ export default function DifferencePage() {
               <Button href="/contact" size="lg">
                 Schedule a Confidential Call
               </Button>
-              <Button href="/#membership" variant="ghost" size="lg">
-                View Membership Options
-              </Button>
+
             </div>
           </Reveal>
         </Container>

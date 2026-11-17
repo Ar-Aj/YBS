@@ -11,9 +11,9 @@ import { faqCategories } from '@/data/faq';
 import shared from '../shared.module.css';
 
 export const metadata = buildMetadata({
-  title: 'Membership FAQ: Fees and Terms',
+  title: 'YBS Membership FAQ',
   description:
-    'Answers on independent status, client-data access and employing brokers, with links to membership fees, services and key terms.',
+    'Answers on independent status, client-data access and employing brokers. Contact YBS to discuss membership options and terms.',
   path: '/faq',
 });
 
@@ -26,7 +26,7 @@ export default function FAQPage() {
       <CinematicHero
         label="FAQ"
         title="Frequently Asked Questions"
-        subtitle="Everything you need to know about YBS, our membership model, and how we support independent yacht brokers."
+        subtitle="Answers to common questions about your independent practice. Speak with YBS for membership details."
         posterSrc="/hero_faq.jpg"
       />
 

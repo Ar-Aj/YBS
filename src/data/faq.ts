@@ -7,16 +7,9 @@ export const faqCategories: FAQCategory[] = [
     id: 'membership',
     items: [
       {
-        question: 'Where can I compare the membership options?',
-        answer:
-          'The membership section sets out the monthly dues and commission retention for Standard and Elevated.',
-        link: { label: 'View membership options', href: '/#membership' },
-      },
-      {
-        question: 'Where can I review the agreement terms?',
-        answer:
-          'Read the key terms, then request the Independent Broker Membership Agreement from YBS for the full details.',
-        link: { label: 'Read the key terms', href: '/how-it-works#terms' },
+        question: 'How can I discuss membership options and terms?',
+        answer: 'Contact YBS for a confidential conversation and the Independent Broker Membership Agreement.',
+        link: { label: 'Speak with YBS', href: '/contact' },
       },
     ],
   },

@@ -10,7 +10,6 @@ const paths = [
   '/about',
   '/the-ybs-difference',
   '/how-it-works',
-  '/leadership',
   '/faq',
   '/contact',
 ];
