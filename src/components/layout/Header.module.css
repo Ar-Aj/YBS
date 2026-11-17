@@ -90,19 +90,6 @@
 .logoMark[data-logo-state='playing'] .logoImage {
   opacity: 0;
 }
-@media (prefers-reduced-motion: reduce) {
-  .logoImage,
-  .logoVideo {
-    transition: none;
-  }
-  .logoVideo {
-    display: none;
-  }
-  .logoMark[data-logo-state='playing'] .logoImage {
-    opacity: 1;
-  }
-}
-
 /* Wordmark — collapses to zero width/opacity on scroll-down (via ref-set
    data-collapsed), so it frees navbar space instead of just fading. */
 .wordmark {
@@ -370,4 +357,12 @@
 .logoDebug[data-result="error"] {
   border-color: #a33b32;
   color: #852e27;
+}
+
+/* Keep the client-approved logo hand-off identical with reduced motion enabled. */
+@media (prefers-reduced-motion: reduce) {
+  .logoImage,
+  .logoVideo {
+    transition-duration: 180ms !important;
+  }
 }

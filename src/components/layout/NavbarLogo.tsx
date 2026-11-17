@@ -15,7 +15,7 @@ export function NavbarLogo() {
     const video = videoRef.current;
     if (!mark || !video) return;
 
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    // Client-approved exception: this one-shot logo plays regardless of reduced motion.
     const report = (status: string) => {
       if (!debugRef.current) return;
       debugRef.current.hidden = false;
@@ -24,7 +24,6 @@ export function NavbarLogo() {
         'requesting playback': 'Waiting for the logo animation to start…',
         playing: 'Success: the logo animation is playing.',
         'animation completed': 'Success: the logo animation played completely.',
-        'static logo: reduced motion enabled': 'Animation skipped: Reduce Motion is enabled on this device or browser.',
         'autoplay blocked; waiting for click, tap or key': 'Autoplay blocked by the browser. Click or tap anywhere to retry.',
         'playback interrupted': 'Playback was interrupted. Waiting to retry.',
         'network load failed; waiting for reload': 'The video could not load over the network. Waiting to retry.',
@@ -47,10 +46,6 @@ export function NavbarLogo() {
       debugRef.current.title = `Logo v2 | ${status} | ready: ${video.readyState} | network: ${video.networkState} | media error: ${video.error?.code ?? 'none'}`;
     };
     report('initializing');
-    if (preference.matches) {
-      report('static logo: reduced motion enabled');
-      return;
-    }
 
     let finished = false;
     let disposed = false;
@@ -77,7 +72,7 @@ export function NavbarLogo() {
     };
     const show = () => {
       if (disposed) return;
-      if (finished || preference.matches || !isVisible()) {
+      if (finished || !isVisible()) {
         showLogo();
         video.pause();
         return;
@@ -88,7 +83,7 @@ export function NavbarLogo() {
       report('playing');
     };
     const attemptPlayback = () => {
-      if (disposed || finished || pending || blocked || !sourceAssigned || preference.matches || !isVisible()) return;
+      if (disposed || finished || pending || blocked || !sourceAssigned || !isVisible()) return;
       // Set both the default and live properties before every attempt. Some
       // browsers inspect these separately when deciding whether to autoplay.
       video.defaultMuted = true;
@@ -128,7 +123,7 @@ export function NavbarLogo() {
     };
     const onVisibility = () => {
       if (disposed || finished) return;
-      video.autoplay = isVisible() && !preference.matches;
+      video.autoplay = isVisible();
       if (!isVisible()) {
         showLogo();
         video.pause();
@@ -142,12 +137,6 @@ export function NavbarLogo() {
       if (!video.paused || finished || disposed) return;
       blocked = false;
       attemptPlayback();
-    };
-    const onPreference = () => {
-      if (preference.matches) {
-        finish();
-        report('static logo: reduced motion enabled');
-      }
     };
     const onError = () => {
       if (disposed || finished) return;
@@ -179,7 +168,6 @@ export function NavbarLogo() {
     video.addEventListener('pause', showLogo);
     video.addEventListener('ended', finish);
     video.addEventListener('error', onError);
-    preference.addEventListener('change', onPreference);
     window.addEventListener('online', onOnline);
     document.addEventListener('visibilitychange', onVisibility);
     document.addEventListener('pointerdown', onInteraction, { passive: true });
@@ -210,7 +198,6 @@ export function NavbarLogo() {
       video.removeEventListener('pause', showLogo);
       video.removeEventListener('ended', finish);
       video.removeEventListener('error', onError);
-      preference.removeEventListener('change', onPreference);
       window.removeEventListener('online', onOnline);
       document.removeEventListener('visibilitychange', onVisibility);
       document.removeEventListener('pointerdown', onInteraction);
