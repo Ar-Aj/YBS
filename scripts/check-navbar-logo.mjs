@@ -23,7 +23,7 @@ async function setup({ reduced = false, failure = null, debug = true } = {}) {
   s = await setup(); await s.flush(); s.document.visibilityState='hidden'; s.event(s.document,'visibilitychange'); assert.equal(s.mark.dataset.logoState,'static'); s.document.visibilityState='visible'; s.event(s.document,'visibilitychange'); await s.flush(); assert.equal(s.mark.dataset.logoState,'playing'); s.cleanup();
   s = await setup(); await s.flush(); s.video.error={code:2}; s.event(s.video,'error'); assert.equal(s.mark.dataset.logoState,'static'); await s.flush(); assert.equal(s.video.loads,2); s.video.error={code:2}; s.event(s.video,'error'); await s.flush(); assert.equal(s.video.loads,2); assert.match(s.output.textContent,/media failed/); s.cleanup();
   s = await setup({failure:'AbortError'}); await s.flush(); await s.flush(); assert.equal(s.mark.dataset.logoState,'playing'); s.cleanup();
-  s = await setup({debug:false}); await s.flush(); assert.equal(s.output.hidden,true); s.cleanup();
+  s = await setup({debug:false}); await s.flush(); assert.equal(s.output.hidden,false); s.cleanup();
   s = await setup(); s.cleanup(); await s.flush(); assert.equal(s.video.calls,0);
-  console.log('PASS: logo playback, attributes, completion, blocked autoplay/gesture retry, reduced motion, visibility, bounded network reload, interrupted play, hidden diagnostics, cleanup.');
+  console.log('PASS: logo playback, attributes, completion, blocked autoplay/gesture retry, reduced motion, visibility, bounded network reload, interrupted play, always-visible diagnostics, cleanup.');
 })().catch(e=>{console.error(e);process.exitCode=1;});

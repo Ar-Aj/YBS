@@ -342,18 +342,20 @@
   }
 }
 
-.logoDebug:not([hidden]) {
-  position: fixed;
+.logoDebug {
+  display: block;
+  position: absolute;
   top: calc(100% + 8px);
   left: 12px;
   width: max-content;
-  max-width: min(360px, calc(100vw - 24px));
+  max-width: min(520px, calc(100vw - 24px));
   padding: 10px 14px;
   background: #fffdf9;
   color: #0f1d2e;
-  border: 1px solid #c8a45a;
+  border: 2px solid #c8a45a;
+  border-left-width: 6px;
   border-radius: 6px;
-  font: 500 13px/1.5 var(--font-sans), sans-serif;
+  font: 800 17px/1.5 var(--font-sans), sans-serif;
   text-align: left;
   white-space: normal;
   box-shadow: 0 4px 18px rgba(15, 29, 46, 0.12);

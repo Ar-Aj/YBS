@@ -16,9 +16,8 @@ export function NavbarLogo() {
     if (!mark || !video) return;
 
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const debug = new URLSearchParams(window.location.search).get('logodebug') === '1';
     const report = (status: string) => {
-      if (!debugRef.current || !debug) return;
+      if (!debugRef.current) return;
       debugRef.current.hidden = false;
       const messages: Record<string, string> = {
         initializing: 'Loading the logo animation…',
@@ -237,7 +236,9 @@ export function NavbarLogo() {
         tabIndex={-1}
       />
     </span>
-    <output ref={debugRef} hidden className={styles.logoDebug} aria-live="polite" />
+    <output ref={debugRef} className={styles.logoDebug} aria-live="polite" aria-atomic="true" data-result="waiting">
+      Logo animation: waiting for the page to initialize...
+    </output>
     </>
   );
 }
