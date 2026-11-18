@@ -2,6 +2,7 @@ import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Section, Container } from '@/components/layout/Section';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
+import { CalculatorInvitation } from '@/components/home/CalculatorInvitation';
 import { ServicesEcosystem } from '@/components/home/ServicesEcosystem';
 import { buildMetadata } from '@/lib/metadata';
 import styles from './page.module.css';
@@ -72,6 +73,8 @@ export default function HomePage() {
       </section>
 
       <ServicesEcosystem />
+
+      <CalculatorInvitation />
 
       <Section variant="charcoal">
         <Container narrow>

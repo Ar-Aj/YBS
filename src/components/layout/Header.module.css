@@ -329,36 +329,6 @@
   }
 }
 
-.logoDebug {
-  display: block;
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 12px;
-  width: max-content;
-  max-width: min(520px, calc(100vw - 24px));
-  padding: 10px 14px;
-  background: #fffdf9;
-  color: #0f1d2e;
-  border: 2px solid #c8a45a;
-  border-left-width: 6px;
-  border-radius: 6px;
-  font: 800 17px/1.5 var(--font-sans), sans-serif;
-  text-align: left;
-  white-space: normal;
-  box-shadow: 0 4px 18px rgba(15, 29, 46, 0.12);
-  z-index: 2000;
-  pointer-events: none;
-}
-
-.logoDebug[data-result="success"] {
-  border-color: #347552;
-  color: #245438;
-}
-.logoDebug[data-result="error"] {
-  border-color: #a33b32;
-  color: #852e27;
-}
-
 /* Keep the client-approved logo hand-off identical with reduced motion enabled. */
 @media (prefers-reduced-motion: reduce) {
   .logoImage,

@@ -1,0 +1,95 @@
+.section {
+  padding: clamp(64px, 8vw, 116px) 0;
+  background: var(--gradient-ivory-surface);
+  overflow: hidden;
+}
+.layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: clamp(36px, 5vw, 90px);
+  max-width: 1320px;
+  margin: auto;
+}
+.copy { position: relative; z-index: 1; }
+.eyebrow {
+  color: var(--text-accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.title {
+  font-size: clamp(2.5rem, 4.5vw, 4.7rem);
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  font-weight: 400;
+  margin-bottom: 26px;
+  color: var(--text-strong);
+}
+.title em { font-weight: 400; }
+.shimmer { padding: 0 0.1em 0.12em 0; }
+.description { max-width: 37ch; font-size: clamp(1.0625rem, 1.4vw, 1.25rem); line-height: 1.7; margin-bottom: 30px; }
+.cta { letter-spacing: 0.055em; padding-inline: 1.8em; gap: 20px; }
+.cta svg { width: 23px; height: 23px; stroke: currentColor; stroke-width: 1.5; transition: transform 250ms ease; }
+.cta:hover svg { transform: translateX(4px); }
+.note { margin-top: 16px; font-size: 13px; color: var(--text-meta); }
+.art { position: relative; display: grid; justify-items: center; padding: 15px 0 5px; isolation: isolate; }
+.backdropSymbol {
+  position: absolute;
+  z-index: -1;
+  top: -80px;
+  right: -70px;
+  color: var(--gold-200);
+  font: italic 460px/1 var(--font-serif), Georgia, serif;
+  opacity: 0.42;
+  pointer-events: none;
+}
+.calculator {
+  width: 300px;
+  padding: 25px;
+  border-radius: 22px;
+  background: linear-gradient(145deg, var(--gold-50), var(--gold-200));
+  border: 1px solid var(--gold-300);
+  box-shadow: 0 26px 50px -26px rgba(100, 72, 18, 0.32), inset 0 1px 0 var(--white);
+  transform: rotate(-7deg);
+}
+.instrumentHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; color: var(--text-accent); }
+.instrumentHeader > :first-child { font: 22px var(--font-serif), Georgia, serif; }
+.instrumentHeader > :last-child { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; }
+.display { background: var(--white); border-radius: 8px; padding: 18px 18px 12px; margin-bottom: 20px; box-shadow: inset 0 1px 5px rgba(100, 72, 18, 0.07); }
+.displayLabel { display: block; color: var(--text-meta); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+.question { display: block; text-align: right; font: italic 46px/1.4 var(--font-serif), Georgia, serif; color: var(--text-accent); }
+.keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+.keys > span { display: grid; place-items: center; height: 40px; border-radius: 6px; font-size: 17px; }
+.key { color: var(--text-secondary); background: var(--gold-50); box-shadow: 0 2px 0 var(--gold-300); }
+.operatorKey { color: var(--text-accent); background: var(--gold-100); box-shadow: 0 2px 0 var(--gold-300); }
+.equalKey { color: var(--text-on-gold); background: var(--gold-400); box-shadow: 0 2px 0 var(--gold-600); }
+.artCaption { margin-top: 37px; font-size: 12px; color: var(--text-meta); letter-spacing: 0.025em; text-align: center; }
+@keyframes arrive { from { transform: translateY(28px) rotate(-11deg); } to { transform: translateY(0) rotate(-7deg); } }
+@media (prefers-reduced-motion: no-preference) {
+  .section[data-entered='true'] .calculator { animation: arrive 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+}
+@media (max-width: 900px) {
+  .layout { gap: 30px; grid-template-columns: 1.1fr 0.9fr; }
+  .calculator { width: 250px; padding: 20px; }
+  .backdropSymbol { font-size: 350px; right: -20px; top: -35px; }
+  .question { font-size: 38px; }
+  .keys { gap: 7px; }
+  .keys > span { height: 34px; }
+  .title { font-size: clamp(2.4rem, 5vw, 3.4rem); }
+  .cta { font-size: 13px; padding-inline: 1.5em; }
+}
+@media (max-width: 640px) {
+  .section { padding: 58px 0; }
+  .layout { grid-template-columns: 1fr; gap: 40px; }
+  .copy { text-align: center; }
+  .title { font-size: clamp(2.35rem, 9vw, 3.4rem); }
+  .description { margin-inline: auto; }
+  .eyebrow { margin-bottom: 18px; font-size: 10px; }
+  .cta { width: 100%; max-width: 330px; }
+  .calculator { width: 230px; padding: 18px; }
+  .backdropSymbol { right: calc(50% - 180px); font-size: 320px; }
+  .artCaption { margin-top: 28px; }
+}
