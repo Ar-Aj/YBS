@@ -118,7 +118,7 @@
 }
 
 @media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
-  .videoActive {
+  .videoActive:not([data-play-with-reduced-motion="true"]) {
     display: none;
   }
   .heroMediaImg.hasVideo {

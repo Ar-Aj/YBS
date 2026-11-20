@@ -28,6 +28,7 @@ type Props = {
   mobileAspect?: string;
   cursiveTitle?: boolean;
   centeredCopy?: boolean;
+  playVideoWithReducedMotion?: boolean;
 };
 
 export function CinematicHero({
@@ -45,6 +46,7 @@ export function CinematicHero({
   mobileAspect = '16 / 9',
   cursiveTitle = false,
   centeredCopy = false,
+  playVideoWithReducedMotion = false,
 }: Props) {
   const titleText = typeof title === 'string' ? title : 'Yacht Broker Services';
   return (
@@ -101,6 +103,7 @@ export function CinematicHero({
               posterSrc={posterSrc}
               mobileSrc={mobileVideoSrc}
               tabletSrc={tabletVideoSrc}
+              playWithReducedMotion={playVideoWithReducedMotion}
             />
           )}
         </div>

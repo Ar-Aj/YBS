@@ -8,6 +8,7 @@ type Props = {
   posterSrc: string;
   mobileSrc?: string;
   tabletSrc?: string;
+  playWithReducedMotion?: boolean;
 };
 
 type Tier = 'mobile' | 'tablet' | 'desktop';
@@ -39,7 +40,7 @@ function serverTier(): Tier | 'server' {
  * falls back to the desktop source when no tablet cut exists; mobile falls
  * back to tablet, then desktop.
  */
-export function HeroVideo({ src, posterSrc, mobileSrc, tabletSrc }: Props) {
+export function HeroVideo({ src, posterSrc, mobileSrc, tabletSrc, playWithReducedMotion = false }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const viewport = useSyncExternalStore(subscribeToViewport, currentTier, serverTier);
   const mounted = viewport !== 'server';
@@ -56,7 +57,7 @@ export function HeroVideo({ src, posterSrc, mobileSrc, tabletSrc }: Props) {
     if (!mounted) return;
     const video = videoRef.current;
     if (!video) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!playWithReducedMotion && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       video.pause();
       video.removeAttribute('autoplay');
       return;
@@ -108,7 +109,7 @@ export function HeroVideo({ src, posterSrc, mobileSrc, tabletSrc }: Props) {
       video.removeEventListener('loadedmetadata', adoptRatio);
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [activeSrc, mounted]);
+  }, [activeSrc, mounted, playWithReducedMotion]);
 
   // SSR / first paint: render nothing (poster <Image> covers it).
   if (!mounted) return null;
@@ -128,6 +129,7 @@ export function HeroVideo({ src, posterSrc, mobileSrc, tabletSrc }: Props) {
       aria-hidden="true"
       tabIndex={-1}
       className={styles.videoActive}
+      data-play-with-reduced-motion={playWithReducedMotion}
     />
   );
 }
