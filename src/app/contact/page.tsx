@@ -27,7 +27,7 @@ export default function ContactPage() {
       <CinematicHero
         label="Get in Touch"
         title="Let's Talk — Discreetly and Confidentially"
-        subtitle="Schedule a confidential strategy session to discuss your goals and explore the YBS ecosystem."
+
         posterSrc="/hero_contact.jpg"
       />
 

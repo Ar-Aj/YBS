@@ -1,0 +1,5 @@
+Tool: built-in image_gen
+Reference: C:/Users/abbaj/Downloads/WhatsApp Image 2026-10-29 at 6.37.19 AM (2).jpeg
+Output: public/kent-chamberlain-v2.png
+Prompt:
+Create a photorealistic identity-preserving editorial portrait for the About Kent section of a luxury yacht brokerage website, based on this reference photograph of Kent. Preserve his exact recognizable face, age, hair, smile, natural skin texture and white collared shirt. Waist-up vertical 3:4 composition, relaxed upright posture, softly blurred yacht marina background in natural daylight. Most importantly keep neck and collar anatomically natural, normal proportions, soft even lighting with no strange bulges or unnatural shadows on either side of neck. No rejuvenation, no airbrushing, no text or watermark.

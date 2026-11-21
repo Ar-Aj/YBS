@@ -2,15 +2,15 @@ import type { NavLink } from './site';
 
 export const primaryNav: NavLink[] = [
   { label: 'Home', href: '/' },
-  { label: 'YBS Changes Everything', href: '/the-ybs-difference' },
   { label: 'How It Works', href: '/how-it-works' },
+  { label: 'See the difference', href: '/the-ybs-difference' },
   { label: 'About', href: '/about' },
+  { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
 ];
 
 export const mobileNav: NavLink[] = [
   ...primaryNav,
-  { label: 'FAQ', href: '/faq' },
   { label: 'Insights', href: '/insights' },
 ];
 
@@ -21,7 +21,7 @@ export const footerNav = {
     { label: 'Contact', href: '/contact' },
   ] as NavLink[],
   learnMore: [
-    { label: 'YBS Changes Everything', href: '/the-ybs-difference' },
+    { label: 'See the difference', href: '/the-ybs-difference' },
     { label: 'How It Works', href: '/how-it-works' },
     { label: 'FAQ', href: '/faq' },
     { label: 'Insights & Resources', href: '/insights' },

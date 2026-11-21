@@ -87,6 +87,3 @@ export const membershipTerms: { title: string; text: string }[] = [
     text: 'After the initial 24-month term, you keep your company identity, logo, intellectual property and marketing materials, subject only to the restrictions in the agreement.',
   },
 ];
-
-export const membershipDisclaimer =
-  'This page summarizes the program. The Independent Broker Membership Agreement governs; contact YBS for the full terms.';

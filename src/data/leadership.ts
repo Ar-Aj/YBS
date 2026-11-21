@@ -8,7 +8,7 @@ export const founders: Founder[] = [
   {
     name: 'Kent Chamberlain',
     role: 'Founder',
-    image: '/kent-chamberlain.png',
+    image: '/kent-chamberlain-v2.png',
     placeholder: false,
     bio: 'As the founder of Yacht Broker Services, Kent Chamberlain brings decades of leadership to the large-yacht sector. His distinguished career spans yacht sales, chartering, and management, alongside a proven track record of owning and leading prominent brokerage firms, shipyards, as well as creating international yacht shows.',
     // REPLACE: Add LinkedIn URL when supplied and approved.

@@ -184,6 +184,7 @@ export function Header() {
               className={`${styles.link} ${pathname === link.href ? styles.linkActive : ''}`}
             >
               {link.label}
+                {link.href === '/insights' && <span className={styles.comingSoon}>Coming soon</span>}
             </Link>
           ))}
         </div>
@@ -221,6 +222,7 @@ export function Header() {
             onClick={closeMenu}
           >
             {link.label}
+                {link.href === '/insights' && <span className={styles.comingSoon}>Coming soon</span>}
           </Link>
         ))}
       </div>

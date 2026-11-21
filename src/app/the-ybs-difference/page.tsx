@@ -9,7 +9,7 @@ import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildMetadata } from '@/lib/metadata';
 import { webPageJsonLd } from '@/data/structured-data';
-import { comparisonRows, membershipDisclaimer } from '@/data/difference';
+import { comparisonRows } from '@/data/difference';
 import shared from '../shared.module.css';
 import styles from './page.module.css';
 
@@ -31,7 +31,7 @@ export default function DifferencePage() {
       <CinematicHero
         centeredCopy
         title="YBS Changes Everything"
-        subtitle="A transparent comparison between the traditional brokerage model and the YBS platform."
+
         posterSrc="/hero_difference.jpg"
         videoSrc="/videos/hero-difference.mp4"
       />
@@ -57,20 +57,13 @@ export default function DifferencePage() {
             <ComparisonTable rows={comparisonRows} />
           </Reveal>
         </Container>
-        <Container wide>
-          <Reveal>
-            <p className={`${shared.disclaimer} ${styles.comparisonDisclaimer}`}>
-              {membershipDisclaimer}
-            </p>
-          </Reveal>
-        </Container>
       </Section>
 
       {/* Compare against your own numbers — the calculator */}
       <Section variant="ivory" id="calculator" className={styles.calculator}>
         <Container>
           <SectionHeader
-            title="Compare It Against Your Own Numbers"
+            title="Enter your numbers, and see the YBS difference"
             subtitle="Enter your average annual gross sales or recent gross income and your current brokerage split to compare estimated annual income under YBS."
           />
           <Reveal variant="rise" duration="signature">

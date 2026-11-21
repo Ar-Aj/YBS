@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { Stagger } from '@/components/motion/Stagger';
 import { StepCard } from '@/components/content/StepCard';
-import { CinematicHero } from '@/components/layout/CinematicHero';
+import { BrokerTeaser } from '@/components/content/BrokerTeaser';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildMetadata } from '@/lib/metadata';
@@ -28,18 +28,18 @@ export default function HowItWorksPage() {
   return (
     <>
       <JsonLd data={webPageJsonLd(TITLE, DESCRIPTION, PATH)} />
-      <CinematicHero
-        label="How It Works"
-        title="Three Steps to Independence"
-        subtitle="Getting started is simple, confidential, and on your timeline."
-        posterSrc="/hero_how_it_works.jpg"
-        videoSrc="/videos/hero-how-it-works.mp4"
-      />
+      <Section variant="ivory" className={styles.teaserSection}>
+        <Container>
+          <h1 className={styles.teaserTitle}>How It Works</h1>
+          <BrokerTeaser />
+        </Container>
+      </Section>
 
       <Breadcrumbs items={[{ label: 'How It Works', href: '/how-it-works' }]} />
 
       <Section variant="ivory">
         <Container>
+          <h2 className={styles.stepsTitle}>Three Steps to Independence</h2>
           <Stagger as="ol" className={styles.process}>
             {steps.map((s) => (
               <StepCard key={s.number} step={s} />

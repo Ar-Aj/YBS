@@ -27,7 +27,7 @@ export default function InsightsPage() {
       <CinematicHero
         label="Insights"
         title="Insights & Resources"
-        subtitle="Industry intelligence, market trends, and strategy resources for the independent yacht broker."
+
         posterSrc="/hero_insights.jpg"
       />
 
@@ -35,7 +35,7 @@ export default function InsightsPage() {
 
       <Section variant="ivory">
         <Container>
-          <SectionHeader title="Upcoming Guides" subtitle="Articles are being prepared." />
+          <SectionHeader title="Upcoming Guides" />
           <Reveal>
             <div className={styles.masthead}>
               <InsightCard post={insightPosts[0]} featured />

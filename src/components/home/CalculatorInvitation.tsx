@@ -1,5 +1,6 @@
 "use client";
 
+import Link from 'next/link';
 import { useRef, type CSSProperties } from 'react';
 import { useInView } from 'motion/react';
 import { Container } from '@/components/layout/Section';
@@ -34,19 +35,15 @@ export function CalculatorInvitation() {
                 />
               </em>
             </h2>
-            <p className={styles.description}>
-              You know your business. See what your numbers could look like with YBS.
-            </p>
             <Button href="/the-ybs-difference#calculator" size="lg" className={styles.cta}>
               Calculate Your Income
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7" /></svg>
             </Button>
-            <p className={styles.note}>Your sales. Your split. A clearer picture.</p>
           </div>
 
-          <div className={styles.art} aria-hidden="true">
-            <span className={styles.backdropSymbol}>%</span>
-            <div className={styles.calculator}>
+          <Link href="/the-ybs-difference#calculator" className={styles.art} aria-label="Calculate your income with YBS">
+            <span className={styles.backdropSymbol} aria-hidden="true">%</span>
+            <div className={styles.calculator} aria-hidden="true">
               <div className={styles.instrumentHeader}><span>YBS</span><span>Income calculator</span></div>
               <div className={styles.display}>
                 <span className={styles.displayLabel}>Your possibilities</span>
@@ -58,8 +55,7 @@ export function CalculatorInvitation() {
                 ))}
               </div>
             </div>
-            <span className={styles.artCaption}>A different way to look at your future.</span>
-          </div>
+          </Link>
         </div>
       </Container>
     </section>

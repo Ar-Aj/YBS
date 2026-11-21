@@ -51,7 +51,7 @@ export default function AboutPage() {
             Your Independence
           </>
         }
-        subtitle="Yacht Broker Services was founded to give independent yacht brokers the infrastructure of a major brokerage — without surrendering their autonomy or their earnings."
+
         posterSrc="/hero_leadership.jpg"
         videoSrc="/videos/hero-leadership.mp4"
       />

@@ -13,7 +13,7 @@ import shared from '../shared.module.css';
 export const metadata = buildMetadata({
   title: 'YBS Membership FAQ',
   description:
-    'Answers on independent status, client-data access and employing brokers. Contact YBS to discuss membership options and terms.',
+    'Answers about YBS membership, commissions, support services, eligibility and agreement terms. Contact YBS for membership pricing.',
   path: '/faq',
 });
 
@@ -26,7 +26,6 @@ export default function FAQPage() {
       <CinematicHero
         label="FAQ"
         title="Frequently Asked Questions"
-        subtitle="Answers to common questions about your independent practice. Speak with YBS for membership details."
         posterSrc="/hero_faq.jpg"
       />
 

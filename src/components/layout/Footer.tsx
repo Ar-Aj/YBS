@@ -22,6 +22,7 @@ export function Footer() {
             {footerNav.navigate.map((link) => (
               <Link key={link.href} href={link.href} className={styles.link}>
                 {link.label}
+                {link.href === '/insights' && <span className={styles.comingSoon}>Coming soon</span>}
               </Link>
             ))}
           </div>
@@ -31,6 +32,7 @@ export function Footer() {
             {footerNav.learnMore.map((link) => (
               <Link key={link.href} href={link.href} className={styles.link}>
                 {link.label}
+                {link.href === '/insights' && <span className={styles.comingSoon}>Coming soon</span>}
               </Link>
             ))}
           </div>

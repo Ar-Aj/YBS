@@ -5,7 +5,7 @@
 }
 .layout {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: clamp(36px, 5vw, 90px);
   max-width: 1320px;
@@ -93,3 +93,7 @@
   .backdropSymbol { right: calc(50% - 180px); font-size: 320px; }
   .artCaption { margin-top: 28px; }
 }
+
+.art { text-decoration: none; transform: translateX(-32px); }
+.art:focus-visible { outline: 2px solid var(--gold-600); outline-offset: 14px; border-radius: 12px; }
+@media (max-width: 900px) { .art { transform: none; } }
