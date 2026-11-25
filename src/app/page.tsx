@@ -28,7 +28,7 @@ export default function HomePage() {
         }
         cursiveTitle
 
-        posterSrc="/hero-home.jpg"
+        posterSrc="/hero-home-first-frame.jpg"
         videoSrc="/videos/hero-home.mp4"
         playVideoWithReducedMotion
         mobileVideoSrc="/videos/hero-home-mobile.mp4"
