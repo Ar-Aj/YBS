@@ -22,10 +22,10 @@ export function CalculatorInvitation() {
           <div className={styles.copy}>
             <p className={styles.eyebrow}>The YBS income calculator</p>
             <h2 id="calculator-invitation-title" className={styles.title}>
-              Your next chapter.<br />
+              Your next chapter<br />
               <em>
                 <ShimmeringText
-                  text="In numbers."
+                  text="In numbers"
                   paused={!animate}
                   duration={2.8}
                   className={styles.shimmer}
@@ -46,7 +46,6 @@ export function CalculatorInvitation() {
             <div className={styles.calculator} aria-hidden="true">
               <div className={styles.instrumentHeader}><span>YBS</span><span>Income calculator</span></div>
               <div className={styles.display}>
-                <span className={styles.displayLabel}>Your possibilities</span>
                 <span className={styles.question}>What if?</span>
               </div>
               <div className={styles.keys}>

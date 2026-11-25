@@ -3,18 +3,16 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { Stagger } from '@/components/motion/Stagger';
-import { InsightCard } from '@/components/content/InsightCard';
 import { CinematicHero } from '@/components/layout/CinematicHero';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { buildMetadata } from '@/lib/metadata';
-import { insightPosts, resources } from '@/data/insights';
+import { resources } from '@/data/insights';
 import shared from '../shared.module.css';
-import styles from './page.module.css';
 
 export const metadata = buildMetadata({
   title: 'Insights for Independent Brokers',
   description:
-    'Upcoming guides on what an independent broker membership includes, choosing between Standard and Elevated, and building your own brokerage brand.',
+    'Brokerage resources for independent yacht brokers, including a launch checklist and market research reports.',
   path: '/insights',
   // Every article and resource is still "Coming Soon". Keep the page out of
   // search results (and out of sitemap.ts) until the first real article ships.
@@ -33,27 +31,12 @@ export default function InsightsPage() {
 
       <Breadcrumbs items={[{ label: 'Insights', href: '/insights' }]} />
 
-      <Section variant="ivory">
-        <Container>
-          <SectionHeader title="Upcoming Guides" />
-          <Reveal>
-            <div className={styles.masthead}>
-              <InsightCard post={insightPosts[0]} featured />
-              <div className={styles.index}>
-                {insightPosts.slice(1).map((post) => (
-                  <InsightCard key={post.slug} post={post} />
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        </Container>
-      </Section>
 
       <Section variant="champagne">
         <Container>
-          <SectionHeader title="Broker Resources" light />
+          <SectionHeader title="Brokerage Resources" light />
           <Stagger className={shared.grid3}>
-            {resources.map((r) => (
+            {resources.filter((r) => r.title !== 'Membership Overview').map((r) => (
               <div key={r.title} className={shared.resourceCard}>
                 <h3>{r.title}</h3>
                 <p>{r.description}</p>

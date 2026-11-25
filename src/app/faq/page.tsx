@@ -24,7 +24,6 @@ export default function FAQPage() {
     <>
       <JsonLd data={faqPageJsonLd(allFaqs)} />
       <CinematicHero
-        label="FAQ"
         title="Frequently Asked Questions"
         posterSrc="/hero_faq.jpg"
       />

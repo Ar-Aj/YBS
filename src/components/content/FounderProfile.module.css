@@ -66,7 +66,7 @@
 .name {
   /* Two-word surname-bearing name: sized to sit on two lines at most
      rather than the single-word display scale used for "Kent". */
-  font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4.25rem);
+  font-size: clamp(1.25rem, 0.8rem + 1.7vw, 2.125rem);
   font-weight: 400;
   color: var(--text-strong);
   margin-bottom: var(--space-sm);
@@ -75,7 +75,7 @@
 }
 
 .bio {
-  font-size: clamp(1.1875rem, 1.6vw, 1.5rem);
+  font-size: clamp(0.59375rem, 0.8vw, 0.75rem);
   color: var(--text-body);
   line-height: 1.7;
   max-width: 44ch;

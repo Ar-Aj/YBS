@@ -1,0 +1,4 @@
+Tool: built-in image_gen
+Input: public/kent-chamberlain-v2.png
+Output: public/kent-chamberlain-v3.png
+Prompt: Edit this existing portrait with a single restrained body-proportion correction. Kent says his shoulders are fairly broad compared with his hips, while this image makes his hips look too wide. Subtly narrow the waist/hips and slightly broaden shoulder line to a natural modest V taper under the same white shirt. Do not exaggerate or make muscular. Preserve the exact face, age, hair, smile, neck anatomy, hands, watch, pose, white shirt, marina background, lighting, crop and photorealistic texture. Face and neck should remain unchanged. No text, no watermark.

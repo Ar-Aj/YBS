@@ -9,7 +9,7 @@ type FormData = {
   email: string;
   phone: string;
   brokerage: string;
-  message: string;
+  countryCode: string;
   honeypot: string;
 };
 
@@ -17,7 +17,7 @@ type Errors = Partial<Record<keyof FormData, string>>;
 
 export function ContactForm() {
   const [data, setData] = useState<FormData>({
-    name: '', email: '', phone: '', brokerage: '', message: '', honeypot: '',
+    name: '', email: '', phone: '', brokerage: '', countryCode: '', honeypot: '',
   });
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -25,12 +25,14 @@ export function ContactForm() {
   function validate(): boolean {
     const errs: Errors = {};
     if (!data.name.trim()) errs.name = 'Full name is required.';
-    if (!data.email.trim()) {
-      errs.email = 'Email address is required.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    if (data.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
       errs.email = 'Please enter a valid email address.';
     }
-    if (!data.message.trim()) errs.message = 'Please include a message.';
+    if (!/^\+[1-9]\d{0,2}$/.test(data.countryCode.trim())) errs.countryCode = 'Enter a country calling code, for example +1.';
+    const digits = data.phone.replace(/\D/g, '');
+    if (!digits) errs.phone = 'Phone number is required.';
+    else if (data.countryCode.trim() === '+1' && digits.length !== 10) errs.phone = 'Enter a 10-digit phone number for +1.';
+    else if (digits.length < 4 || digits.length + data.countryCode.replace(/\D/g, '').length > 15) errs.phone = 'Please enter a valid phone number.';
     setErrors(errs);
     return Object.keys(errs).length === 0;
   }
@@ -48,7 +50,7 @@ export function ContactForm() {
     await new Promise((r) => setTimeout(r, 1200));
 
     setStatus('success');
-    setData({ name: '', email: '', phone: '', brokerage: '', message: '', honeypot: '' });
+    setData({ name: '', email: '', phone: '', brokerage: '', countryCode: '', honeypot: '' });
 
     setTimeout(() => setStatus('idle'), 5000);
   }
@@ -88,6 +90,7 @@ export function ContactForm() {
         </label>
         <input
           id="contact-name"
+          required
           type="text"
           className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
           placeholder="Your full name"
@@ -102,7 +105,7 @@ export function ContactForm() {
 
       <div className={styles.group}>
         <label htmlFor="contact-email" className={styles.label}>
-          Confidential Email Address <span className={styles.required}>*</span>
+          Confidential Email Address <span className={styles.optional}>(optional)</span>
         </label>
         <input
           id="contact-email"
@@ -118,24 +121,32 @@ export function ContactForm() {
         {errors.email && <p id="email-error" role="alert" className={styles.error}>{errors.email}</p>}
       </div>
 
-      <div className={styles.group}>
-        <label htmlFor="contact-phone" className={styles.label}>
-          Phone Number <span className={styles.optional}>(optional)</span>
-        </label>
-        <input
-          id="contact-phone"
-          type="tel"
-          className={styles.input}
-          placeholder="+1 (555) 000-0000"
-          value={data.phone}
-          onChange={(e) => update('phone', e.target.value)}
-          autoComplete="tel"
-        />
+      <div className={styles.phoneRow}>
+        <div className={styles.group}>
+          <label htmlFor="contact-country" className={styles.label}>Country Code <span className={styles.required}>*</span></label>
+          <input id="contact-country" type="tel" autoComplete="tel-country-code" required
+            className={`${styles.input} ${errors.countryCode ? styles.inputError : ''}`}
+            placeholder="+1" value={data.countryCode}
+            onChange={e => update('countryCode', e.target.value.replace(/[^+0-9]/g, ''))}
+            onBlur={() => { const digits = data.countryCode.replace(/\D/g, ''); if (digits) update('countryCode', `+${digits}`); }}
+            aria-invalid={!!errors.countryCode} aria-describedby={errors.countryCode ? 'country-error' : undefined} />
+          {errors.countryCode && <p id="country-error" role="alert" className={styles.error}>{errors.countryCode}</p>}
+        </div>
+        <div className={styles.group}>
+          <label htmlFor="contact-phone" className={styles.label}>Phone Number <span className={styles.required}>*</span></label>
+          <input id="contact-phone" type="tel" autoComplete="tel-national" required
+            className={`${styles.input} ${errors.phone ? styles.inputError : ''}`}
+            placeholder={data.countryCode === '+1' ? '954-478-7000' : 'Phone number'} value={data.phone}
+            onChange={e => update('phone', e.target.value.replace(/[^0-9 ()-]/g, ''))}
+            onBlur={() => { if (data.countryCode.trim() === '+1') { const digits = data.phone.replace(/\D/g, ''); if (digits.length === 10) update('phone', `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`); } }}
+            aria-invalid={!!errors.phone} aria-describedby={errors.phone ? 'phone-error' : undefined} />
+          {errors.phone && <p id="phone-error" role="alert" className={styles.error}>{errors.phone}</p>}
+        </div>
       </div>
 
       <div className={styles.group}>
         <label htmlFor="contact-brokerage" className={styles.label}>
-          Current Brokerage / Market Focus <span className={styles.optional}>(optional)</span>
+          Current Market Focus <span className={styles.optional}>(optional)</span>
         </label>
         <input
           id="contact-brokerage"
@@ -147,21 +158,6 @@ export function ContactForm() {
         />
       </div>
 
-      <div className={styles.group}>
-        <label htmlFor="contact-message" className={styles.label}>
-          Message / Preferred Time to Connect <span className={styles.required}>*</span>
-        </label>
-        <textarea
-          id="contact-message"
-          className={`${styles.textarea} ${errors.message ? styles.inputError : ''}`}
-          placeholder="Tell us about your brokerage experience and what you're looking for..."
-          value={data.message}
-          onChange={(e) => update('message', e.target.value)}
-          aria-describedby={errors.message ? 'message-error' : undefined}
-          aria-invalid={!!errors.message}
-        />
-        {errors.message && <p id="message-error" role="alert" className={styles.error}>{errors.message}</p>}
-      </div>
 
       {/* Add a Privacy Policy link here once the client supplies the policy page. */}
       <p className={styles.privacy}>

@@ -14,6 +14,7 @@ export function FAQAccordion({ items, dark }: Props) {
         <details key={item.question} className={styles.item}>
           <summary className={styles.question}>
             <span>{item.question}</span>
+            <span className={styles.toggleHint}><span className={styles.showHint}>View answer</span><span className={styles.hideHint}>Hide answer</span>
             <svg
               className={styles.icon}
               viewBox="0 0 24 24"
@@ -24,6 +25,7 @@ export function FAQAccordion({ items, dark }: Props) {
             >
               <path d="m6 9 6 6 6-6" />
             </svg>
+            </span>
           </summary>
           <div className={styles.answer}>
             <p>{item.answer}</p>

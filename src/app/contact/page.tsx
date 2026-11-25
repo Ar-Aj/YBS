@@ -26,7 +26,7 @@ export default function ContactPage() {
       <JsonLd data={webPageJsonLd(TITLE, DESCRIPTION, PATH)} />
       <CinematicHero
         label="Get in Touch"
-        title="Let's Talk — Discreetly and Confidentially"
+        title={<>Let&apos;s talk<br />Discretely &amp; confidentially</>}
 
         posterSrc="/hero_contact.jpg"
       />
@@ -37,10 +37,7 @@ export default function ContactPage() {
         <Container>
           <Reveal variant="rise" duration="signature">
             <div className={shared.contactForm}>
-              <h2>Send Us a Message</h2>
-              <p className={shared.contactLead}>
-                Tell us about your practice and we will arrange a confidential call.
-              </p>
+              <h2>Send Us a Message or Call <a href="tel:+19543838000">954-383-8000</a></h2>
               <ContactForm />
             </div>
           </Reveal>

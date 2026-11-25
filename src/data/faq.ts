@@ -32,7 +32,7 @@ export const faqCategories: FAQCategory[] = [
       {
         question: 'Are there any eligibility requirements for membership?',
         answer:
-          'Yes, if you’re in the United States you must hold a yacht broker’s license or be licensed under an Employing Broker who is a member. We can introduce you to an Employing Broker if needed. If you are outside the U.S. and in a jurisdiction that requires licensure, you will need to have that license.',
+          'Yes, if you’re in the United States you should hold a yacht broker’s license or be licensed under an Employing Broker who is a member. We can introduce you to an Employing Broker if needed. If you are outside the U.S. and in a jurisdiction that requires licensure, you will need to have that license.',
       },
       {
         question: 'How long is the term of this agreement?',

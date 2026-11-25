@@ -50,7 +50,6 @@ export function Footer() {
 
         <div className={styles.bottom}>
           <span>&copy; {new Date().getFullYear()} Yacht Broker Services. All rights reserved.</span>
-          <span>Designed with precision for the world&apos;s finest brokers.</span>
         </div>
       </div>
     </footer>

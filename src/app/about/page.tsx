@@ -43,7 +43,6 @@ export default function AboutPage() {
       <JsonLd data={webPageJsonLd(TITLE, DESCRIPTION, PATH)} />
       <JsonLd data={personJsonLd({ name: founders[0].name, jobTitle: founders[0].role, path: PATH, imagePath: founders[0].image, description: founders[0].bio, knowsAbout: founderExpertise })} />
       <CinematicHero
-        label="About YBS"
         title={
           <>
             The Firm Behind
@@ -83,7 +82,6 @@ export default function AboutPage() {
       {/* Full founder profile, consolidated from Leadership */}
       <Section variant="white" id="kent">
         <Container>
-          <SectionHeader title="About Kent" />
           <Stagger className={styles.foundersGrid}>
             {founders.map((f) => (
               <FounderProfile key={f.name} founder={f} />
@@ -99,11 +97,11 @@ export default function AboutPage() {
           <div className={leadershipStyles.experienceGrid}>
             <div>
               <h3 className={leadershipStyles.groupTitle}>Brokerage leadership</h3>
-              <EntryList entries={previousPositions} />
+              <EntryList entries={[...previousPositions].reverse()} />
             </div>
             <div>
               <h3 className={leadershipStyles.groupTitle}>Ventures</h3>
-              <EntryList entries={[...ventures, { organization: industryInvolvement.organization, detail: industryInvolvement.summary }]} />
+              <EntryList entries={[{ organization: industryInvolvement.organization, detail: industryInvolvement.summary }, ...[...ventures].reverse()]} />
             </div>
           </div>
         </Container>
